@@ -10,10 +10,9 @@ import { validateEmail, validatePassword } from '../../utils/validation'
 
 
 
-function Login({setIsLoggedIn}) {
+function ForgotPassword() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState ("");
   const [loginStatus, setLoginStatus] = useState("");
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
@@ -44,21 +43,21 @@ function Login({setIsLoggedIn}) {
 
   const login = async (e) => {
     e.preventDefault();
-    let data = {email:email, password:password}
+    let data = {email:email}
     let valid = true;
-    if(!email || !password){
+    if(!email){
       valid = false
     }
     
     if(!valid){
       alert('All fields are mandatory!')
     }else{
-      if(!errMsgs['email'] && !errMsgs['password']){
+      if(!errMsgs['email']){
         signIn(data).then(res=> {
           if(res.status==200){
             localStorage.setItem('user', JSON.stringify(res.data))
             // dispatch(setIsLogged())
-            setIsLoggedIn(localStorage.getItem('user'))
+            // setIsLoggedIn(localStorage.getItem('user'))
             navigate('/home');
           }else{
             alert('Invalid username/password')
@@ -75,7 +74,10 @@ function Login({setIsLoggedIn}) {
        <div className="login-body">
         <div className="login-form">
           <div className="form-container">
-            <h1 className="login-title text-start">Sign In</h1>
+            <h1 className="login-title text-start">Forgot Password</h1>
+						<div className="login-signup-now text-start" data-uia="login-signup-now">
+							<p className=" ">Enter email below to receive password reset email.</p>
+          	</div>
             <div className="lInput">
               <input
                 className="email"
@@ -86,24 +88,11 @@ function Login({setIsLoggedIn}) {
               /> 
               <p className="error-msg">{errMsgs['email']?errMsgs['email']:''}</p>
             </div>
-            <div className="lInput">
-              <input
-                className="password"
-                type="password"
-                placeholder="Password..."
-                onChange = { (e) => validatePassword(e, setPassword, errMsgs, setErrMsgs)}
-                required
-              />
-              <p className="error-msg">{errMsgs['password']?errMsgs['password']:''}</p>
-            </div>
-            <button onClick={login} className="login-btn">Sign In</button>
-            <div className="login-signup-now text-start" data-uia="login-signup-now">
-              <a className=" " target="_self" href="/forgot-password">Forgot Password?</a>
-            </div>
+            <button onClick={login} className="login-btn">Submit</button>
           </div>
           <div className="login-signup-now text-start" data-uia="login-signup-now">
-                  {`New here? Sign up now! `}
-                  <a className=" " target="_self" href="/register">Sign up now</a>
+						{`New here? Sign up now! `}
+						<a className=" " target="_self" href="/register">Sign up now</a>
           </div>
         </div>
 
@@ -112,4 +101,4 @@ function Login({setIsLoggedIn}) {
    );
 }
  
-export default Login;
+export default ForgotPassword;

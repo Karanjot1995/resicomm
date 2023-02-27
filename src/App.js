@@ -1,12 +1,45 @@
-import './App.scss';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Login from "./pages/login/Login";
+import Home from './pages/home/Home';
+import Register from './pages/login/Register';
+import ForgotPassword from "./pages/login/ForgotPassword";
+// import { useLocalStorage } from "./utils/useLocalStorage";
+// import ProtectedRoute from "./utils/ProtectedRoute";
+
 
 function App() {
+  // const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('user'));
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <div className="App">
-      <header className="App-header">
-        
-      </header>
+      {isLoggedIn?
+      <Routes>
+        <Route path="/home" element={<Home setIsLoggedIn={setIsLoggedIn}/>} />
+        <Route path="/" element={<Navigate replace to="/home" />} />
+        <Route path="*" element={<Navigate replace to="/home" />} />
+      </Routes>
+      :
+      <Routes>
+        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn}/>} />
+        <Route path="*" element={<Navigate replace to="/login"/>} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+      </Routes>
+      }
+{/* 
+      <Routes>
+        <Route path='login' element={<Login />} />
+        <Route exact path='/register' element={<Register/>}/>
+        <Route path='*' element={<Login />} />
+        <Route path='/home' element={
+          <ProtectedRoute>
+              <Home />
+          </ProtectedRoute>}
+        />
+      </Routes> */}
+      
     </div>
   );
 }
