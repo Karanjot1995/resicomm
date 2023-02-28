@@ -32,18 +32,6 @@ function App() {
       </Routes>
       }
       </div>
-{/* 
-      <Routes>
-        <Route path='login' element={<Login />} />
-        <Route exact path='/register' element={<Register/>}/>
-        <Route path='*' element={<Login />} />
-        <Route path='/home' element={
-          <ProtectedRoute>
-              <Home />
-          </ProtectedRoute>}
-        />
-      </Routes> */}
-      
     </div>
   );
 }
