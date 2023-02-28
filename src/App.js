@@ -4,6 +4,7 @@ import Login from "./pages/login/Login";
 import Home from './pages/home/Home';
 import Register from './pages/login/Register';
 import ForgotPassword from "./pages/login/ForgotPassword";
+import Header from "./components/Header/Header";
 // import { useLocalStorage } from "./utils/useLocalStorage";
 // import ProtectedRoute from "./utils/ProtectedRoute";
 
@@ -14,6 +15,8 @@ function App() {
 
   return (
     <div className="App">
+      <Header/>
+      <div className="app-container">
       {isLoggedIn?
       <Routes>
         <Route path="/home" element={<Home setIsLoggedIn={setIsLoggedIn}/>} />
@@ -28,6 +31,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
       }
+      </div>
 {/* 
       <Routes>
         <Route path='login' element={<Login />} />

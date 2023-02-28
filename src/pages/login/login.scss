@@ -7,7 +7,13 @@
     padding: 0;
     position: relative;
     z-index: 0;
-
+    .remember{
+        display: flex;
+        input{
+            width: auto;
+            height: auto;
+        }
+    }
     // @media only screen and (min-width: 740px){
         .login-wrapper-background {
             -webkit-background-size: cover;
@@ -193,7 +199,7 @@
             flex-wrap: wrap;
         }
         .lInput{
-            width:48%;
+            text-align: left;
             position: relative;
         }
     }
@@ -215,8 +221,12 @@
 
 }
 .register{
-    .login-body{
-        max-width:600px;
+    .user-type{
+        display: flex;
+        input{
+            width: auto;
+            height: auto;
+        }
     }
     // .login-btn{
     //     width: 80%;

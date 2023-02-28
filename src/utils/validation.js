@@ -40,6 +40,19 @@ export const validateLastName = (e, setLname, errMsgs, setErrMsgs) =>{
 }
 
 
+export const validateName = (e, setName, errMsgs, setErrMsgs) =>{
+  let value = e.target.value
+  setName(value)
+  if(!value || value.length<2){
+    setErrMsgs({ ...errMsgs, 'name': "Enter valid last name." })
+  }else{
+    setErrMsgs({ ...errMsgs, 'name': '' })
+  }
+}
+
+
+
+
 export const validatePhone = (e, setPhone, errMsgs, setErrMsgs) =>{
   let value = e.target.value
   setPhone(value)

@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { register } from '../../services/services'
 import { useNavigate } from 'react-router-dom';
-import { validateCity, validateCountry, validateEmail, validateFirstName, validateLastName, validatePassword, validatePhone, validateState, validateStreet, validateZip } from "../../utils/validation";
+import { validateCity, validateCountry, validateEmail, validateFirstName, validateLastName, validateName, validatePassword, validatePhone, validateState, validateStreet, validateZip } from "../../utils/validation";
 // import { setUserData } from "../actions";
 // import { useHistory } from "react-router-dom";
 
 function Register() {
   const navigate = useNavigate();
 
-  const [userType, setUserType] = useState(1);
+  const [userType, setUserType] = useState('resident');
   const [Email, setEmail] = useState("");
   const [UserPassword, setPassword] = useState ("");
-  const [Fname, setFname] = useState ("");
-  const [Lname, setLname] = useState ("");
+  const [name, setName] = useState ("");
   const [PhoneNo, setPhone] = useState (null);
   const [DOB, setDob] = useState (null);
   const [country, setCountry] = useState("");
@@ -29,60 +28,49 @@ function Register() {
   // const userData = useSelector(state => state.user.userData)
   // const dispatch = useDispatch()
 
+  const selectUserTyper = (type) => {
+    setUserType(type)
+  }
   const registerUser = async (e) => {
+    let data = {
+      email:Email,
+      password: UserPassword,
+      name: name,
+      phone: PhoneNo,
+      dob: DOB,
+      type: userType
+    }
+    console.log(data)
     e.preventDefault();
     let valid = true;
     for (const key in errMsgs) {
-      if(errMsgs[key] && key!='lname'){
+      if(errMsgs[key] && key!='name'){
         valid = false
       }
     }
-    if(!Email || !UserPassword || !Fname || !PhoneNo || !country || !homeState || !city || !street || !zipcode || (userType==1 && !Lname) || userType==1 && !DOB){
-      alert('All fields marked with * are mandatory!')
+    if(!Email || !UserPassword || !name || !PhoneNo || !DOB){
+      // alert('All fields marked with * are mandatory!')
     }else{
       if(valid){
         let data = {
           email:Email,
           password: UserPassword,
-          first_name: Fname,
-          last_name: Lname,
-          user_type: userType,
+          name: name,
           phone: PhoneNo,
-          dob: userType==1?DOB:'',
-          country: country,
-          state: homeState,
-          city: city,
-          street: street,
-          zipcode: zipcode
+          dob: DOB
         }
-        register(data).then(res=> {
-          if(res.status==200){
-            navigate('/login');
-            alert('Successfully registered! Login to continue.')
-          }else if (res.status ==400){
-            alert('Email already registered. Login to continue.')
-          }else{
-            alert('Error setting up you account.')
-          }
-        })
+        // register(data).then(res=> {
+        //   if(res.status==200){
+        //     navigate('/login');
+        //     alert('Successfully registered! Login to continue.')
+        //   }else if (res.status ==400){
+        //     alert('Email already registered. Login to continue.')
+        //   }else{
+        //     alert('Error setting up you account.')
+        //   }
+        // })
       }
     }
-
-
-    //  e.preventDefault()
-    //  let data = {Fname, Lname, Email, UserPassword, PhoneNo, DOB, CardNo, CVV, ExpiryDate}
-    // fetch(`/users/register`,{
-    //   method: "POST",
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(data)
-    // }).then(res=>res.json()).then(data=>{
-    //   if(data.success){
-    //     alert(data.message)
-    //     history.push('/login')
-    //   }else{
-    //     setErrMsgs(data.message)
-    //   }
-    // })
   };
 
   function chkLen(e,l){
@@ -95,43 +83,23 @@ function Register() {
         <div className="login-form">
         <h1 className="login-title text-start">Register</h1>
           <form className="register-form" id="register-form">
-            <div className="personal-info">
-              <h2 className="text-start">Personal Information</h2>
-              
-              <div className="row-inputs">
+            <div className="personal-info">              
+              <div className="">
 
                 <div className="lInput">
-                  <select id="user-type" onChange={handleUserType}>
-                    <option value={1} >Customer</option>
-                    <option value={2} >Vendor</option>
-                  </select>
-                </div>
-
-                <div className="lInput">
+                  <label><b>Full Name:</b></label>
                   <input
                     className=""
                     type="text"
-                    placeholder={userType==1?"First name*":'Name'}
-                    onChange = { (e) => validateFirstName(e, setFname, errMsgs, setErrMsgs)}
+                    placeholder="Name"
+                    onChange = { (e) => validateName(e, setName, errMsgs, setErrMsgs)}
                     required
                   />
-                  <p className="error-msg">{errMsgs['fname']?errMsgs['fname']:''}</p>
+                  <p className="error-msg">{errMsgs['name']?errMsgs['name']:''}</p>
                 </div>
 
-                {/* last name for customer */}
-                {userType==1?                  
-                  <div className="lInput">
-                    <input
-                      className=""
-                      type="text"
-                      placeholder="Last name"
-                      onChange = { (e) => validateLastName(e, setLname, errMsgs, setErrMsgs)}
-                    />
-                    <p className="error-msg">{errMsgs['lname']?errMsgs['lname']:''}</p>
-                  </div>
-                :''}
-
                 <div className="lInput">
+                  <label><b>Email:</b></label>
                   <input
                     className="email"
                     type="email"
@@ -142,6 +110,7 @@ function Register() {
                   <p className="error-msg">{errMsgs['email']?errMsgs['email']:''}</p>
                 </div>
                 <div className="lInput">
+                  <label><b>Password:</b></label>
                   <input
                     className="password"
                     type="password"
@@ -152,20 +121,20 @@ function Register() {
                   <p className="error-msg">{errMsgs['password']?errMsgs['password']:''}</p>
                 </div>
                 <div className="lInput">
+                  <label><b>Mobile:</b></label>
                   <input
                     className=""
                     type="number"
                     placeholder="Phone Number*"
-                    maxlength="10"
+                    maxLength="10"
                     onInput={(e)=>chkLen(e,10)}
                     onChange = { (e) => validatePhone(e, setPhone, errMsgs, setErrMsgs)}
                     required
                   />
                   <p className="error-msg">{errMsgs['phone']?errMsgs['phone']:''}</p>
                 </div>
-                {userType==1?
                 <div className="lInput">
-                  <p className="dob text-left">Date of Birth*</p>
+                  <label><b>Date of Birth:</b></label>
                   <input
                     className=""
                     type="date"
@@ -176,72 +145,26 @@ function Register() {
                     required
                   />
                 </div>
-                :''}
+
+
 
               </div>
-              
-              <div className="address-header"><p className="dob text-left">Address*</p></div>
-              <div className="row-inputs">
-                <div className="lInput">
-                  <input
-                    className="country"
-                    type="text"
-                    placeholder="Country*"
-                    onChange = { (e) => validateCountry(e, setCountry, errMsgs, setErrMsgs)}
-                    required
-                  /> 
-                  <p className="error-msg">{errMsgs['country']?errMsgs['country']:''}</p>
+              <div className="lInput">
+                <div className="user-type">
+                  <input type="radio" checked={userType === 'resident'} onChange={()=>selectUserTyper('resident')} name="login_type" value="resident"/> Resident
+                  <input type="radio" checked={userType === 'visitor'} onChange={()=>selectUserTyper('visitor')} name="login_type" value="visitor"/> Visitor
+                  <input type="radio" checked={userType === 'manager'} onChange={()=>selectUserTyper('manager')} name="login_type" value="manager"/> Manager
                 </div>
-                <div className="lInput">
-                  <input
-                    className="state"
-                    type="text"
-                    placeholder="State*"
-                    onChange = { (e) => validateState(e, setHomeState, errMsgs, setErrMsgs)}
-                    required
-                  /> 
-                  <p className="error-msg">{errMsgs['state']?errMsgs['state']:''}</p>
-                </div>
-                <div className="lInput">
-                  <input
-                    className="city"
-                    type="text"
-                    placeholder="City*"
-                    onChange = { (e) => validateCity(e, setCity, errMsgs, setErrMsgs)}
-                    required
-                  /> 
-                  <p className="error-msg">{errMsgs['city']?errMsgs['city']:''}</p>
-                </div>
-                <div className="lInput">
-                  <input
-                    className="street"
-                    type="text"
-                    placeholder="Street Address*"
-                    onChange = { (e) => validateStreet(e, setStreet, errMsgs, setErrMsgs)}
-                    required
-                  /> 
-                  <p className="error-msg">{errMsgs['street']?errMsgs['street']:''}</p>
-                </div>
-                <div className="lInput">
-                  <input
-                    className="zipcode"
-                    type="text"
-                    placeholder="Zip*"
-                    onChange = { (e) => validateZip(e, setZipCode, errMsgs, setErrMsgs)}
-                    required
-                  /> 
-                  <p className="error-msg">{errMsgs['zipcode']?errMsgs['zipcode']:''}</p>
-                </div>
-                
               </div>
             </div>
             
             <button type="submit" onClick={registerUser} className="login-btn">Register</button>
+            <div className="login-signup-now text-start" data-uia="login-signup-now">
+                {`Already a member? `}
+                <a className=" " target="_self" href="/login">Sign In</a>
+            </div>
           </form>
-          <div className="login-signup-now text-start" data-uia="login-signup-now">
-                  {`Already a member? `}
-                  <a className=" " target="_self" href="/login">Sign In</a>
-          </div>
+          
         </div>
 
        </div>

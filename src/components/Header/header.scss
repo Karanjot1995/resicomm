@@ -1,0 +1,146 @@
+
+.navbar {
+    height: 70px;
+    width: 100%;
+    background-color: #fff;
+    position: fixed;
+    z-index: 2;
+    box-shadow: 1px 1px 15px rgba(161, 182, 253, 0.825);
+    display: flex;
+    top: 0;
+    left: 0;
+    padding-right: 20px;
+    justify-content: space-between;
+    align-items: center;
+    .logo {
+        padding-left: 20px;
+    }
+    nav{
+        ul{
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            li{
+                margin: 0 20px;
+            }
+        }
+    }
+    ul li{
+        a {
+            color: #000;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+    }
+
+    .logo {
+        font-size: 25px;
+        font-weight: 600;
+        color: rgb(47, 141, 70);
+    }
+    .message {
+        gap: 40px;
+        padding-right: 20px;
+        position: relative;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .dp {
+        height: 40px;
+        width: 40px;
+        // background-color: #626262;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        .dp_icon {
+            height: 42px;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  .icon {
+    height: 30px;
+  }
+  .menu_icon {
+    cursor: pointer;
+  }
+  
+
+
+
+
+
+
+  .nav {
+    min-height: 91vh;
+    width: 250px;
+    background-color: #a8abab;
+    position: absolute;
+    top: 0px;
+    left: 00;
+    box-shadow: 1px 1px 10px rgba(198, 189, 248, 0.825);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    /* padding: 30px 0 20px 10px; */
+  }
+  .navcontainer {
+    height: calc(100vh - 70px);
+    width: 350px;
+    position: relative;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    transition: all 0.5s ease-in-out;
+  }
+  .navcontainer::-webkit-scrollbar {
+    display: none;
+  }
+  .navclose {
+    width: 80px;
+  }
+  .nav-option {
+    width: 250px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 30px 0 20px;
+    gap: 20px;
+    transition: all 0.1s ease-in-out;
+  }
+  .nav-option:hover {
+    border-left: 5px solid #a2a2a2;
+    background-color: #dadada;
+    cursor: pointer;
+  }
+  .nav_image {
+    height: 30px;
+  }
+  
+  .nav-upper-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }

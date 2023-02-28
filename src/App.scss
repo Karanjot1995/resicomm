@@ -1,10 +1,14 @@
 @import "./pages/login/login.scss";
 
 .App{
-  height: 100vh;
+  // height: 100vh;
 }
 .text-left{
   text-align: left!important;
+}
+
+.app-container{
+  margin-top:70px;
 }
 
 // input, select{

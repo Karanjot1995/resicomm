@@ -96,14 +96,19 @@ function Login({setIsLoggedIn}) {
               />
               <p className="error-msg">{errMsgs['password']?errMsgs['password']:''}</p>
             </div>
+            <div className="remember">
+              <input type="checkbox"  name="remember"/> Remember me
+
+            </div>
+
             <button onClick={login} className="login-btn">Sign In</button>
             <div className="login-signup-now text-start" data-uia="login-signup-now">
               <a className=" " target="_self" href="/forgot-password">Forgot Password?</a>
             </div>
           </div>
           <div className="login-signup-now text-start" data-uia="login-signup-now">
-                  {`New here? Sign up now! `}
-                  <a className=" " target="_self" href="/register">Sign up now</a>
+            {`New here? Sign up now! `}
+            <a className=" " target="_self" href="/register">Sign up now</a>
           </div>
         </div>
 
