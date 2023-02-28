@@ -62,7 +62,67 @@
             height: 42px;
         }
     }
+
+    .login-btn-nav{
+        // height:40px;
+        padding:10px;
+        background-color: #e50914;
+        display: block;
+        border-radius: 5px;
+        color:#fff!important;
+        font-size: 20px;
+    }
+    
+    
+    .profile-btn{
+        display: inline-block;
+        position: relative;
+
+        .nav__submenu {
+            font-weight: 300;
+            text-transform: none;
+            right:0;
+            position: absolute;
+            display: none;
+            background-color: #efefef;
+            border:1px solid #000;
+            width:max-content;
+            padding:0;
+            li{
+                padding:5px;
+                width:100px;
+                border-bottom: 1px solid #000;
+                margin:0;
+            }
+        }
+        // &:hover {
+        // .nav__submenu {
+        //     display: block;
+        // }
+        // }
+    }
+
+    .show{
+        display: block!important;
+    }
+    
+
+    .profile_icon{
+        height: 40px;
+        width: 40px;
+        // background-color: #626262;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        .dp_icon {
+            height: 42px;
+        }
+    }
 }
+
+
 
 
 

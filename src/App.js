@@ -15,7 +15,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header/>
+      <Header isLoggedIn={isLoggedIn}/>
       <div className="app-container">
       {isLoggedIn?
       <Routes>

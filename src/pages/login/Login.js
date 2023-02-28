@@ -44,6 +44,7 @@ function Login({setIsLoggedIn}) {
 
   const login = async (e) => {
     e.preventDefault();
+    setIsLoggedIn(true)
     let data = {email:email, password:password}
     let valid = true;
     if(!email || !password){

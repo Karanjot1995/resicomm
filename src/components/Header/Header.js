@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
+import { Link, useNavigate } from 'react-router-dom';
 import './header.scss';
 
-function Header() {
+function Header({isLoggedIn}) {
   const navigate = useNavigate();
-  
 
+  let [showSubMenu, setShowSubMenu] = useState(false);
+
+
+  const openSubMenu = () => {
+    setShowSubMenu(!showSubMenu)
+  }
    return (
      <div className="navbar">
       <div className="logosec">
@@ -15,13 +20,28 @@ function Header() {
         <nav>
           <ul>
             <li><a href="/home">Home</a></li>
-            <li><a href="/login">Login/Signup</a></li>
+            {isLoggedIn?
+              <div>
+                <div className="profile-btn" 
+                    onMouseEnter={()=>setShowSubMenu(true)} 
+                    onMouseLeave={()=>setShowSubMenu(false)} 
+                    onClick={openSubMenu}
+                >
+                  <a className="profile_icon">
+                    <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180014/profile-removebg-preview.png" className="dp_icon" alt="dp"/>
+                  </a>
+                  <ul className={`nav__submenu ${showSubMenu?'show':''}`}>
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/login">Logout</a></li>
+                  </ul>
+                </div>
+              </div>
+              :
+              <li><a href="/login" className="login-btn-nav">Sign In</a></li>
+            }
           </ul>
         </nav>
-        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183322/8.png" className="icon" alt=""/>
-        <div className="dp">
-          <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180014/profile-removebg-preview.png" className="dp_icon" alt="dp"/>
-        </div>
+       
       </div>
      </div>
    );
