@@ -11,6 +11,12 @@ function Header({isLoggedIn}) {
   const openSubMenu = () => {
     setShowSubMenu(!showSubMenu)
   }
+
+  const logout = () => {
+    alert('Logged Out!')
+    window.location.href = '/login'
+  }
+
    return (
      <div className="navbar">
       <div className="logosec">
@@ -32,7 +38,7 @@ function Header({isLoggedIn}) {
                   </a>
                   <ul className={`nav__submenu ${showSubMenu?'show':''}`}>
                     <li><a href="/profile">Profile</a></li>
-                    <li><a href="/login">Logout</a></li>
+                    <li><a onClick={logout}>Logout</a></li>
                   </ul>
                 </div>
               </div>
