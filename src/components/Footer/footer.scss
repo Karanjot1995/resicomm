@@ -31,3 +31,12 @@
         // }
     }
 }
+
+@media screen and (max-width: 756px) {
+    #contact{
+        form{
+            background:inherit;
+            border: none;
+        }
+    }
+}

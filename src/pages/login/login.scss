@@ -85,12 +85,14 @@
         padding: 30px;
         border: 1px solid #000;
     }
-
+    .login-form{
+        // min-height: 625px;
+        padding-top: 60px;
+    }
 
     @media only screen and (min-width: 740px){ 
         .login-form{
             // min-height: 625px;
-            padding: 60px 68px 40px;
             margin-bottom: 90px;
             // min-height: 660px;
             min-width: 380px;
@@ -129,13 +131,14 @@
         //     display: block;
         // }
     }
-    @media only screen and (min-width: 740px){
+    @media only screen and (min-width: 600px){
         .login-body {
             margin: auto;
             min-height: 100vh;
             background-color: transparent;
+            width: 380px;
             max-width: 500px;
-            width: 100%;
+            padding-bottom: 50px;
         }
     }
 
@@ -240,17 +243,10 @@
 }
 
 @media screen and (max-width:600px) {
-    .login-page{
+
+    .login-body{
+        width: 350px;
         padding-bottom:50px;
-        .login-body {
-            width: 65%;
-            margin: auto;
-        }
-    }
-    .register{
-        .login-body{
-            width: 90%;
-        }
     }
 }
 

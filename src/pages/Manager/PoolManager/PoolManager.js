@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import './resident.scss';
 
 
-function ResidentDashboard() {
+function PoolManager() {
   const navigate = useNavigate();
 	const [userType, setUserType] = useState('resident');
 	const [active, setActive] = useState('home');
@@ -315,5 +314,5 @@ function ResidentDashboard() {
    );
 }
  
-export default ResidentDashboard;
+export default PoolManager;
 

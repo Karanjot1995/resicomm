@@ -31,6 +31,7 @@ function Register() {
   const selectUserTyper = (type) => {
     setUserType(type)
   }
+  
   const registerUser = async (e) => {
     let data = {
       email:Email,
