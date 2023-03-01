@@ -9,6 +9,26 @@
 
 .app-container{
   margin-top:70px;
+  position: relative;
+}
+
+.chatbot{
+  position: fixed;
+  bottom:0;
+  right:0;
+  background-color: #fff;
+}
+
+
+.custom-btn{
+  padding:10px;
+  background-color: #e50914;
+  border-radius: 5px;
+  color:#fff!important;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  // font-size: 20px;
 }
 
 

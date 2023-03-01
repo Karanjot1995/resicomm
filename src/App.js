@@ -5,6 +5,7 @@ import Home from './pages/home/Home';
 import Register from './pages/login/Register';
 import ForgotPassword from "./pages/login/ForgotPassword";
 import Header from "./components/Header/Header";
+import ChatBot from "./components/ChatBot/ChatBot";
 // import { useLocalStorage } from "./utils/useLocalStorage";
 // import ProtectedRoute from "./utils/ProtectedRoute";
 
@@ -31,6 +32,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
       }
+      <ChatBot/>
       </div>
     </div>
   );

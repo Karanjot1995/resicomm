@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import './header.scss';
 
@@ -43,7 +43,7 @@ function Header({isLoggedIn}) {
                 </div>
               </div>
               :
-              <li><a href="/login" className="login-btn-nav">Sign In</a></li>
+              <li><a href="/login" className="custom-btn login-btn-nav">Sign In</a></li>
             }
           </ul>
         </nav>
