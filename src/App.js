@@ -7,6 +7,7 @@ import ForgotPassword from "./pages/login/ForgotPassword";
 import Header from "./components/Header/Header";
 import ChatBot from "./components/ChatBot/ChatBot";
 import Footer from "./components/Footer/Footer";
+import ResidentDashboard from "./pages/Resident/ResidentDashboard/ResidentDashboard";
 // import { useLocalStorage } from "./utils/useLocalStorage";
 // import ProtectedRoute from "./utils/ProtectedRoute";
 
@@ -19,24 +20,24 @@ function App() {
     <div className="App">
       <Header isLoggedIn={isLoggedIn}/>
       <div className="app-container">
-      {isLoggedIn?
-      <Routes>
-        <Route path="/home" element={<Home setIsLoggedIn={setIsLoggedIn}/>} />
-        <Route path="/" element={<Navigate replace to="/home" />} />
-        <Route path="*" element={<Navigate replace to="/home" />} />
-      </Routes>
-      :
-      <Routes>
-        <Route path="/home" element={<Home setIsLoggedIn={setIsLoggedIn}/>} />
-        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn}/>} />
-        <Route path="*" element={<Navigate replace to="/login"/>} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-      </Routes>
-      }
+        {isLoggedIn?
+        <Routes>
+          <Route path="/resident" element={<ResidentDashboard setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="/" element={<Navigate replace to="/resident" />} />
+          <Route path="*" element={<Navigate replace to="/resident" />} />
+        </Routes>
+        :
+        <Routes>
+          <Route path="/home" element={<Home setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="*" element={<Navigate replace to="/login"/>} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+        </Routes>
+        }
+      </div>
       <ChatBot/>
       <Footer/>
-      </div>
     </div>
   );
 }

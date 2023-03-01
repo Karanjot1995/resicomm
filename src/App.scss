@@ -2,6 +2,7 @@
 
 .App{
   // height: 100vh;
+  position: relative;
 }
 .text-left{
   text-align: left!important;
@@ -9,7 +10,7 @@
 
 .app-container{
   margin-top:70px;
-  position: relative;
+  min-height: 95vh;
 }
 
 .chatbot{

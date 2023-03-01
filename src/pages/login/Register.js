@@ -151,9 +151,9 @@ function Register() {
               </div>
               <div className="lInput">
                 <div className="user-type">
-                  <input type="radio" checked={userType === 'resident'} onChange={()=>selectUserTyper('resident')} name="login_type" value="resident"/> Resident
-                  <input type="radio" checked={userType === 'visitor'} onChange={()=>selectUserTyper('visitor')} name="login_type" value="visitor"/> Visitor
-                  <input type="radio" checked={userType === 'manager'} onChange={()=>selectUserTyper('manager')} name="login_type" value="manager"/> Manager
+                  <input type="radio" checked={userType === 'resident'} onChange={()=>selectUserTyper('resident')} name="login_type" value="resident"/><label>Resident</label>
+                  <input type="radio" checked={userType === 'visitor'} onChange={()=>selectUserTyper('visitor')} name="login_type" value="visitor"/><label>Visitor</label>
+                  <input type="radio" checked={userType === 'manager'} onChange={()=>selectUserTyper('manager')} name="login_type" value="manager"/><label>Manager</label>
                 </div>
               </div>
             </div>
