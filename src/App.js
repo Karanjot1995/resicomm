@@ -6,6 +6,7 @@ import Register from './pages/login/Register';
 import ForgotPassword from "./pages/login/ForgotPassword";
 import Header from "./components/Header/Header";
 import ChatBot from "./components/ChatBot/ChatBot";
+import Footer from "./components/Footer/Footer";
 // import { useLocalStorage } from "./utils/useLocalStorage";
 // import ProtectedRoute from "./utils/ProtectedRoute";
 
@@ -26,6 +27,7 @@ function App() {
       </Routes>
       :
       <Routes>
+        <Route path="/home" element={<Home setIsLoggedIn={setIsLoggedIn}/>} />
         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn}/>} />
         <Route path="*" element={<Navigate replace to="/login"/>} />
         <Route path="/register" element={<Register />} />
@@ -33,6 +35,7 @@ function App() {
       </Routes>
       }
       <ChatBot/>
+      <Footer/>
       </div>
     </div>
   );

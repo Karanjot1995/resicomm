@@ -1,0 +1,33 @@
+#contact{
+    background: #dcdcdc;
+    // padding:10px;
+    form {
+        width: 400px;
+        padding: 20px;
+        display: inline-block;
+        border: 1px solid #000000;
+        box-sizing: border-box;
+        border-radius: 10px;
+        background-color: #f7f7f7;
+        text-align: left;
+        font-weight: bold;
+        input, textarea {
+            width: 100%;
+            padding: 10px 20px;
+            display: inline-block;
+            border: 1px solid #000000;
+            box-sizing: border-box;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-bottom:10px;
+        }
+        // textarea {
+        //     width: 100%;
+        //     padding: 10px 20px;
+        //     display: inline-block;
+        //     border: 1px solid #000000;
+        //     box-sizing: border-box;
+        //     border-radius: 10px;
+        // }
+    }
+}
