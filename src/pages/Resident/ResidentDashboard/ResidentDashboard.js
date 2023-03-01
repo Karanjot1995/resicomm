@@ -80,7 +80,7 @@ function ResidentDashboard() {
 												<tr>
 													<th>Visitor Name</th>
 													<th>Reason</th>
-													<th>In-Time/Out-Time</th>
+													<th className="table-time">In-Time/Out-Time</th>
 													<th>Status</th>
 													<th></th>
 												</tr>

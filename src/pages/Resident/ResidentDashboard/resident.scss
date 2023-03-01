@@ -14,6 +14,9 @@ Gampa, Sai Gayathri - 1002090414
  }
 
 .resident{
+    .table-time{
+        min-width: 50px;
+    }
     .report{
         margin-top: 40px;
     }
@@ -485,6 +488,12 @@ Gampa, Sai Gayathri - 1002090414
     .resident{
         .container{
             width:100%
+        }
+        table{
+            font-size: 12px;
+        }
+        .box-container{
+            justify-content: center;
         }
     }
 }
