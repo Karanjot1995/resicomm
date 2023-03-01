@@ -2,10 +2,10 @@
     color: #fff;
     width:300px;
     .toggle-btn{
-        // width:30px;
+        font-size: 20px;
     }
     border:1px solid #000;
-    border-radius: 5px 0 0 0;
+    border-radius: 5px 5px 0 0;
     .chatbot-nav{
         display: flex;
         justify-content: space-between;
@@ -15,7 +15,7 @@
         }
         height:30px;
         background: #e50914;
-        border-radius: 5px 0 0 0;
+        border-radius: 5px 5px 0 0;
         padding:10px;
     }
     .chatbot-bottom{
@@ -38,7 +38,10 @@
         }
     }
     .chatbot-middle{
-        height:200px;
+        height:250px;
+        overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
     }
     .chat{
         max-width:200px;
@@ -48,9 +51,10 @@
     }
     .manager-chat{
         background-color: #ff8787;
+        align-self:flex-start
     }
     .user-chat{
-        background-color: #dcb4b4;
-        float: right;
+        background-color: #bababa;
+        align-self: flex-end;
     }
 }

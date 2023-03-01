@@ -11,7 +11,7 @@ function ChatBot({isLoggedIn}) {
 	// 	"a":"How are you?",
 	// 	"b":"Pretty good. Wbu?",
 	// }
-	const chat = [{user:"a", text:"Hey!"}, {user:"a", text:"How can I help you today?"}, {user:"b", text:"I have an enquiry."},  {user:"b", text:"How do I pay my rent online?"}];
+	const chat = [{user:"a", text:"Hey!"}, {user:"a", text:"How can I help you today?"}, {user:"b", text:"I have an enquiry."},  {user:"b", text:"How do I pay my rent online?"},{user:"a", text:"You can pay it through the website or through cheque."}, {user:"b", text:"Thank you?"}, {user:"b", text:"I'll pay through cheque."}];
 
 	return (
 		<div className="chatbot">
