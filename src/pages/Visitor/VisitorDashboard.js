@@ -31,7 +31,7 @@ function VisitorDashboard() {
           onClick={() => setActive("home")}
           className={`custom-btn ${active == "home" ? "active" : ""}`}
         >
-          Home
+          Visitor Home
         </button>
         <button
           onClick={() => setActive("dashboard")}
