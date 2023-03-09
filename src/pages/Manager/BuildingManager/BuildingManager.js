@@ -12,7 +12,7 @@ function BuildingManager() {
 	useEffect(() => {
 		let selected = window.location.pathname.replace('/','');
 		setUserType(selected)
-  });
+  	});
 
 	const changeType = (e) =>{
 		window.location.href = e.target.value
@@ -31,6 +31,9 @@ function BuildingManager() {
 		titles:['Reports', 'Residents', 'Date'],
 		rows:[['Report_1', 'Resident_1', 'Date_1']]
 	}
+	const employees = [
+		{id:1, name: 'Karan', email:'kxs9016@mavs.uta.edu', phone:'9898989898'}
+	]
    return (
 	<div className="pt-50 resident">
 		<select onChange={changeType} value={userType} className="type-select">
@@ -46,7 +49,7 @@ function BuildingManager() {
 			<button onClick={()=>setActive('dashboard')} className={`custom-btn ${active=='dashboard'?'active':''}`}>Dashboard</button>
 		</div>
 		{active=='home'?
-			<ManagerHome/>
+			<ManagerHome employees={employees}/>
 			:
 			<ManagerDashboard boxData={boxData} reportData={reportData}/>
 		}

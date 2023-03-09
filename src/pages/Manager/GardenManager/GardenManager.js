@@ -33,6 +33,11 @@ function GardenManager() {
 		titles:['Reports', 'Residents', 'Date'],
 		rows:[['Report_1', 'Resident_1', 'Date_1']]
 	}
+
+	const employees = [
+		{id:1, name: 'Karan', email:'kxs9016@mavs.uta.edu', phone:'9898989898'}
+	]
+	
    return (
 	<div className="pt-50 resident">
 		<select onChange={changeType} value={userType} className="type-select">

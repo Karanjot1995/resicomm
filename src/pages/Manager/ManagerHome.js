@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 function ManagerHome(props) {
 
+    const {employees} = props;
+
     return (
         <div className="container">
             <div class="main">
@@ -49,13 +51,15 @@ function ManagerHome(props) {
                                     <th>Phone Number</th>
                                 </tr>
                             </thead>
-                            <tr>
-                                <td>100</td>
-                                <td>Manager 1</td>
-                                <td>asdf@gmail.com</td>
-                                <td>63247901</td>
-                                <td><button>Edit</button><button>Delete</button></td>
-                            </tr>
+                            {employees.map(employee=>
+                                <tr>
+                                    <td>{employee.id}</td>
+                                    <td>{employee.name}</td>
+                                    <td>{employee.email}</td>
+                                    <td>{employee.phone}</td>
+                                    <td><button>Edit</button><button>Delete</button></td>
+                                </tr>
+                            )}
                         </table>
                     </div>
                 </div>
