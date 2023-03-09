@@ -35,9 +35,9 @@ function GardenManager() {
 	}
 
 	const employees = [
-		{id:1, name: 'Karan', email:'kxs9016@mavs.uta.edu', phone:'9898989898'}
+		{id:2, name: 'Jatin', email:'jatin@mavs.uta.edu', phone:'9090909090'}
 	]
-	
+
    return (
 	<div className="pt-50 resident">
 		<select onChange={changeType} value={userType} className="type-select">
@@ -53,7 +53,7 @@ function GardenManager() {
 			<button onClick={()=>setActive('dashboard')} className={`custom-btn ${active=='dashboard'?'active':''}`}>Dashboard</button>
 		</div>
 		{active=='home'?
-			<ManagerHome/>
+			<ManagerHome employees={employees}/>
 			:
 			<ManagerDashboard boxData={boxData} reportData={reportData}/>
 		}

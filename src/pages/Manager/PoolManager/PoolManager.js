@@ -40,7 +40,7 @@ function PoolManager() {
 	}
 
 	const employees = [
-		{id:1, name: 'Karan', email:'kxs9016@mavs.uta.edu', phone:'9898989898'}
+		{id:3, name: 'Shobika', email:'shobika@mavs.uta.edu', phone:'8787878787'}
 	]
 
    return (
@@ -58,7 +58,7 @@ function PoolManager() {
 			<button onClick={()=>setActive('dashboard')} className={`custom-btn ${active=='dashboard'?'active':''}`}>Dashboard</button>
 		</div>
 		{active=='home'?
-			<ManagerHome/>
+			<ManagerHome employees={employees}/>
 			:
 			<ManagerDashboard boxData={boxData} reportData={reportData}/>
 		}

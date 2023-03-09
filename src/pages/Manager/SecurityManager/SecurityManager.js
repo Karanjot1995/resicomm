@@ -35,7 +35,7 @@ function SecurityManager() {
 		rows:[['Report_1', 'Resident_1', 'Date_1']]
 	}
 	const employees = [
-		{id:1, name: 'Karan', email:'kxs9016@mavs.uta.edu', phone:'9898989898'}
+		{id:4, name: 'Suprith', email:'suprith@mavs.uta.edu', phone:'7676767676'}
 	]
 
    return (
@@ -53,7 +53,7 @@ function SecurityManager() {
 			<button onClick={()=>setActive('dashboard')} className={`custom-btn ${active=='dashboard'?'active':''}`}>Dashboard</button>
 		</div>
 		{active=='home'?
-			<ManagerHome/>
+			<ManagerHome employees={employees}/>
 			:
 			<ManagerDashboard boxData={boxData} reportData={reportData}/>
 		}
