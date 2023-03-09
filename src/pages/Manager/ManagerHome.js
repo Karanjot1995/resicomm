@@ -2,17 +2,13 @@ import React, { useState, useEffect } from "react";
 
 function ManagerHome(props) {
 
-    const {employees} = props;
+    const {employees, boxData} = props;
 
     return (
         <div className="container">
             <div class="main">
                 <div className="box-container">
-                    <button className="button">Manage Security Managers</button>
-                    <button className="button">Manage Pool Managers</button>
-                    <button className="button">Manage Garden Managers</button>
-                    <button className="button">Manage Resident and Visitors</button>
-                    <button className="button">Generate Reports</button>
+                    {boxData.map(box=><button className="button">{box.title}</button>)}
                 </div>
                 <div className="form-container">
                     <form className="left">

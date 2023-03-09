@@ -4,8 +4,35 @@ import ManagerDashboard from "../ManagerDashboard";
 import ManagerHome from "../ManagerHome";
 
 
+const boxData = [
+	{
+		heading: 'No. of pools',
+		description: '2'
+	},
+	{
+		heading: 'Pools Employees',
+		description: '6'
+	}
+]
+
+const boxData2 = [
+	{title:'Manage Security Managers'},
+	{title:'Manage Pool Managers'},
+	{title:'Manage Resident and Visitors'},
+	{title:'Generate Reports'}
+]
+
+const reportData = {
+	titles:['Reports', 'Residents', 'Date'],
+	rows:[['Report_1', 'Resident_1', 'Date_1']]
+}
+
+const employees = [
+	{id:2, name: 'Jatin', email:'jatin@mavs.uta.edu', phone:'9090909090'}
+]
+
 function PoolManager() {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 	const [userType, setUserType] = useState('resident');
 	const [active, setActive] = useState('home');
 
@@ -13,35 +40,12 @@ function PoolManager() {
 		let selected = window.location.pathname.replace('/','');
 		setUserType(selected)
 		console.log()
-  });
+  	});
 
 	const changeType = (e) =>{
 		window.location.href = e.target.value
 	}
 
-	const boxData = [
-		{
-			heading: 'No. of pools',
-			description: '2'
-		},
-		{
-			heading: 'Pools Employees',
-			description: '6'
-		},
-		{
-			heading: 'Pools Employees',
-			description: '6'
-		}
-	]
-
-	const reportData = {
-		titles:['Reports', 'Residents', 'Date'],
-		rows:[['Report_1', 'Resident_1', 'Date_1'], ['Report_1', 'Resident_1', 'Date_1']]
-	}
-
-	const employees = [
-		{id:3, name: 'Shobika', email:'shobika@mavs.uta.edu', phone:'8787878787'}
-	]
 
    return (
 	<div className="pt-50 resident">
@@ -58,7 +62,7 @@ function PoolManager() {
 			<button onClick={()=>setActive('dashboard')} className={`custom-btn ${active=='dashboard'?'active':''}`}>Dashboard</button>
 		</div>
 		{active=='home'?
-			<ManagerHome employees={employees}/>
+			<ManagerHome boxData={boxData2} employees={employees}/>
 			:
 			<ManagerDashboard boxData={boxData} reportData={reportData}/>
 		}
