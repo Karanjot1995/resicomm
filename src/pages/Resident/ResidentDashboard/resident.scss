@@ -124,11 +124,15 @@ Gampa, Sai Gayathri - 1002090414
  .box-container,
  .button-container {
    display: flex;
-   justify-content: space-between;   
+   justify-content: center;  ;   
    align-items: center;
    flex-wrap: wrap;
    gap: 40px;
    padding: 5% 0;
+   .button{
+    background-color: #aeaeae;
+    border: none;
+   }
  }
  .nav {
    min-height: 91vh;
@@ -221,37 +225,37 @@ Gampa, Sai Gayathri - 1002090414
  }
  
  .button:nth-child(1) {
-   background-color: var(--one-use-color);
+//    background-color: var(--one-use-color);
    color: white;
    font-size: 15px;
    font-weight: 400;
  }
  .button:nth-child(2) {
-   background-color: var(--two-use-color);
+//    background-color: var(--two-use-color);
    color: white;
    font-size: 15px;
    font-weight: 400;
  }
  .button:nth-child(3) {
-   background-color: var(--two-use-color);
+//    background-color: var(--two-use-color);
    color: white;
    font-size: 15px;
    font-weight: 400;
  }
  .button:nth-child(4) {
-   background-color: var(--two-use-color);
+//    background-color: var(--two-use-color);
    color: white;
    font-size: 15px;
    font-weight: 400;
  }
  .button:nth-child(5) {
-   background-color: var(--two-use-color);
+//    background-color: var(--two-use-color);
    color: white;
    font-size: 15px;
    font-weight: 400;
  }
  .button:nth-child(6) {
-   background-color: var(--two-use-color);
+//    background-color: var(--two-use-color);
    color: white;
    font-size: 15px;
    font-weight: 400;
@@ -272,6 +276,7 @@ Gampa, Sai Gayathri - 1002090414
  .box .text {
    color: white;
  }
+
  .topic {
    font-size: 13px;
    font-weight: 400;
@@ -279,7 +284,6 @@ Gampa, Sai Gayathri - 1002090414
  }
  
  .topic_heading {
-   font-size: 30px;
    letter-spacing: 3px;
  }
  
@@ -462,6 +466,21 @@ Gampa, Sai Gayathri - 1002090414
    display: block;
  }
  
+    .form-container{
+        display: flex;
+        align-items: flex-start;
+        border: 1px solid #000;
+        form{
+            padding: 10px;
+            border-right: 1px solid #000;
+        }
+        .right{
+            padding:10px;
+            width:100%;
+            overflow-x: scroll;
+        }
+    }
+
 }
 
 .tab-toggle{
@@ -495,6 +514,9 @@ Gampa, Sai Gayathri - 1002090414
         .box-container{
             justify-content: center;
         }
+        .form-container{
+            display: block;
+        }
     }
     .box {
         height: 150px!important;
@@ -512,5 +534,5 @@ Gampa, Sai Gayathri - 1002090414
         h2{
             font-size: 15px;
         }
-      }
+    }
 }
