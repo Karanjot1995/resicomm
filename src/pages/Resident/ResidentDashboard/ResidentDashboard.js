@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./resident.scss";
+import "../../../App.scss";
 
 function ResidentDashboard() {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ function ResidentDashboard() {
         <option value="garden-manager">Garden Manager</option>
         <option value="security-manager">Security Manager</option>
       </select>
-      <div className="tab-toggle">
+      {/* <div className="tab-toggle">
         <button
           onClick={() => setActive("home")}
           className={`custom-btn ${active == "home" ? "active" : ""}`}
@@ -39,7 +40,7 @@ function ResidentDashboard() {
         >
           Dashboard
         </button>
-      </div>
+      </div> */}
       {active == "home" ? (
         <div className="container">
           <div className="main">
@@ -74,143 +75,193 @@ function ResidentDashboard() {
               </div>
             </div>
 
-            <div className="report-container">
-              <div className="report-header">
-                <h1 className="recent-Articles">Visitor Requests</h1>
-                <button className="view">View All</button>
-              </div>
-
-              <div className="report-body">
-                <table style={{ width: "100%", textAlign: "center" }}>
-                  <thead>
-                    <tr>
-                      <th style={{ width: "10%" }}>Visitor Name</th>
-                      <th style={{ width: "20%" }}>Reason</th>
-                      <th style={{ width: "32%" }}>In-Time/Out-Time</th>
-                      <th style={{ width: "19%" }}>Status</th>
-                      <th style={{ width: "5%" }}></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>John Doe</td>
-                      <td>Electricity</td>
-                      <td>Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM</td>
-                      <td className="visitor-table-request-visited">Visited</td>
-                      <td>
-                        <div className="visitor-schedule-action-container">
-                          <a>
-                            <img
-                              src="./images/more_vert.png"
-                              height="24px"
-                              width="24px"
-                            />
-                          </a>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Sam Smith</td>
-                      <td>Plumbing</td>
-                      <td>Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM</td>
-                      <td className="visitor-table-request-entered">Entered</td>
-                      <td>
-                        <div className="visitor-schedule-action-container">
-                          <a>
-                            <img
-                              src="./images/more_vert.png"
-                              height="24px"
-                              width="24px"
-                            />
-                          </a>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Victor Dean</td>
-                      <td>Guest</td>
-                      <td>Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM</td>
-                      <td className="visitor-table-request-requested">
-                        Requested
-                      </td>
-                      <td>
-                        <div className="visitor-schedule-action-container">
-                          <a>
-                            <img
-                              src="./images/more_vert.png"
-                              height="24px"
-                              width="24px"
-                            />
-                          </a>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Lisa Harris</td>
-                      <td>Guest</td>
-                      <td>Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM</td>
-                      <td className="visitor-table-request-declined">
-                        Declined
-                      </td>
-                      <td>
-                        <div className="visitor-schedule-action-container">
-                          <a>
-                            <img
-                              src="./images/more_vert.png"
-                              height="24px"
-                              width="24px"
-                            />
-                          </a>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Peter Spencer</td>
-                      <td>Housekeeping</td>
-                      <td>Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM</td>
-                      <td className="visitor-table-request-approved">
-                        Approved
-                      </td>
-                      <td>
-                        <div className="visitor-schedule-action-container">
-                          <a>
-                            <img
-                              src="./images/more_vert.png"
-                              height="24px"
-                              width="24px"
-                            />
-                          </a>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Daniel Geroge</td>
-                      <td>Delivery</td>
-                      <td>Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM</td>
-                      <td className="visitor-table-request-declined">
-                        Declined
-                      </td>
-                      <td>
-                        <div className="visitor-schedule-action-container">
-                          <a>
-                            <img
-                              src="./images/more_vert.png"
-                              height="24px"
-                              width="24px"
-                            />
-                          </a>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+            <div className="m-auto">
+              <div className="home-section-vehicle report-header d-block m-auto">
+                <div className="input-group">
+                  <div className="input-box">
+                    <h4>Vehicle Registration</h4>
+                  </div>
+                </div>
+                <div className="input-group">
+                  <div className="input-box">
+                    <input
+                      type="text"
+                      placeholder="Vehicle Model"
+                      required
+                      className="name"
+                    />
+                    <i className="bx bxs-user"></i>
+                  </div>
+                  <div className="input-box">
+                    <input
+                      type="text"
+                      placeholder="License Plate"
+                      required
+                      className="name"
+                    />
+                    <i className="bx bxs-phone"></i>
+                  </div>
+                  <div className="input-box">
+                    <p>Expiry Date</p>
+                    <select>
+                      <option>01 Jun</option>
+                    </select>
+                    <select>
+                      <option>2023</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="input-group">
+                  <div className="input-box">
+                    <button type="submit">Register</button>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="d-flex">
-              <div className="container d-inline">
+            <div className="container">
+              <div className="report">
                 <div className="report-container">
-                  <div className="report-header">
+                  <div className="report-header d-flex justify-content-between align-items-center">
+                    <h1 className="recent-Articles">Visitor Requests</h1>
+                    <button className="view">View All</button>
+                  </div>
+
+                  <div className="report-body">
+                    <table style={{ width: "100%", textAlign: "center" }}>
+                      <thead>
+                        <tr>
+                          <th style={{ width: "10%" }}>Visitor Name</th>
+                          <th style={{ width: "20%" }}>Reason</th>
+                          <th style={{ width: "32%" }}>In-Time/Out-Time</th>
+                          <th style={{ width: "19%" }}>Status</th>
+                          <th style={{ width: "5%" }}></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>John Doe</td>
+                          <td>Electricity</td>
+                          <td>Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM</td>
+                          <td className="visitor-table-request-visited">
+                            Visited
+                          </td>
+                          <td>
+                            <div className="visitor-schedule-action-container">
+                              <a>
+                                <img
+                                  src="./images/more_vert.png"
+                                  height="24px"
+                                  width="24px"
+                                />
+                              </a>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Sam Smith</td>
+                          <td>Plumbing</td>
+                          <td>Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM</td>
+                          <td className="visitor-table-request-entered">
+                            Entered
+                          </td>
+                          <td>
+                            <div className="visitor-schedule-action-container">
+                              <a>
+                                <img
+                                  src="./images/more_vert.png"
+                                  height="24px"
+                                  width="24px"
+                                />
+                              </a>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Victor Dean</td>
+                          <td>Guest</td>
+                          <td>Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM</td>
+                          <td className="visitor-table-request-requested">
+                            Requested
+                          </td>
+                          <td>
+                            <div className="visitor-schedule-action-container">
+                              <a>
+                                <img
+                                  src="./images/more_vert.png"
+                                  height="24px"
+                                  width="24px"
+                                />
+                              </a>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Lisa Harris</td>
+                          <td>Guest</td>
+                          <td>Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM</td>
+                          <td className="visitor-table-request-declined">
+                            Declined
+                          </td>
+                          <td>
+                            <div className="visitor-schedule-action-container">
+                              <a>
+                                <img
+                                  src="./images/more_vert.png"
+                                  height="24px"
+                                  width="24px"
+                                />
+                              </a>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Peter Spencer</td>
+                          <td>Housekeeping</td>
+                          <td>Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM</td>
+                          <td className="visitor-table-request-approved">
+                            Approved
+                          </td>
+                          <td>
+                            <div className="visitor-schedule-action-container">
+                              <a>
+                                <img
+                                  src="./images/more_vert.png"
+                                  height="24px"
+                                  width="24px"
+                                />
+                              </a>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Daniel Geroge</td>
+                          <td>Delivery</td>
+                          <td>Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM</td>
+                          <td className="visitor-table-request-declined">
+                            Declined
+                          </td>
+                          <td>
+                            <div className="visitor-schedule-action-container">
+                              <a>
+                                <img
+                                  src="./images/more_vert.png"
+                                  height="24px"
+                                  width="24px"
+                                />
+                              </a>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div className="report">
+                <div className="report-container">
+                  <div className="report-header d-flex justify-content-between align-items-center">
                     <h1 className="recent-Articles">Service Requests</h1>
                     <button className="view">View All</button>
                   </div>
@@ -340,9 +391,9 @@ function ResidentDashboard() {
                 </div>
               </div>
 
-              <div className="container d-inline">
+              <div className="report">
                 <div className="report-container">
-                  <div className="report-header">
+                  <div className=" d-flex justify-content-between align-items-center">
                     <h1 className="recent-Articles">Memberships</h1>
                   </div>
 
