@@ -124,15 +124,11 @@ Gampa, Sai Gayathri - 1002090414
  .box-container,
  .button-container {
    display: flex;
-   justify-content: center;  ;   
+   justify-content: space-between;   
    align-items: center;
    flex-wrap: wrap;
    gap: 40px;
    padding: 5% 0;
-   .button{
-    background-color: #aeaeae;
-    border: none;
-   }
  }
  .nav {
    min-height: 91vh;
@@ -225,37 +221,37 @@ Gampa, Sai Gayathri - 1002090414
  }
  
  .button:nth-child(1) {
-//    background-color: var(--one-use-color);
+   background-color: var(--one-use-color);
    color: white;
    font-size: 15px;
    font-weight: 400;
  }
  .button:nth-child(2) {
-//    background-color: var(--two-use-color);
+   background-color: var(--two-use-color);
    color: white;
    font-size: 15px;
    font-weight: 400;
  }
  .button:nth-child(3) {
-//    background-color: var(--two-use-color);
+   background-color: var(--two-use-color);
    color: white;
    font-size: 15px;
    font-weight: 400;
  }
  .button:nth-child(4) {
-//    background-color: var(--two-use-color);
+   background-color: var(--two-use-color);
    color: white;
    font-size: 15px;
    font-weight: 400;
  }
  .button:nth-child(5) {
-//    background-color: var(--two-use-color);
+   background-color: var(--two-use-color);
    color: white;
    font-size: 15px;
    font-weight: 400;
  }
  .button:nth-child(6) {
-//    background-color: var(--two-use-color);
+   background-color: var(--two-use-color);
    color: white;
    font-size: 15px;
    font-weight: 400;
@@ -276,7 +272,6 @@ Gampa, Sai Gayathri - 1002090414
  .box .text {
    color: white;
  }
-
  .topic {
    font-size: 13px;
    font-weight: 400;
@@ -284,6 +279,7 @@ Gampa, Sai Gayathri - 1002090414
  }
  
  .topic_heading {
+   font-size: 30px;
    letter-spacing: 3px;
  }
  
@@ -466,26 +462,6 @@ Gampa, Sai Gayathri - 1002090414
    display: block;
  }
  
-    .form-container{
-        display: flex;
-        align-items: flex-start;
-        border: 1px solid #000;
-        form{
-            padding: 10px;
-            border-right: 1px solid #000;
-        }
-        .left{
-            input{
-                width: 100%;
-            }
-        }
-        .right{
-            padding:10px;
-            width:100%;
-            overflow-x: scroll;
-        }
-    }
-
 }
 
 .tab-toggle{
@@ -519,9 +495,6 @@ Gampa, Sai Gayathri - 1002090414
         .box-container{
             justify-content: center;
         }
-        .form-container{
-            display: block;
-        }
     }
     .box {
         height: 150px!important;
@@ -539,61 +512,5 @@ Gampa, Sai Gayathri - 1002090414
         h2{
             font-size: 15px;
         }
-    }
+      }
 }
-
-
-.home-section{
-    display: inline;
-    text-align: center;
-    position: relative;
-    background: #f5f5f5;
-    min-height: 100vh;
-    top: 0;
-    left: 78px;
-    width: calc(100% - 78px);
-    transition: all 0.5s ease;
-    z-index: 2;
-  }
-  .sidemenu.open ~ .home-section{
-    left: 250px;
-    width: calc(100% - 250px);
-  }
-  
-  .home-section-payment h4, .home-section-visitor h4, .home-section-mails h4, .home-section-vehicle h4, .home-section-services h4{
-    color: #f37424;
-    font-size: 25px;
-    font-weight: 500;
-  }
-  
-  .home-section-payment, .home-section-visitor, .home-section-mails, .home-section-vehicle, .home-section-services{
-      // margin: 50px 30px 20px 40px;
-      background-color: #fff;
-      padding: 25px;
-      box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
-  }
-  .home-section-payment{
-      width: 400px;
-      height: 300px;
-  }
-  .home-section-visitor{
-      width: 300px;
-      height: 300px;
-  }
-  .home-section-mails{
-      width: 300px;
-      height: 300px;
-  }
-  .home-section-vehicle{
-    width: 50vw;
-  }
-  .home-section-services{
-    width: 400px;
-    height: 300px;
-  }
-  .home-section-payment button, .home-section-visitor button, .home-section-mails button, .home-section-vehicle button{
-      background-color: #f37424;
-      color: #fff;
-      font-weight: 500;
-      border: none;
-  }

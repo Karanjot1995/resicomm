@@ -15,6 +15,7 @@ import SecurityManager from "./pages/Manager/SecurityManager/SecurityManager";
 import About from "./pages/about/About";
 import Contactus from "./pages/contactus/Contactus";
 import Services from "./pages/services/Services";
+import VisitorDashboard from "./pages/Visitor/VisitorDashboard";
 // import { useLocalStorage } from "./utils/useLocalStorage";
 // import ProtectedRoute from "./utils/ProtectedRoute";
 
@@ -31,7 +32,7 @@ function App() {
         <Routes>
           <Route path="/home" element={<Home setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/resident" element={<ResidentDashboard setIsLoggedIn={setIsLoggedIn}/>} />
-          <Route path="/visitor" element={<ResidentDashboard setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="/visitor" element={<VisitorDashboard setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/pool-manager" element={<PoolManager setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/garden-manager" element={<GardenManager setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/building-manager" element={<BuildingManager setIsLoggedIn={setIsLoggedIn}/>} />
@@ -47,7 +48,7 @@ function App() {
           <Route path="/home" element={<Home setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/resident" element={<ResidentDashboard setIsLoggedIn={setIsLoggedIn}/>} />
-          <Route path="/visitor" element={<ResidentDashboard setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="/visitor" element={<VisitorDashboard setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/pool-manager" element={<PoolManager setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/garden-manager" element={<GardenManager setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/building-manager" element={<BuildingManager setIsLoggedIn={setIsLoggedIn}/>} />
