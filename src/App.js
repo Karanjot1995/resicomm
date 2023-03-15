@@ -12,6 +12,9 @@ import PoolManager from "./pages/Manager/PoolManager/PoolManager";
 import GardenManager from "./pages/Manager/GardenManager/GardenManager";
 import BuildingManager from "./pages/Manager/BuildingManager/BuildingManager";
 import SecurityManager from "./pages/Manager/SecurityManager/SecurityManager";
+import About from "./pages/about/About";
+import Contactus from "./pages/contactus/Contactus";
+import Services from "./pages/services/Services";
 // import { useLocalStorage } from "./utils/useLocalStorage";
 // import ProtectedRoute from "./utils/ProtectedRoute";
 
@@ -33,6 +36,9 @@ function App() {
           <Route path="/garden-manager" element={<GardenManager setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/building-manager" element={<BuildingManager setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/security-manager" element={<SecurityManager setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="/about" element={<About setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="/contact-us" element={<Contactus setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="/services" element={<Services setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/" element={<Navigate replace to="/resident" />} />
           <Route path="*" element={<Navigate replace to="/resident" />} />
         </Routes>
@@ -46,6 +52,9 @@ function App() {
           <Route path="/garden-manager" element={<GardenManager setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/building-manager" element={<BuildingManager setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/security-manager" element={<SecurityManager setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="/about" element={<About setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="/contact-us" element={<Contactus setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="/services" element={<Services setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="*" element={<Navigate replace to="/login"/>} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -53,7 +62,7 @@ function App() {
         }
       </div>
       <ChatBot/>
-      <Footer/>
+      {/* <Footer/> */}
     </div>
   );
 }
