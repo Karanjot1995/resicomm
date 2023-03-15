@@ -1,0 +1,137 @@
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import '../Resident/ResidentDashboard/resident.scss';
+
+
+function VisitorDashboard() {
+  const navigate = useNavigate();
+	const [userType, setUserType] = useState('visitor');
+	const [active, setActive] = useState('home');
+
+	useEffect(() => {
+		let selected = window.location.pathname.replace('/','');
+		setUserType(selected)
+		console.log()
+  });
+
+	const changeType = (e) =>{
+		window.location.href = e.target.value
+	}
+   return (
+     <div className="pt-50 resident">
+			<select onChange={changeType} value={userType} className="type-select">
+				<option value="resident">Resident</option>
+				<option value="visitor">Visitor</option>
+				<option value="building-manager">Building Manager</option>
+				<option value="pool-manager">Pool Manager</option>
+				<option value="garden-manager">Garden Manager</option>
+				<option value="security-manager">Security Manager</option>
+			</select>
+			{/* <div className="tab-toggle">
+				<button onClick={()=>setActive('home')} className={`custom-btn ${active=='home'?'active':''}`}>Home</button>
+				<button onClick={()=>setActive('dashboard')} className={`custom-btn ${active=='dashboard'?'active':''}`}>Dashboard</button>
+			</div> */}
+            <div className="container">
+                <div className="main">
+                    <div className="container d-flex">
+                        <div className="report">
+                            <div className="report-container">
+                                <div className="report-header">
+                                    <h1 className="recent-Articles">Visitation Requests</h1>
+                                    <button className="view">View All</button>
+                                </div>
+
+                                <div className="report-body">
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <th>Request Id</th>
+                                            <th>Building-Apartment Unit</th>
+                                            <th>In-Time/Out-Time</th>
+                                            <th>Status</th>
+                                            <th></th>
+                                        </tr>
+                                        <tr>
+                                            <td>73</td>
+                                            <td>5-210</td>
+                                            <td>Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM</td>
+                                            <td className="visitor-table-request-approved">Approved</td>
+                                            <td>
+                                                <div className="visitor-schedule-action-container">
+                                                    <a href="./visitor_driving_instructions.html">
+                                                        <img src="./images/map.png" height="24px" width="24px"/>
+                                                    </a>
+                                                    <a><img src="./images/more_vert.png" height="24px" width="24px"/></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>73</td>
+                                            <td>5-210</td>
+                                            <td>Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM</td>
+                                            <td className="visitor-table-request-requested">Requested</td>
+                                            <td>
+                                                <div className= "visitor-schedule-action-container">
+                                                    <a><img src="./images/more_vert.png" height="24px" width="24px"/></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>73</td>
+                                            <td>5-210</td>
+                                            <td>Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM</td>
+                                            <td className="visitor-table-request-requested">Requested</td>
+                                            <td>
+                                                <div className= "visitor-schedule-action-container">
+                                                    <a><img src="./images/more_vert.png" height="24px" width="24px"/></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>73</td>
+                                            <td>5-210</td>
+                                            <td>Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM</td>
+                                            <td className="visitor-table-request-declined">Declined</td>
+                                            <td>
+                                                <div className= "visitor-schedule-action-container">
+                                                    <a><img src="./images/more_vert.png" height="24px" width="24px"/></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>73</td>
+                                            <td>5-210</td>
+                                            <td>Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM</td>
+                                            <td className="visitor-table-request-approved">Approved</td>
+                                            <td>
+                                                <div className= "visitor-schedule-action-container">
+                                                    <a href="./visitor_driving_instructions.html"><img src="./images/map.png" height="24px" width="24px"/></a>
+                                                    <a><img src="./images/more_vert.png" height="24px" width="24px"/></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>73</td>
+                                            <td>5-210</td>
+                                            <td>Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM</td>
+                                            <td className="visitor-table-request-declined">Declined</td>
+                                            <td>
+                                                <div className= "visitor-schedule-action-container">
+                                                    <a><img src="./images/more_vert.png" height="24px" width="24px"/></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+     </div>
+   );
+}
+ 
+export default VisitorDashboard;
+
