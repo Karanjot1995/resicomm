@@ -24,7 +24,7 @@ Gampa, Sai Gayathri - 1002090414
         text-align: center;
     }
     .recent-Articles{
-        // padding: 20px 0;
+        padding: 20px 0;
     }
     .type-select{
         height:30px;
@@ -124,11 +124,15 @@ Gampa, Sai Gayathri - 1002090414
  .box-container,
  .button-container {
    display: flex;
-   justify-content: space-between;   
+   justify-content: center;  ;   
    align-items: center;
    flex-wrap: wrap;
    gap: 40px;
    padding: 5% 0;
+   .button{
+    background-color: #aeaeae;
+    border: none;
+   }
  }
  .nav {
    min-height: 91vh;
@@ -221,37 +225,37 @@ Gampa, Sai Gayathri - 1002090414
  }
  
  .button:nth-child(1) {
-   background-color: var(--one-use-color);
+//    background-color: var(--one-use-color);
    color: white;
    font-size: 15px;
    font-weight: 400;
  }
  .button:nth-child(2) {
-   background-color: var(--two-use-color);
+//    background-color: var(--two-use-color);
    color: white;
    font-size: 15px;
    font-weight: 400;
  }
  .button:nth-child(3) {
-   background-color: var(--two-use-color);
+//    background-color: var(--two-use-color);
    color: white;
    font-size: 15px;
    font-weight: 400;
  }
  .button:nth-child(4) {
-   background-color: var(--two-use-color);
+//    background-color: var(--two-use-color);
    color: white;
    font-size: 15px;
    font-weight: 400;
  }
  .button:nth-child(5) {
-   background-color: var(--two-use-color);
+//    background-color: var(--two-use-color);
    color: white;
    font-size: 15px;
    font-weight: 400;
  }
  .button:nth-child(6) {
-   background-color: var(--two-use-color);
+//    background-color: var(--two-use-color);
    color: white;
    font-size: 15px;
    font-weight: 400;
@@ -272,6 +276,7 @@ Gampa, Sai Gayathri - 1002090414
  .box .text {
    color: white;
  }
+
  .topic {
    font-size: 13px;
    font-weight: 400;
@@ -279,7 +284,6 @@ Gampa, Sai Gayathri - 1002090414
  }
  
  .topic_heading {
-   font-size: 30px;
    letter-spacing: 3px;
  }
  
@@ -295,7 +299,7 @@ Gampa, Sai Gayathri - 1002090414
  
  .report_Header {
    height: 80px;
-   width: 100%;
+   /* width: 100%; */
    display: flex;
    align-items: center;
    justify-content: space-between;
@@ -462,6 +466,26 @@ Gampa, Sai Gayathri - 1002090414
    display: block;
  }
  
+    .form-container{
+        display: flex;
+        align-items: flex-start;
+        border: 1px solid #000;
+        form{
+            padding: 10px;
+            border-right: 1px solid #000;
+        }
+        .left{
+            input{
+                width: 100%;
+            }
+        }
+        .right{
+            padding:10px;
+            width:100%;
+            overflow-x: scroll;
+        }
+    }
+
 }
 
 .tab-toggle{
@@ -495,6 +519,9 @@ Gampa, Sai Gayathri - 1002090414
         .box-container{
             justify-content: center;
         }
+        .form-container{
+            display: block;
+        }
     }
     .box {
         height: 150px!important;
@@ -512,498 +539,61 @@ Gampa, Sai Gayathri - 1002090414
         h2{
             font-size: 15px;
         }
-      }
+    }
 }
 
-.report-container {
-  text-align: center;
-}
 
-.sidemenu{
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 78px;
-  background: #f37424;
-  padding: 6px 14px;
-  z-index: 99;
-  transition: all 0.5s ease;
-}
-.sidemenu.open{
-  width: 250px;
-}
-.sidemenu .menu-head{
-  height: 60px;
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-.sidemenu .menu-head .icon{
-  opacity: 0;
-  transition: all 0.5s ease;
-}
-.sidemenu .menu-head .logo_name{
-  color: #fff;
-  font-size: 20px;
-  font-weight: 600;
-  opacity: 0;
-  transition: all 0.5s ease;
-}
-.sidemenu.open .menu-head .icon,
-.sidemenu.open .menu-head .logo_name{
-  opacity: 1;
-}
-.sidemenu .menu-head #btn{
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-  font-size: 22px;
-  transition: all 0.4s ease;
-  font-size: 23px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.5s ease;
-}
-.sidemenu.open .menu-head #btn{
-  text-align: right;
-}
-.sidemenu i{
-  color: #fff;
-  height: 60px;
-  min-width: 50px;
-  font-size: 28px;
-  text-align: center;
-  line-height: 60px;
-}
-.sidemenu .nav-list{
-  margin-top: 20px;
-  height: 100%;
-}
-.sidemenu li{
-  position: relative;
-  margin: 8px 0;
-  list-style: none;
-}
-.sidemenu li .menu-option{
-  position: absolute;
-  top: -20px;
-  left: calc(100% + 15px);
-  z-index: 3;
-  background: #fff;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 15px;
-  font-weight: 400;
-  opacity: 0;
-  white-space: nowrap;
-  pointer-events: none;
-  transition: 0s;
-}
-.sidemenu li:hover .menu-option{
-  opacity: 1;
-  pointer-events: auto;
-  transition: all 0.4s ease;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.sidemenu.open li .menu-option{
-  display: none;
-}
-.sidemenu input{
-  font-size: 15px;
-  color: #FFF;
-  font-weight: 400;
-  outline: none;
-  height: 45px;
-  width: 100%;
-  width: 50px;
-  border: none;
-  border-radius: 12px;
-  transition: all 0.5s ease;
-  background: #FFF;
-}
-.sidemenu.open input{
-  padding: 0 20px 0 50px;
-  width: 100%;
-}
-.sidemenu .bx-search{
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  font-size: 22px;
-  background: #f37424;
-  color: #FFF;
-}
-.sidemenu.open .bx-search:hover{
-  background: #FFF;
-  color: #f37424;
-}
-.sidemenu .bx-search:hover{
-  background: #FFF;
-  color: #f37424;
-}
-.sidemenu li a{
-  display: flex;
-  height: 100%;
-  width: 100%;
-  border-radius: 12px;
-  align-items: center;
-  text-decoration: none;
-  transition: all 0.4s ease;
-  background: #f37424;
-}
-.sidemenu li a:hover{
-  background: #FFF;
-}
-.sidemenu li a .links_name{
-  color: #fff;
-  font-size: 15px;
-  font-weight: 400;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: 0.4s;
-}
-.sidemenu.open li a .links_name{
-  opacity: 1;
-  pointer-events: auto;
-}
-.sidemenu li a:hover .links_name,
-.sidemenu li a:hover i{
-  transition: all 0.5s ease;
-  color: #f37424;
-}
-.sidemenu li i{
-  height: 65px;
-  line-height: 50px;
-  font-size: 18px;
-  border-radius: 12px;
-}
-.sidemenu li.profile{
-  position: fixed;
-  height: 60px;
-  width: 78px;
-  left: 0;
-  bottom: -8px;
-  padding: 10px 14px;
-  background: #f37424;
-  transition: all 0.5s ease;
-  overflow: hidden;
-}
-.sidemenu.open li.profile{
-  width: 250px;
-}
-.sidemenu li .profile-details{
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
-}
-.sidemenu li img{
-  height: 45px;
-  width: 45px;
-  object-fit: cover;
-  border-radius: 6px;
-  margin-right: 10px;
-}
-.sidemenu li.profile .name,
-.sidemenu li.profile {
-  font-size: 15px;
-  font-weight: 400;
-  color: #fff;
-  white-space: nowrap;
-}
-.sidemenu li.profile {
-  font-size: 12px;
-}
-.sidemenu .profile #log_out{
-  position: absolute;
-  right: 0;
-  transform: translateY(-50%);
-  background: #f37424;
-  width: 100%;
-  height: 60px;
-  line-height: 60px;
-  border-radius: 0px;
-  transition: all 0.5s ease;
-}
-.sidemenu.open .profile #log_out{
-  width: 50px;
-  background: none;
-}
 .home-section{
-  display: inline;
-  text-align: center;
-  position: relative;
-  background: #f5f5f5;
-  min-height: 100vh;
-  top: 0;
-  left: 78px;
-  width: calc(100% - 78px);
-  transition: all 0.5s ease;
-  z-index: 2;
-}
-.sidemenu.open ~ .home-section{
-  left: 250px;
-  width: calc(100% - 250px);
-}
-
-.home-section-payment h4, .home-section-visitor h4, .home-section-mails h4, .home-section-vehicle h4, .home-section-services h4{
-  color: #f37424;
-  font-size: 25px;
-  font-weight: 500;
-}
-
-.home-section-payment, .home-section-visitor, .home-section-mails, .home-section-vehicle, .home-section-services{
-    // margin: 50px 30px 20px 40px;
-    background-color: #fff;
-    padding: 25px;
-    box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
-}
-.home-section-payment{
+    display: inline;
+    text-align: center;
+    position: relative;
+    background: #f5f5f5;
+    min-height: 100vh;
+    top: 0;
+    left: 78px;
+    width: calc(100% - 78px);
+    transition: all 0.5s ease;
+    z-index: 2;
+  }
+  .sidemenu.open ~ .home-section{
+    left: 250px;
+    width: calc(100% - 250px);
+  }
+  
+  .home-section-payment h4, .home-section-visitor h4, .home-section-mails h4, .home-section-vehicle h4, .home-section-services h4{
+    color: #f37424;
+    font-size: 25px;
+    font-weight: 500;
+  }
+  
+  .home-section-payment, .home-section-visitor, .home-section-mails, .home-section-vehicle, .home-section-services{
+      // margin: 50px 30px 20px 40px;
+      background-color: #fff;
+      padding: 25px;
+      box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
+  }
+  .home-section-payment{
+      width: 400px;
+      height: 300px;
+  }
+  .home-section-visitor{
+      width: 300px;
+      height: 300px;
+  }
+  .home-section-mails{
+      width: 300px;
+      height: 300px;
+  }
+  .home-section-vehicle{
+    width: 50vw;
+  }
+  .home-section-services{
     width: 400px;
     height: 300px;
-}
-.home-section-visitor{
-    width: 300px;
-    height: 300px;
-}
-.home-section-mails{
-    width: 300px;
-    height: 300px;
-}
-.home-section-vehicle{
-  width: 50vw;
-}
-.home-section-services{
-  width: 400px;
-  height: 300px;
-}
-.home-section-payment button, .home-section-visitor button, .home-section-mails button, .home-section-vehicle button{
-    background-color: #f37424;
-    color: #fff;
-    font-weight: 500;
-    border: none;
-}
-.flex-container{
-  width: 100%;
-  height: 30px;
-  margin: 20px;
-  display: flex;
-}
-.mail-info{
-  display: flex;
-}
-.mail-info button{
-  margin-left: 40px;
-}
-@media (max-width: 420px) {
-  .sidemenu li .menu-option{
-    display: none;
   }
-} 
-
-.report{
-  margin-top: 40px;
-}
-.report-header{
-  text-align: center;
-}
-.report_Container {
-  min-height: 300px;
-  max-width: 1200px;
-  margin: 50px 30px 20px 40px;
-  background-color: #ffffff;
-  border-radius: 30px;
-  box-shadow: 3px 3px 10px rgb(188, 188, 188);
-  padding: 0px 20px 20px 20px;
-}
-
-.report_Header {
-  height: 80px;
-  /* width: 100%; */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 20px 10px 20px;
-  border-bottom: 2px solid rgba(0, 20, 151, 0.59);
-}
-
-.recent_Articles {
-  font-size: 30px;
-  font-weight: 600;
-  color: #6bc8b8;
-}
-
-.dummy-view {
-  height: 35px;
-  width: 90px;
-}
-
-.view {
-  height: 35px;
-  width: 90px;
-  border-radius: 8px;
-  background-color: #e50914;
-  color: white;
-  font-size: 15px;
-  border: none;
-  cursor: pointer;
-  top: 50%;
-}
-
-.report-body {
-  overflow-x: auto;
-  padding: 20px;
-}
-.report_topic_heading,
-.item1 {
-  width: 800px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.t-op {
-  font-size: 18px;
-  letter-spacing: 0px;
-}
-
-.items {
-  width: 800px;
-  margin-top: 15px;
-}
-
-.item1 {
-  margin-top: 20px;
-}
-.t-op-nextlvl {
-  font-size: 14px;
-  letter-spacing: 0px;
-  font-weight: 600;
-}
-
-.lavel-tag {
-  width: 100px;
-  text-align: center;
-  background-color: rgb(0, 177, 0);
-  color: white;
-  border-radius: 4px;
-}
-
-.container {
-  margin-top: 30px;
-  width:80%;
-  margin:auto
-}
-
-table {
-  width: 80%;
-  margin: 50px 10px 20px 100px;
-}
-
-.home-section-services table{
-  margin: 10px 30px 20px 30px;
-}
-
-table.list {
-  text-align: center;
-  width: 100%;
-}
-
-td {
-  border: 1px solid rgba(0, 20, 151, 0.59);
-  text-align: center;
-  padding: 8px;
-}
-
-
-input[type="text"],
-input[type="number"],
-input[type="email"],
-input[type="tel"] {
-  width: 91%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid;
-  border-radius: 4px;
-}
-
-input[type="submit"],
-input[type="reset"] {
-  padding: 6px 12px;
-  margin: 15px 0 10px;
-  display: inline-block;
-  border:
-  
-  
-  
-  none;
-  border-radius: 30px;
-  font-size: 1rem;
-  cursor: pointer;
-  outline: none;
-}
-
-input[type="submit"]:hover,
-input[type="reset"]:hover,
-button:hover {
-  background: #626262;
-}
-
-.dropdown-nav {
-  display: none;
-}
-
-.d-flex {
-  display: flex;
-}
-
-.d-block {
-  display: block;
-}
-
-.dropbtn {
-  background-color: #3f0097;
-  color: white;
-  padding: 12px;
-  font-size: 14px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-}
-
-.dropdown-content {
-  z-index: 2;
-  width: 100%;
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content a:hover {
-  background-color: #e0e0e0;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
+  .home-section-payment button, .home-section-visitor button, .home-section-mails button, .home-section-vehicle button{
+      background-color: #f37424;
+      color: #fff;
+      font-weight: 500;
+      border: none;
+  }
