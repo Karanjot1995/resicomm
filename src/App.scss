@@ -8,6 +8,16 @@
   text-align: left!important;
 }
 
+.text-center{
+  text-align: center!important;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 600;
+  color: rgb(47, 141, 70);
+}
+
 .app-container{
   margin-top:70px;
   min-height: 95vh;
@@ -62,6 +72,10 @@
   width: 25vw;
 }
 
+.justify-content-center {
+  justify-content: center;
+}
+
 .justify-content-around {
   justify-content: space-around;
 }
@@ -76,6 +90,10 @@
 
 .m-auto{
   margin:auto
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 
 

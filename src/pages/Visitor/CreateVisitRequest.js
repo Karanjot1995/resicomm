@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./visitor.scss";
 import "../../App.scss";
 
-function VisitorDashboard() {
+function VisitorCreateRequest() {
   const navigate = useNavigate();
   const [userType, setUserType] = useState("visitor");
   const [active, setActive] = useState("home");
@@ -19,39 +19,12 @@ function VisitorDashboard() {
   };
   return (
     <div className="pt-50 resident" id="visitor">
-      <div className="report-container">
-        <div className="report-header d-flex justify-content-between align-items-center">
-          <select
-            onChange={changeType}
-            value={userType}
-            className="type-select"
-          >
-            <option value="resident">Resident</option>
-            <option value="visitor">Visitor</option>
-            <option value="building-manager">Building Manager</option>
-            <option value="pool-manager">Pool Manager</option>
-            <option value="garden-manager">Garden Manager</option>
-            <option value="security-manager">Security Manager</option>
-          </select>{" "}
-          <button
-            className="view"
-            onClick={() => navigate("/visitor/create-request")}
-          >
-            Create a visit request
-          </button>
-        </div>
-      </div>
-
-      {/* <div className="tab-toggle">
-				<button onClick={()=>setActive('home')} className={`custom-btn ${active=='home'?'active':''}`}>Home</button>
-				<button onClick={()=>setActive('dashboard')} className={`custom-btn ${active=='dashboard'?'active':''}`}>Dashboard</button>
-			</div> */}
       <div className="container">
         <div className="main">
           <div className="container">
             <div className="report">
               <div className="report-container">
-                <div className="report-header d-flex justify-content-between align-items-center">
+                {/* <div className="report-header d-flex justify-content-between align-items-center">
                   <h1 className="recent-Articles">Visitation Requests</h1>
                   <button className="view">View All</button>
                 </div>
@@ -75,17 +48,13 @@ function VisitorDashboard() {
                         </td>
                         <td>
                           <div className="visitor-schedule-action-container">
-                            {/* <a href="./visitor_driving_instructions.html">
+                            <a href="./visitor_driving_instructions.html">
                               <img
                                 src="./images/map.png"
                                 height="24px"
                                 width="24px"
                               />
-                            </a> */}
-                            <button className="driving-instructions">
-                              Driving Instructions
-                            </button>
-
+                            </a>
                             <a>
                               <img
                                 src="./images/more_vert.png"
@@ -162,17 +131,13 @@ function VisitorDashboard() {
                         </td>
                         <td>
                           <div className="visitor-schedule-action-container">
-                            <button className="driving-instructions">
-                              Driving Instructions
-                            </button>
-
-                            {/* <a href="./visitor_driving_instructions.html">
+                            <a href="./visitor_driving_instructions.html">
                               <img
                                 src="./images/map.png"
                                 height="24px"
                                 width="24px"
                               />
-                            </a> */}
+                            </a>
                             <a>
                               <img
                                 src="./images/more_vert.png"
@@ -204,6 +169,127 @@ function VisitorDashboard() {
                       </tr>
                     </tbody>
                   </table>
+                </div> */}
+                <div className="visitor-box-container">
+                  <div className=" box1">
+                    <div className="text">
+                      <div className="logo">Hi Visitor</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="report-container">
+                  <div className="report-header">
+                    <h1 className="recent-Articles">Register your vehicle</h1>
+                  </div>
+                  <div className="card text-center d-inline-block">
+                    <div className="report-body">
+                      <form>
+                        <div className="d-flex">
+                          <div className="d-inline">
+                            <label htmlFor="apartment_number">
+                              Apartment Number:
+                            </label>
+                            <input
+                              type="text"
+                              id="apartment_number"
+                              name="apartment_number"
+                            />
+                          </div>
+                          &nbsp; &nbsp; &nbsp; &nbsp;
+                          <div className="d-inline">
+                            <label htmlFor="building_number">
+                              Building Number:
+                            </label>
+                            <input
+                              type="text"
+                              id="building_number"
+                              name="building_number"
+                            />
+                          </div>
+                        </div>
+                        <br />
+                        <label htmlFor="vehicle_radio">
+                          Will you be coming with a vehicle?:
+                        </label>
+                        <br />
+                        <div className="d-flex justify-content-center">
+                          <input
+                            type="radio"
+                            id="vehicle_radio_no"
+                            htmlFor="vehicle_radio"
+                            value="no"
+                          />
+                          &nbsp;
+                          <label htmlFor="male">No</label>
+                          &nbsp; &nbsp; &nbsp; &nbsp;
+                          <input
+                            type="radio"
+                            id="vehicle_radio_yes"
+                            name="vehicle_radio"
+                            value="yes"
+                          />
+                          &nbsp;
+                          <label htmlFor="female">Yes</label>
+                          <br />
+                        </div>
+                        <br />
+                        <label htmlFor="vehicle_number">
+                          Select your vehicle:
+                        </label>
+                        <select id="vehicle_number" name="vehicle_number">
+                          <option value="">Select vehicle</option>
+                          <option value="number1">
+                            Hyundai Elantra / LHD-8488
+                          </option>
+                          <option value="number2">
+                            Nissan Turano / CBH-3536
+                          </option>
+                          <option value="number3">
+                            Ford Fusion / MBD-1254
+                          </option>
+                        </select>
+                        <br />
+                        <p style={{ fontSize: "14" }}>
+                          Vehicle not added?
+                          <a href="/visitor/add-vehicle">Add here!</a>
+                        </p>
+                        <br />
+                        <div className="d-flex justify-content-center">
+                          <div className="d-inline">
+                            <label htmlFor="in-time">In-Time:</label>
+                            <input type="text" id="in-time" name="in-time" />
+                          </div>
+                          &nbsp; &nbsp; &nbsp; &nbsp;
+                          <div className="d-inline">
+                            <label htmlFor="out-time">Out-Time:</label>
+                            <input type="text" id="out-time" name="out-time" />
+                          </div>
+                        </div>
+                        <br />
+                        <p>
+                          <label htmlFor="visit-reason">
+                            Reason for visit:
+                          </label>
+                        </p>
+                        <textarea
+                          id="visit-reason"
+                          name="visit-reason"
+                          rows="6"
+                          cols="80"
+                        ></textarea>
+                        <br />
+                        <br />
+                        <button
+                          type="submit"
+                          className="btn-primary"
+                          value="Submit"
+                        >
+                          Submit
+                        </button>
+                      </form>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -214,4 +300,4 @@ function VisitorDashboard() {
   );
 }
 
-export default VisitorDashboard;
+export default VisitorCreateRequest;
