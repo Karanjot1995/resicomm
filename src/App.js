@@ -18,6 +18,7 @@ import Services from "./pages/services/Services";
 import VisitorDashboard from "./pages/Visitor/VisitorDashboard";
 import VisitorCreateRequest from "./pages/Visitor/CreateVisitRequest";
 import VisitorAddVehicle from "./pages/Visitor/AddVehicle";
+import UserProfile from "./pages/login/UserProfile";
 // import { useLocalStorage } from "./utils/useLocalStorage";
 // import ProtectedRoute from "./utils/ProtectedRoute";
 
@@ -33,6 +34,7 @@ function App() {
         {isLoggedIn?
         <Routes>
           <Route path="/home" element={<Home setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="/profile" element={<UserProfile setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/resident" element={<ResidentDashboard setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/visitor" element={<VisitorDashboard setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/visitor/create-request" element={<VisitorCreateRequest setIsLoggedIn={setIsLoggedIn}/>} />
@@ -50,6 +52,7 @@ function App() {
         :
         <Routes>
           <Route path="/home" element={<Home setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="/profile" element={<UserProfile setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/resident" element={<ResidentDashboard setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/visitor" element={<VisitorDashboard setIsLoggedIn={setIsLoggedIn}/>} />

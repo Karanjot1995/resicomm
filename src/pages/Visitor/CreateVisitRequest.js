@@ -180,12 +180,12 @@ function VisitorCreateRequest() {
 
                 <div className="report-container">
                   <div className="report-header">
-                    <h1 className="recent-Articles">Register your vehicle</h1>
+                    <h1 className="recent-Articles">Create a visit request</h1>
                   </div>
                   <div className="card text-center d-inline-block">
                     <div className="report-body">
                       <form>
-                        <div className="d-flex">
+                        <div className="d-flex justify-content-center">
                           <div className="d-inline">
                             <label htmlFor="apartment_number">
                               Apartment Number:

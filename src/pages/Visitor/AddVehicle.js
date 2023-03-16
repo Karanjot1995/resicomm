@@ -187,7 +187,7 @@ function VisitorAddVehicle() {
                       <form>
                         <h2>Select your vehicle type:</h2>
                         <br />
-                        <div className="d-flex">
+                        <div className="d-flex justify-content-center">
                           <div className="d-inline d-relative">
                             <input
                               type="radio"
@@ -233,7 +233,7 @@ function VisitorAddVehicle() {
                         </div>
 
                         <br />
-                        <div className="d-flex">
+                        <div className="d-flex justify-content-center">
                           <div className="d-inline d-relative">
                             <input
                               type="radio"
