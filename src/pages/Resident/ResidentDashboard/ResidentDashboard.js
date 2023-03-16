@@ -111,9 +111,12 @@ function ResidentDashboard() {
                     </select>
                   </div>
                 </div>
+                <br />
                 <div className="input-group">
                   <div className="input-box">
-                    <button type="submit">Register</button>
+                    <button type="submit" className="vehicle-submit">
+                      Register
+                    </button>
                   </div>
                 </div>
               </div>
@@ -416,13 +419,17 @@ function ResidentDashboard() {
                           <td>Feb 21, 2023</td>
                           <td>
                             <div className="visitor-schedule-action-container">
-                              <a>
+                              {/* <a>
                                 <img
                                   src="./images/more_vert.png"
                                   height="24px"
                                   width="24px"
                                 />
-                              </a>
+                              </a> */}
+                              <label class="switch">
+                                <input type="checkbox" defaultChecked />
+                                <span class="slider round"></span>
+                              </label>
                             </div>
                           </td>
                         </tr>
@@ -433,13 +440,17 @@ function ResidentDashboard() {
                           <td>Feb 21, 2023</td>
                           <td>
                             <div className="visitor-schedule-action-container">
-                              <a>
+                              {/* <a>
                                 <img
                                   src="./images/more_vert.png"
                                   height="24px"
                                   width="24px"
                                 />
-                              </a>
+                              </a> */}
+                              <label class="switch">
+                                <input type="checkbox" />
+                                <span class="slider round"></span>
+                              </label>
                             </div>
                           </td>
                         </tr>
@@ -450,13 +461,17 @@ function ResidentDashboard() {
                           <td>Feb 21, 2023</td>
                           <td>
                             <div className="visitor-schedule-action-container">
-                              <a>
+                              {/* <a>
                                 <img
                                   src="./images/more_vert.png"
                                   height="24px"
                                   width="24px"
                                 />
-                              </a>
+                              </a> */}
+                              <label class="switch">
+                                <input type="checkbox" defaultChecked />
+                                <span class="slider round"></span>
+                              </label>
                             </div>
                           </td>
                         </tr>
@@ -467,13 +482,17 @@ function ResidentDashboard() {
                           <td>Feb 21, 2023</td>
                           <td>
                             <div className="visitor-schedule-action-container">
-                              <a>
+                              {/* <a>
                                 <img
                                   src="./images/more_vert.png"
                                   height="24px"
                                   width="24px"
                                 />
-                              </a>
+                              </a> */}
+                              <label class="switch">
+                                <input type="checkbox" defaultChecked />
+                                <span class="slider round"></span>
+                              </label>
                             </div>
                           </td>
                         </tr>

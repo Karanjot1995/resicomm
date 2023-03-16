@@ -1,4 +1,10 @@
-@import "./pages/login/login.scss";
+  /* Shrivastava, Jatin - 1002032011
+Suresh, Shobika – 1002077439
+Sing, Karanjot - 1001949016
+Gampa, Sai Gayathri - 1002090414
+ Kumar, Harihar Omkarachari Suprith - 1001880333
+ */
+ @import "./pages/login/login.scss";
 
 .App{
   // height: 100vh;
@@ -6,6 +12,16 @@
 }
 .text-left{
   text-align: left!important;
+}
+
+.text-center{
+  text-align: center!important;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 600;
+  color: rgb(47, 141, 70);
 }
 
 .app-container{
@@ -50,6 +66,10 @@
   display: inline;
 }
 
+.d-grid {
+  display: grid;
+}
+
 .w-100 {
   width: 100vw;
 }
@@ -60,6 +80,10 @@
 
 .w-25 {
   width: 25vw;
+}
+
+.justify-content-center {
+  justify-content: center;
 }
 
 .justify-content-around {
@@ -76,6 +100,10 @@
 
 .m-auto{
   margin:auto
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 
 

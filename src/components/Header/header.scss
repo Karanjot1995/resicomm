@@ -1,4 +1,9 @@
-
+  /* Shrivastava, Jatin - 1002032011
+Suresh, Shobika – 1002077439
+Sing, Karanjot - 1001949016
+Gampa, Sai Gayathri - 1002090414
+ Kumar, Harihar Omkarachari Suprith - 1001880333
+ */
 .navbar {
     height: 70px;
     width: 100%;
@@ -194,4 +199,21 @@
     flex-direction: column;
     align-items: center;
     gap: 30px;
+  }
+
+
+  @media only screen and (max-width: 768px){
+    .navbar{
+        flex-direction: column;
+        height:100px;
+    }
+    .message{
+        padding:10px!important;
+        ul{
+            font-size: 11px;
+            li{
+                margin: 0 5px!important;
+            }
+        }
+    }
   }
