@@ -16,10 +16,10 @@ const boxData = [
 ]
 
 const boxData2 = [
-	{title:'Manage Security Managers'},
-	{title:'Manage Pool Managers'},
-	{title:'Manage Resident and Visitors'},
-	{title:'Generate Reports'}
+	{title:'Manage Security'},
+	{title:'Manage Timings'},
+	{title:'Manage Residents'},
+	{title:'Manage Visitors'}
 ]
 
 const reportData = {
