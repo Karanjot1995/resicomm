@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./visitor.scss";
-import "../../App.scss";
+// import "../../App.scss";
 
 function VisitorAddVehicle() {
   const navigate = useNavigate();

@@ -35,7 +35,7 @@ function VisitorDashboard() {
           </select>{" "}
           <button
             className="view"
-            onClick={() => navigate("/visitor/create-request")}
+            onClick={() => navigate("/create-request")}
           >
             Create a visit request
           </button>

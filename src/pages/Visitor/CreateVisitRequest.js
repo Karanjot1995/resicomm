@@ -252,7 +252,7 @@ function VisitorCreateRequest() {
                         <br />
                         <p style={{ fontSize: "14" }}>
                           Vehicle not added?
-                          <a href="/visitor/add-vehicle">Add here!</a>
+                          <a href="/add-vehicle">Add here!</a>
                         </p>
                         <br />
                         <div className="d-flex justify-content-center">
