@@ -19,6 +19,7 @@ import VisitorDashboard from "./pages/Visitor/VisitorDashboard";
 import VisitorCreateRequest from "./pages/Visitor/CreateVisitRequest";
 import VisitorAddVehicle from "./pages/Visitor/AddVehicle";
 import UserProfile from "./pages/login/UserProfile";
+import DrivingInstructions from "./pages/Visitor/DrivingInstructions";
 // import { useLocalStorage } from "./utils/useLocalStorage";
 // import ProtectedRoute from "./utils/ProtectedRoute";
 
@@ -39,6 +40,7 @@ function App() {
           <Route path="/visitor" element={<VisitorDashboard setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/create-request" element={<VisitorCreateRequest setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/add-vehicle" element={<VisitorAddVehicle setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="/driving-instructions" element={<DrivingInstructions setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/pool-manager" element={<PoolManager setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/garden-manager" element={<GardenManager setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/building-manager" element={<BuildingManager setIsLoggedIn={setIsLoggedIn}/>} />
@@ -59,6 +61,7 @@ function App() {
           <Route path="/visitor" element={<VisitorDashboard setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/create-request" element={<VisitorCreateRequest setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/add-vehicle" element={<VisitorAddVehicle setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="/driving-instructions" element={<DrivingInstructions setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/pool-manager" element={<PoolManager setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/garden-manager" element={<GardenManager setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/building-manager" element={<BuildingManager setIsLoggedIn={setIsLoggedIn}/>} />

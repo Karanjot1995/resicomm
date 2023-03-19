@@ -33,10 +33,7 @@ function VisitorDashboard() {
             <option value="garden-manager">Garden Manager</option>
             <option value="security-manager">Security Manager</option>
           </select>{" "}
-          <button
-            className="view"
-            onClick={() => navigate("/create-request")}
-          >
+          <button className="view" onClick={() => navigate("/create-request")}>
             Create a visit request
           </button>
         </div>
@@ -82,7 +79,10 @@ function VisitorDashboard() {
                                 width="24px"
                               />
                             </a> */}
-                            <button className="driving-instructions">
+                            <button
+                              className="driving-instructions"
+                              onClick={() => navigate("/driving-instructions")}
+                            >
                               Driving Instructions
                             </button>
 
