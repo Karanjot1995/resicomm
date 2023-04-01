@@ -1,0 +1,14 @@
+{
+    "building": [
+        { "id": 1, "fname": "Jatin", "lname": "", "email": "jatin@mavs.uta.edu", "phone": "9090909090" }
+    ],
+    "pool": [
+        { "id": 2, "fname": "Jatin", "lname": "", "email": "jatin@mavs.uta.edu", "phone": "9090909090" }
+    ],
+    "security": [
+        { "id": 3, "fname": "Jatin", "lname": "", "email": "jatin@mavs.uta.edu", "phone": "9090909090" }
+    ],
+    "garden": [
+        { "id": 4, "fname": "Jatin", "lname": "", "email": "jatin@mavs.uta.edu", "phone": "9090909090" }
+    ]
+}

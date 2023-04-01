@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { users, getEmployees } from "../../../services/services";
 import ManagerDashboard from "../ManagerDashboard";
 import ManagerHome from "../ManagerHome";
 
@@ -27,19 +28,34 @@ const reportData = {
   rows: [["Report_1", "Resident_1", "Date_1"]],
 };
 
-const employees = [
-  { id: 2, name: "Jatin", email: "jatin@mavs.uta.edu", phone: "9090909090" },
-];
+// const employees = [
+//   { id: 2, name: "Jatin", email: "jatin@mavs.uta.edu", phone: "9090909090" },
+// ];
 
 function BuildingManager() {
   const navigate = useNavigate();
   const [userType, setUserType] = useState("resident");
   const [active, setActive] = useState("home");
+  const [employees, setEmployees] = useState([])
 
   useEffect(() => {
     let selected = window.location.pathname.replace("/", "");
     setUserType(selected);
-  });
+    getEmployees().then(data=>{
+      console.log(data)
+      setEmployees(data.building)
+    })
+
+    // fetch('data/employees.json',{  
+    //   headers : { 
+    //       'Content-Type': 'application/json',
+    //       'Accept': 'application/json'
+    //   }
+    // })
+    // .then(res=>res.json()).then(data=>{
+    //   setEmployees(data.building)
+    // })
+  },[]);
 
   const changeType = (e) => {
     window.location.href = e.target.value;
@@ -71,7 +87,7 @@ function BuildingManager() {
       </div> */}
       {active == "home" ? (
         <div>
-          <ManagerHome boxData={boxData2} employees={employees} />
+          {employees.length ? <ManagerHome boxData={boxData2} employees={employees} />:''}
           <ManagerDashboard boxData={boxData} reportData={reportData} />
         </div>
       ) : (
