@@ -11,7 +11,6 @@ function VisitorAddVehicle() {
   useEffect(() => {
     let selected = window.location.pathname.replace("/", "");
     setUserType(selected);
-    console.log();
   });
 
   const changeType = (e) => {

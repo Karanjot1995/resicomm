@@ -56,11 +56,12 @@ function Login({setIsLoggedIn}) {
     }else{
       if(!errMsgs['email'] && !errMsgs['password']){
         signIn(data).then(res=> {
+          console.log(res)
           if(res.status==200){
             localStorage.setItem('user', JSON.stringify(res.data))
             // dispatch(setIsLogged())
-            setIsLoggedIn(localStorage.getItem('user'))
-            navigate('/home');
+            // setIsLoggedIn(localStorage.getItem('user'))
+            // navigate('/home');
           }else{
             alert('Invalid username/password')
           }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { getEmployees } from "../../../services/services";
 import ManagerDashboard from "../ManagerDashboard";
 import ManagerHome from "../ManagerHome";
 
@@ -26,20 +27,22 @@ const reportData = {
   rows: [["Report_1", "Resident_1", "Date_1"]],
 };
 
-const employees = [
-  { id: 2, name: "Jatin", email: "jatin@mavs.uta.edu", phone: "9090909090" },
-];
+// const employees = [
+//   { id: 2, name: "Jatin", email: "jatin@mavs.uta.edu", phone: "9090909090" },
+// ];
 
 function PoolManager() {
   const navigate = useNavigate();
   const [userType, setUserType] = useState("resident");
   const [active, setActive] = useState("home");
+  const [employees, setEmployees] = useState([])
+
 
   useEffect(() => {
     let selected = window.location.pathname.replace("/", "");
     setUserType(selected);
-    console.log();
-  });
+    getEmployees().then(data=>setEmployees(data.pool))
+  },[]);
 
   const changeType = (e) => {
     window.location.href = e.target.value;
