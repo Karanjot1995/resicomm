@@ -116,17 +116,22 @@ function Register() {
         valid = false;
       }
     }
-    if (
-      !Email ||
-      !UserPassword ||
-      !fName ||
-      !lName ||
-      !countryCode ||
-      !fullPhone ||
-      !DOB
-    ) {
-      console.log("some error" + fullPhone);
-      // alert('All fields marked with * are mandatory!')
+    if (!fName) {
+      alert("Enter a valid First Name!");
+    } else if (!lName) {
+      alert("Enter a valid Last Name!");
+    } else if (!Email) {
+      alert("Enter a valid Email!");
+    } else if (!UserPassword) {
+      alert("Enter a valid Password!");
+    } else if (!confirmPassword || !passwordsMatch) {
+      alert("Enter a valid Confirm Password!");
+    } else if (!countryCode) {
+      alert("Please select a valid Country Code!");
+    } else if (!fullPhone) {
+      alert("Enter a valid Phone Number!");
+    } else if (!DOB) {
+      alert("Enter a valid Date of Birth!");
     } else {
       // if (valid) {
       let data = {
