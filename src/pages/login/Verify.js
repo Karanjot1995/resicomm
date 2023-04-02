@@ -18,9 +18,6 @@ function VerifyEmail() {
     console.log("hash is " + hash);
     console.log("email is " + email);
 
-    let url = "http://localhost:3000/verify?email=" + email + "&hash=" + hash;
-    console.log("url is " + url);
-
     let data = {
       email: email,
       hash: hash,
@@ -29,12 +26,10 @@ function VerifyEmail() {
     verifyEmail(data)
       .then((response) => {
         setIsLoaded(true);
-        console.log("code is " + response.status);
-        if (response.status == 200) {
+        if (response.status == 200 || response.status == 404) {
           setIsVerified(true);
-        } else {
-          setErrorText(response.message);
         }
+        setErrorText(response.message);
       })
       .catch((error) => {
         console.error(error);
@@ -46,13 +41,12 @@ function VerifyEmail() {
       {isLoaded ? (
         isVerified ? (
           <div className="text-center element">
-            <h1>Your email has been verified!</h1>
+            <h1>{errorText}</h1>
             <h2>Please proceed to login!</h2>
           </div>
         ) : (
           <div className="text-center element">
             <h1>{errorText}</h1>
-            <h2>Please proceed to login!</h2>
           </div>
         )
       ) : (
