@@ -51,7 +51,7 @@ export const register = async (data) => {
 }
 
 export const verifyEmail = async (data) => {
-  return await fetch(`${API_URL}/verify`, {
+  return await fetch(`${API_URL}/verify?email=${data.email}&hash=${data.hash}`, {
     ...getOptions
   }).then(res=> res.json())
 }

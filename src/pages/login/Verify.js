@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { verifyEmail } from "../../services/services";
+import "./login.scss";
+import "./../../App.scss";
 
 function VerifyEmail() {
   const [isVerified, setIsVerified] = useState(false);
@@ -15,13 +18,22 @@ function VerifyEmail() {
     console.log("hash is " + hash);
     console.log("email is " + email);
 
-    fetch("http://localhost:3000/verify?email=" +{email} + "&hash="+{hash})
-    .then((response) => {
+    let url = "http://localhost:3000/verify?email=" + email + "&hash=" + hash;
+    console.log("url is " + url);
+
+    let data = {
+      email: email,
+      hash: hash,
+    };
+
+    verifyEmail(data)
+      .then((response) => {
         setIsLoaded(true);
+        console.log("code is " + response.status);
         if (response.status == 200) {
-        setIsVerified(true);
+          setIsVerified(true);
         } else {
-            setErrorText(response.message);
+          setErrorText(response.message);
         }
       })
       .catch((error) => {
@@ -30,11 +42,24 @@ function VerifyEmail() {
   }, []);
 
   return (
-    <div>
-      {isLoaded ? (isVerified ? 
-        <h1>Your email has been verified!</h1> : <h1>{errorText}</h1>
+    <div className="verify-container">
+      {isLoaded ? (
+        isVerified ? (
+          <div className="text-center element">
+            <h1>Your email has been verified!</h1>
+            <h2>Please proceed to login!</h2>
+          </div>
+        ) : (
+          <div className="text-center element">
+            <h1>{errorText}</h1>
+            <h2>Please proceed to login!</h2>
+          </div>
+        )
       ) : (
-        <h1>Verifying your email...</h1>
+        <div className="text-center element">
+          <i className="fa fa-spinner fa-spin verify" />
+          <h1>Verifying your email...</h1>
+        </div>
       )}
     </div>
   );
