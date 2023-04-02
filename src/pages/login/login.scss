@@ -211,6 +211,10 @@ Gampa, Sai Gayathri - 1002090414
             text-align: left;
             position: relative;
         }
+        .w-48 {
+           width:48%;
+           
+        }
     }
     .error-msg{
         position: absolute;
@@ -263,3 +267,28 @@ Gampa, Sai Gayathri - 1002090414
 .mt-8 {
     margin-top: 8px;
 }
+
+  .password-wrapper {
+    position: relative;
+  }
+  
+  .toggle-visibility {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .fa-eye {
+    font-size: 20px;
+    color: #ccc;
+  }
+  
+  .fa-eye-slash {
+    font-size: 20px;
+    color: #ccc;
+  }

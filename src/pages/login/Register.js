@@ -1,25 +1,47 @@
 import React, { useState, useEffect } from "react";
-import { register } from '../../services/services'
-import { useNavigate } from 'react-router-dom';
-import { validateCity, validateCountry, validateEmail, validateFirstName, validateLastName, validateName, validatePassword, validatePhone, validateState, validateStreet, validateZip } from "../../utils/validation";
+import { register } from "../../services/services";
+import { useNavigate } from "react-router-dom";
+import {
+  validateCity,
+  validateConfirmPassword,
+  validateCountry,
+  validateEmail,
+  validateFirstName,
+  validateLastName,
+  validateName,
+  validatePassword,
+  validatePhone,
+  validateState,
+  validateStreet,
+  validateZip,
+} from "../../utils/validation";
+import "font-awesome/css/font-awesome.min.css";
+import "./login.scss";
+import { country_code_list } from "../../utils/constants";
 // import { setUserData } from "../actions";
 // import { useHistory } from "react-router-dom";
 
 function Register() {
   const navigate = useNavigate();
 
-  const [userType, setUserType] = useState('resident');
+  const [userType, setUserType] = useState("resident");
   const [Email, setEmail] = useState("");
-  const [UserPassword, setPassword] = useState ("");
-  const [name, setName] = useState ("");
-  const [PhoneNo, setPhone] = useState (null);
-  const [DOB, setDob] = useState (null);
+  const [UserPassword, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [countryCode, setCountryCode] = useState("");
+  const [passwordsMatch, setPasswordsMatch] = useState(false);
+  const [fName, setFname] = useState("");
+  const [lName, setLname] = useState("");
+  const [PhoneNo, setPhone] = useState(null);
+  const [fullPhone, setFullPhone] = useState(null);
+  const [DOB, setDob] = useState(null);
+  const [isVisitor, setIsVisitor] = useState(false);
   const [country, setCountry] = useState("");
   const [homeState, setHomeState] = useState("");
   const [city, setCity] = useState("");
   const [street, setStreet] = useState("");
   const [zipcode, setZipCode] = useState("");
-  const [errMsgs, setErrMsgs] = useState({})
+  const [errMsgs, setErrMsgs] = useState({});
 
   const handleUserType = (event) => {
     setUserType(event.target.value);
@@ -29,148 +51,370 @@ function Register() {
   // const dispatch = useDispatch()
 
   const selectUserTyper = (type) => {
-    setUserType(type)
-  }
-  
-  const registerUser = async (e) => {
-    let data = {
-      email:Email,
-      password: UserPassword,
-      name: name,
-      phone: PhoneNo,
-      dob: DOB,
-      type: userType
-    }
-    console.log(data)
-    e.preventDefault();
-    let valid = true;
-    for (const key in errMsgs) {
-      if(errMsgs[key] && key!='name'){
-        valid = false
-      }
-    }
-    if(!Email || !UserPassword || !name || !PhoneNo || !DOB){
-      // alert('All fields marked with * are mandatory!')
-    }else{
-      if(valid){
-        let data = {
-          email:Email,
-          password: UserPassword,
-          name: name,
-          phone: PhoneNo,
-          dob: DOB
-        }
-        // register(data).then(res=> {
-        //   if(res.status==200){
-        //     navigate('/login');
-        //     alert('Successfully registered! Login to continue.')
-        //   }else if (res.status ==400){
-        //     alert('Email already registered. Login to continue.')
-        //   }else{
-        //     alert('Error setting up you account.')
-        //   }
-        // })
-      }
+    setUserType(type);
+  };
+
+  const togglePasswordVisibility = () => {
+    const passwordInput = document.querySelector(".password");
+    const visibilityButton = document.querySelector(".toggle-visibility i");
+
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      visibilityButton.classList.remove("fa-eye");
+      visibilityButton.classList.add("fa-eye-slash");
+    } else {
+      passwordInput.type = "password";
+      visibilityButton.classList.remove("fa-eye-slash");
+      visibilityButton.classList.add("fa-eye");
     }
   };
 
-  function chkLen(e,l){
-    if(e.target.value.length>l) e.target.value = e.target.value.slice(0,l)
+  const validatePhone = (code, phone, setPhone, errMsgs, setErrMsgs) => {
+    const countryCode = code;
+    const phoneNumber = phone;
+    const regex = /^\d{10}$/;
+
+    if (regex.test(phoneNumber)) {
+      setPhone(countryCode + phoneNumber);
+      setErrMsgs((prevState) => ({ ...prevState, phone: "" }));
+    } else {
+      setPhone("");
+      setErrMsgs((prevState) => ({
+        ...prevState,
+        phone: "Please enter a valid 10-digit phone number.",
+      }));
+    }
+  };
+
+  useEffect(() => {
+    // fetch("https://countrycode.dev/api/calls")
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log("data is " + data);
+    //     setCountryCode(data);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error fetching country codes:", error);
+    //   });
+  }, []);
+
+  const registerUser = async (e) => {
+    let data = {
+      email: Email,
+      password: UserPassword,
+      first_name: fName,
+      last_name: lName,
+      phone: fullPhone,
+      dob: DOB,
+      isVisitor: isVisitor,
+    };
+    console.log(data);
+    e.preventDefault();
+    let valid = true;
+    for (const key in errMsgs) {
+      if (errMsgs[key] && key != "name") {
+        valid = false;
+      }
+    }
+    if (
+      !Email ||
+      !UserPassword ||
+      !fName ||
+      !lName ||
+      !countryCode ||
+      !fullPhone ||
+      !DOB
+    ) {
+      console.log("some error" + fullPhone);
+      // alert('All fields marked with * are mandatory!')
+    } else {
+      // if (valid) {
+      let data = {
+        email: Email,
+        password: UserPassword,
+        first_name: fName,
+        last_name: lName,
+        phone: fullPhone,
+        dob: DOB,
+        isVisitor: isVisitor,
+      };
+      register(data)
+        .then((response) => {
+          if (response.status == 200) {
+            alert("Successfully registered! Verify your email to continue.");
+          } else {
+            alert(response.message);
+          }
+        })
+        .catch((error) => {
+          console.error("Error registering user:", error);
+        });
+    }
+  };
+
+  function chkLen(e, l) {
+    if (e.target.value.length > l) e.target.value = e.target.value.slice(0, l);
   }
 
-   return (
-     <div className="login-page pt-50 register">
-       <div className="login-body">
+  return (
+    <div className="login-page pt-50 register">
+      <div className="login-body">
         <div className="login-form">
-        <h1 className="login-title text-start">Register</h1>
+          <h1 className="login-title text-start">Register</h1>
           <form className="register-form" id="register-form">
-            <div className="personal-info">              
+            <div className="personal-info">
               <div className="">
+                <div className="row-inputs">
+                  <div className="lInput w-48">
+                    <label>
+                      <b>First Name:</b>
+                    </label>
+                    <input
+                      className=""
+                      type="text"
+                      placeholder="John"
+                      onChange={(e) =>
+                        validateFirstName(e, setFname, errMsgs, setErrMsgs)
+                      }
+                      required
+                    />
+                    <p className="error-msg">
+                      {errMsgs["fname"] ? errMsgs["fname"] : ""}
+                    </p>
+                  </div>
 
-                <div className="lInput">
-                  <label><b>Full Name:</b></label>
-                  <input
-                    className=""
-                    type="text"
-                    placeholder="Name"
-                    onChange = { (e) => validateName(e, setName, errMsgs, setErrMsgs)}
-                    required
-                  />
-                  <p className="error-msg">{errMsgs['name']?errMsgs['name']:''}</p>
+                  <div className="lInput w-48">
+                    <label>
+                      <b>Last Name:</b>
+                    </label>
+                    <input
+                      className=""
+                      type="text"
+                      placeholder="Doe"
+                      onChange={(e) =>
+                        validateLastName(e, setLname, errMsgs, setErrMsgs)
+                      }
+                      required
+                    />
+                    <p className="error-msg">
+                      {errMsgs["lname"] ? errMsgs["lname"] : ""}
+                    </p>
+                  </div>
                 </div>
 
                 <div className="lInput">
-                  <label><b>Email:</b></label>
+                  <label>
+                    <b>Email:</b>
+                  </label>
                   <input
                     className="email"
                     type="email"
                     placeholder="Email*"
-                    onChange = { (e) => validateEmail(e, setEmail, errMsgs, setErrMsgs)}
+                    onChange={(e) =>
+                      validateEmail(e, setEmail, errMsgs, setErrMsgs)
+                    }
                     required
-                  /> 
-                  <p className="error-msg">{errMsgs['email']?errMsgs['email']:''}</p>
+                  />
+                  <p className="error-msg">
+                    {errMsgs["email"] ? errMsgs["email"] : ""}
+                  </p>
                 </div>
                 <div className="lInput">
-                  <label><b>Password:</b></label>
+                  <label>
+                    <b>Password:</b>
+                  </label>
+                  <div className="password-wrapper">
+                    <input
+                      className="password"
+                      type="password"
+                      placeholder="Password*"
+                      onChange={(e) =>
+                        validatePassword(e, setPassword, errMsgs, setErrMsgs)
+                      }
+                      required
+                    />
+                    <button
+                      type="button"
+                      className="toggle-visibility"
+                      onClick={() => togglePasswordVisibility()}
+                    >
+                      <i style={{ color: "black" }} className="fa fa-eye"></i>
+                    </button>
+                  </div>
+                  <p className="error-msg">
+                    {errMsgs["password"] ? errMsgs["password"] : ""}
+                  </p>
+                </div>
+                <div className="lInput">
+                  <label>
+                    <b>Confirm Password:</b>
+                  </label>
                   <input
                     className="password"
                     type="password"
-                    placeholder="Password*"
-                    onChange = { (e) => validatePassword(e, setPassword, errMsgs, setErrMsgs)}
+                    placeholder="Confirm Password*"
+                    onChange={(e) => {
+                      setPasswordsMatch(e.target.value === UserPassword);
+                      validateConfirmPassword(
+                        e,
+                        setConfirmPassword,
+                        errMsgs,
+                        setErrMsgs
+                      );
+                    }}
                     required
                   />
-                  <p className="error-msg">{errMsgs['password']?errMsgs['password']:''}</p>
+                  {!confirmPassword ||
+                    (!passwordsMatch && (
+                      <p
+                        style={{
+                          color: "red",
+                        }}
+                      >
+                        Passwords don't match
+                      </p>
+                    ))}
+                  <p className="error-msg">
+                    {errMsgs["cPassword"] ? errMsgs["cPassword"] : ""}
+                  </p>
                 </div>
                 <div className="lInput">
-                  <label><b>Mobile:</b></label>
+                  <label>
+                    <b>Country Code:</b>
+                  </label>
+                  <div className="phone-wrapper">
+                    <select
+                      defaultValue=""
+                      className="country-code"
+                      onChange={(e) => {
+                        setCountryCode(e.target.value);
+                        validatePhone(
+                          e.target.value,
+                          PhoneNo,
+                          setFullPhone,
+                          errMsgs,
+                          setErrMsgs
+                        );
+                      }}
+                      required
+                    >
+                      <option value="" disabled>
+                        Select country code
+                      </option>
+                      {country_code_list &&
+                        country_code_list.map((element) => {
+                          return (
+                            <option value={"+" + element.E164}>
+                              +{element.E164} ({element.country_name})
+                            </option>
+                          );
+                        })}
+                    </select>
+                  </div>
+                  {/* <p className="error-msg">
+                    {errMsgs["phone"] ? errMsgs["phone"] : ""}
+                  </p> */}
+                </div>
+                <div className="lInput">
+                  <label>
+                    <b>Mobile:</b>
+                  </label>
                   <input
                     className=""
                     type="number"
                     placeholder="Phone Number*"
                     maxLength="10"
-                    onInput={(e)=>chkLen(e,10)}
-                    onChange = { (e) => validatePhone(e, setPhone, errMsgs, setErrMsgs)}
+                    onInput={(e) => chkLen(e, 10)}
+                    onChange={
+                      (e) => {
+                        setPhone(e.target.value);
+                        validatePhone(
+                          countryCode,
+                          e.target.value,
+                          setFullPhone,
+                          errMsgs,
+                          setErrMsgs
+                        );
+                      }
+                      // validatePhone(e, setPhone, errMsgs, setErrMsgs)
+                    }
                     required
                   />
-                  <p className="error-msg">{errMsgs['phone']?errMsgs['phone']:''}</p>
+                  <p className="error-msg">
+                    {errMsgs["phone"] ? errMsgs["phone"] : ""}
+                  </p>
                 </div>
                 <div className="lInput">
-                  <label><b>Date of Birth:</b></label>
+                  <label>
+                    <b>Date of Birth:</b>
+                  </label>
                   <input
                     className=""
                     type="date"
                     placeholder="Date of birth*"
-                    onChange = { (e) => {
-                      setDob (e.target.value);
+                    onChange={(e) => {
+                      setDob(e.target.value);
                     }}
                     required
                   />
                 </div>
-
-
-
               </div>
               <div className="lInput">
                 <div className="user-type">
-                  <input type="radio" checked={userType === 'resident'} onChange={()=>selectUserTyper('resident')} name="login_type" value="resident"/><label>Resident</label>
-                  <input type="radio" checked={userType === 'visitor'} onChange={()=>selectUserTyper('visitor')} name="login_type" value="visitor"/><label>Visitor</label>
-                  <input type="radio" checked={userType === 'manager'} onChange={()=>selectUserTyper('manager')} name="login_type" value="manager"/><label>Manager</label>
+                  <input
+                    type="checkbox"
+                    checked={isVisitor}
+                    onChange={(e) => {
+                      setIsVisitor(e.target.checked);
+                    }}
+                  />
+                  <label>Visitor</label>
+
+                  {/* <input
+                    type="radio"
+                    checked={userType === "resident"}
+                    onChange={() => selectUserTyper("resident")}
+                    name="login_type"
+                    value="resident"
+                  />
+                  <label>Resident</label>
+                  <input
+                    type="radio"
+                    checked={userType === "visitor"}
+                    onChange={() => selectUserTyper("visitor")}
+                    name="login_type"
+                    value="visitor"
+                  />
+                  <label>Visitor</label>
+                  <input
+                    type="radio"
+                    checked={userType === "manager"}
+                    onChange={() => selectUserTyper("manager")}
+                    name="login_type"
+                    value="manager"
+                  />
+                  <label>Manager</label> */}
                 </div>
               </div>
             </div>
-            
-            <button type="submit" onClick={registerUser} className="login-btn">Register</button>
-            <div className="login-signup-now text-start" data-uia="login-signup-now">
-                {`Already a member? `}
-                <a className=" " target="_self" href="/login">Sign In</a>
+
+            <button type="submit" onClick={registerUser} className="login-btn">
+              Register
+            </button>
+            <div
+              className="login-signup-now text-start"
+              data-uia="login-signup-now"
+            >
+              {`Already a member? `}
+              <a className=" " target="_self" href="/login">
+                Sign In
+              </a>
             </div>
           </form>
-          
         </div>
-
-       </div>
-        {/* <h1> {loginStatus}</h1> */}
-        {/* <div className="login-wrapper hybrid-login-wrapper">
+      </div>
+      {/* <h1> {loginStatus}</h1> */}
+      {/* <div className="login-wrapper hybrid-login-wrapper">
           <div className="login-wrapper-background">
             <img className="concord-img vlv-creative" src="https://assets.nflxext.com/ffe/siteui/vlv3/c16cf196-e89e-4c46-8cc7-f2eca6fb0762/96d1707b-2053-4344-bac8-fe8e2c980fd8/US-en-20220103-popsignuptwoweeks-perspective_alpha_website_small.jpg" srcset="https://assets.nflxext.com/ffe/siteui/vlv3/c16cf196-e89e-4c46-8cc7-f2eca6fb0762/96d1707b-2053-4344-bac8-fe8e2c980fd8/US-en-20220103-popsignuptwoweeks-perspective_alpha_website_small.jpg 1000w, https://assets.nflxext.com/ffe/siteui/vlv3/c16cf196-e89e-4c46-8cc7-f2eca6fb0762/96d1707b-2053-4344-bac8-fe8e2c980fd8/US-en-20220103-popsignuptwoweeks-perspective_alpha_website_medium.jpg 1500w, https://assets.nflxext.com/ffe/siteui/vlv3/c16cf196-e89e-4c46-8cc7-f2eca6fb0762/96d1707b-2053-4344-bac8-fe8e2c980fd8/US-en-20220103-popsignuptwoweeks-perspective_alpha_website_large.jpg 1800w" alt=""/>
           </div>
@@ -208,8 +452,8 @@ function Register() {
             </div>
           </div>
         </div> */}
-     </div>
-   );
+    </div>
+  );
 }
- 
+
 export default Register;

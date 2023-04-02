@@ -19,6 +19,16 @@ export const validatePassword = (e, setPassword, errMsgs, setErrMsgs) =>{
   }
 }
 
+export const validateConfirmPassword = (e, setConfirmPassword, errMsgs, setErrMsgs) =>{
+  let value = e.target.value
+  setConfirmPassword(value)
+  if(!value || value.length<6){
+    setErrMsgs({ ...errMsgs, 'cPassword': "Password should be at least 6 characters long." })
+  }else{
+    setErrMsgs({ ...errMsgs, 'cPassword': '' })
+  }
+}
+
 export const validateFirstName = (e, setFname, errMsgs, setErrMsgs) =>{
   let value = e.target.value
   setFname(value)

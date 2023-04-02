@@ -20,6 +20,7 @@ import VisitorCreateRequest from "./pages/Visitor/CreateVisitRequest";
 import VisitorAddVehicle from "./pages/Visitor/AddVehicle";
 import UserProfile from "./pages/login/UserProfile";
 import DrivingInstructions from "./pages/Visitor/DrivingInstructions";
+import VerifyEmail from "./pages/login/Verify";
 // import { useLocalStorage } from "./utils/useLocalStorage";
 // import ProtectedRoute from "./utils/ProtectedRoute";
 
@@ -34,6 +35,7 @@ function App() {
       <div className="app-container">
         {isLoggedIn?
         <Routes>
+          <Route path="/verify" element={<VerifyEmail setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/home" element={<Home setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/profile" element={<UserProfile setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/resident" element={<ResidentDashboard setIsLoggedIn={setIsLoggedIn}/>} />
@@ -53,6 +55,7 @@ function App() {
         </Routes>
         :
         <Routes>
+          <Route path="/verify" element={<VerifyEmail setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/home" element={<Home setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/" element={<Home setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/profile" element={<UserProfile setIsLoggedIn={setIsLoggedIn}/>} />
