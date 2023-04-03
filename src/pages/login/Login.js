@@ -10,7 +10,7 @@ import { validateEmail, validatePassword } from '../../utils/validation'
 
 
 
-function Login({setIsLoggedIn}) {
+function Login({setIsLoggedIn, setUser}) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState ("");
@@ -20,6 +20,25 @@ function Login({setIsLoggedIn}) {
   const [errMsgs, setErrMsgs] = useState({}) 
 
 
+  useEffect(() => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    if(urlParams.get('email') && urlParams.get('hash')){
+      let email = urlParams.get('email');
+      let hash = urlParams.get('hash');
+      fetch(`http://localhost/resicomm-server/index.php/verify?email=${email}&hash=${hash}`);
+      window.location.href="/login"
+    }
+    // fetch("https://countrycode.dev/api/calls")
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log("data is " + data);
+    //     setCountryCode(data);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error fetching country codes:", error);
+    //   });
+  }, []);
   // const validateEmail = (e) => {
   //   let userEmail = e.target.value;
   //   setEmail(userEmail)
@@ -56,11 +75,11 @@ function Login({setIsLoggedIn}) {
     }else{
       if(!errMsgs['email'] && !errMsgs['password']){
         signIn(data).then(res=> {
-          console.log(res)
           if(res.status==200){
-            localStorage.setItem('user', JSON.stringify(res.data))
+            localStorage.setItem('user', JSON.stringify(res.user))
             // dispatch(setIsLogged())
-            // setIsLoggedIn(localStorage.getItem('user'))
+            setIsLoggedIn(localStorage.getItem('user'))
+            setUser(res.user)
             // navigate('/home');
           }else{
             alert('Invalid username/password')

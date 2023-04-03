@@ -5,6 +5,7 @@ function ManagerHome(props) {
 
     const {boxData} = props;
     const [employees, setEmployees] = useState(props.employees)
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
     const [employee, setEmployee] = useState({
         id:'',
         fname:'',
@@ -98,6 +99,16 @@ function ManagerHome(props) {
         setEmployees(emps)
         setEdit()
     }
+
+    useEffect(() => {
+        console.log(user)
+        // let selected = window.location.pathname.replace("/", "");
+        // setUserType(selected);
+        // getEmployees().then(data=>{
+        //   console.log(data)
+        //   setEmployees(data.building)
+        // })
+    })
 
     return (
         <div className="container">
