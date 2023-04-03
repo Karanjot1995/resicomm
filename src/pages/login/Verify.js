@@ -27,6 +27,7 @@ function VerifyEmail() {
       .then((response) => {
         setIsLoaded(true);
         if (response.status == 200 || response.status == 404) {
+          console.log("asdasdasd");
           setIsVerified(true);
         }
         setErrorText(response.message);

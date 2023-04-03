@@ -23,8 +23,7 @@ const customStyles = {
 
 Modal.setAppElement(document.getElementById("login"));
 
-
-function Login({setIsLoggedIn, setUser}) {
+function Login({ setIsLoggedIn, setUser }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,10 +34,7 @@ function Login({setIsLoggedIn, setUser}) {
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
-  useEffect(() => {
-    
-  });
-
+  useEffect(() => {});
 
   function openModal() {
     setIsOpen(true);
@@ -56,11 +52,13 @@ function Login({setIsLoggedIn, setUser}) {
   useEffect(() => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    if(urlParams.get('email') && urlParams.get('hash')){
-      let email = urlParams.get('email');
-      let hash = urlParams.get('hash');
-      fetch(`http://localhost/resicomm-server/index.php/verify?email=${email}&hash=${hash}`);
-      window.location.href="/login"
+    if (urlParams.get("email") && urlParams.get("hash")) {
+      let email = urlParams.get("email");
+      let hash = urlParams.get("hash");
+      fetch(
+        `http://localhost/resicomm-server/index.php/verify?email=${email}&hash=${hash}`
+      );
+      window.location.href = "/login";
     }
     // fetch("https://countrycode.dev/api/calls")
     //   .then((response) => response.json())
@@ -101,24 +99,24 @@ function Login({setIsLoggedIn, setUser}) {
     if (!email || !password) {
       valid = false;
     }
-    
-    if(!valid){
-      alert('All fields are mandatory!')
-    }else{
-      if(!errMsgs['email'] && !errMsgs['password']){
-        signIn(data).then(res=> {
-          if(res.status==200){
-            localStorage.setItem('user', JSON.stringify(res.user))
-            // dispatch(setIsLogged())
-            setIsLoggedIn(localStorage.getItem('user'))
-            setUser(res.user)
-            // navigate('/home');
-            let user_type = res.user["type"];
+
+    if (!valid) {
+      alert("All fields are mandatory!");
+    } else {
+      if (!errMsgs["email"] && !errMsgs["password"]) {
+        signIn(data).then((res) => {
+          if (res.status == 200) {
             let isVerified = res.user["verified"] == 0 ? false : true;
             console.log("is verified is " + isVerified);
             if (isVerified === false) {
               openModal();
             } else {
+              localStorage.setItem("user", JSON.stringify(res.user));
+              // dispatch(setIsLogged())
+              setIsLoggedIn(localStorage.getItem("user"));
+              setUser(res.user);
+              // navigate('/home');
+              let user_type = res.user["type"];
               switch (user_type) {
                 case "user":
                   navigate("/resident");
@@ -170,6 +168,7 @@ function Login({setIsLoggedIn, setUser}) {
               {modalIsOpen && (
                 <Modal
                   isOpen={modalIsOpen}
+                  onHide={() => setIsOpen(false)}
                   onAfterOpen={afterOpenModal}
                   onRequestClose={closeModal}
                   style={customStyles}
