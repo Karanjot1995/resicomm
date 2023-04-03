@@ -56,3 +56,17 @@ export const verifyEmail = async (data) => {
     ...getOptions
   }).then(res=> res.json())
 }
+
+export const resendVerification = async (data) => {
+  return await fetch(`${API_URL}/resend-verification`, {
+    ...postOptions,
+    body: JSON.stringify(data),
+  }).then((res) => res.json());
+};
+
+export const getVendors = async () => {
+  return await fetch(`${API_URL}/users/vendors`, {
+    ...getOptions,
+    // body: JSON.stringify(data),
+  }).then((res) => res.json());
+};
