@@ -40,9 +40,9 @@ export const signIn = async (data) => {
   }).then((res) => res.json());
 };
 
-// export const testlogin = () => {
-//   return axios.get(`${API_URL}/testlogin`)
-// }
+export const getServices = async () => {
+  return await fetch(`${API_URL}/services`).then(res=> res.json())
+}
 
 export const register = async (data) => {
   return await fetch(`${API_URL}/register`, {

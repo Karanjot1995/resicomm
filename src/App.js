@@ -32,18 +32,34 @@ function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  // useEffect(() => {
+  //   console.log(user);
+    
+  // },[]);
+
+  const renderDashboard = (user) => {
+    if(user.type && user.type=='user'){
+      return <ResidentDashboard setIsLoggedIn={setIsLoggedIn}/>
+    }else if(user.type && user.type=='visitor'){
+      <VisitorDashboard setIsLoggedIn={setIsLoggedIn}/>
+    }else if(user.type && user.type=='manager'){
+      return <Manager user={user}/>
+    }
+  }
+
   return (
     <div className="App">
       <Header isLoggedIn={isLoggedIn}/>
       <div className="app-container">
-        {isLoggedIn && user?
+        {user?
         <Routes>
           <Route path="/verify" element={<VerifyEmail setIsLoggedIn={setIsLoggedIn}/>} />
-          <Route path="/dashboard" element={<Manager user={user}/>} />
           <Route path="/home" element={<Home setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/profile" element={<UserProfile setIsLoggedIn={setIsLoggedIn}/>} />
-          <Route path="/resident" element={<ResidentDashboard setIsLoggedIn={setIsLoggedIn}/>} />
-          <Route path="/visitor" element={<VisitorDashboard setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="/dashboard" element={renderDashboard(user)} />
+          {/* {user.type == 'manager' && <Route path="/dashboard" element={<Manager user={user}/>} />}
+          {user.type=='resident' && <Route path="/resident" element={<ResidentDashboard setIsLoggedIn={setIsLoggedIn}/>} />}
+          {user.type == 'visitor' && <Route path="/visitor" element={<VisitorDashboard setIsLoggedIn={setIsLoggedIn}/>} />} */}
           <Route path="/create-request" element={<VisitorCreateRequest setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/add-vehicle" element={<VisitorAddVehicle setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/driving-instructions" element={<DrivingInstructions setIsLoggedIn={setIsLoggedIn}/>} />
@@ -54,8 +70,8 @@ function App() {
           <Route path="/about" element={<About setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/contact-us" element={<Contactus setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/services" element={<Services setIsLoggedIn={setIsLoggedIn}/>} />
-          <Route path="/" element={<Navigate replace to="/resident" />} />
-          <Route path="*" element={<Navigate replace to="/resident" />} />
+          <Route path="/" element={<Navigate replace to="/home" />} />
+          <Route path="*" element={<Navigate replace to="/home" />} />
         </Routes>
         :
         <Routes>

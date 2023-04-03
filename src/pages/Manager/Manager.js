@@ -79,15 +79,11 @@ function Manager(props) {
         <option value="garden-manager">Garden Manager</option>
         <option value="security-manager">Security Manager</option>
       </select> */}
-      <h2 className="text-center pt-5">{user.department} Manager</h2>
-      {active == "home" ? (
         <div>
-          {employees.length ? <ManagerHome boxData={boxData2} employees={employees} />:''}
-          <ManagerDashboard boxData={boxData} reportData={reportData} />
+            <h2 className="text-center pt-5">{user.department} Manager</h2>
+            {employees.length ? <ManagerHome boxData={boxData2} employees={employees} />:''}
+            <ManagerDashboard boxData={boxData} reportData={reportData} />
         </div>
-      ) : (
-        <ManagerDashboard boxData={boxData} reportData={reportData} />
-      )}
     </div>
   );
 }
