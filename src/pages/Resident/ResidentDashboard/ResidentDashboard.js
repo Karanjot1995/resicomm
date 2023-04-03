@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./resident.scss";
 import "../../../App.scss";
+import { getServices } from "../../../services/services";
 
 function ResidentDashboard() {
   const navigate = useNavigate();
   const [userType, setUserType] = useState("resident");
   const [active, setActive] = useState("home");
+  const [amenities, setAmenities] = useState([]);
 
   useEffect(() => {
-    let selected = window.location.pathname.replace("/", "");
-    setUserType(selected);
-    console.log();
+    getServices().then(res=>setAmenities(res))
   });
 
   const changeType = (e) => {
@@ -19,14 +19,6 @@ function ResidentDashboard() {
   };
   return (
     <div className="pt-50 resident">
-      <select onChange={changeType} value={userType} className="type-select">
-        <option value="resident">Resident</option>
-        <option value="visitor">Visitor</option>
-        <option value="building-manager">Building Manager</option>
-        <option value="pool-manager">Pool Manager</option>
-        <option value="garden-manager">Garden Manager</option>
-        <option value="security-manager">Security Manager</option>
-      </select>
       {/* <div className="tab-toggle">
         <button
           onClick={() => setActive("home")}
@@ -45,7 +37,15 @@ function ResidentDashboard() {
         <div className="container">
           <div className="main">
             <div className="box-container">
-              <div className="box box1">
+              {amenities && amenities.map(service=>
+                 <div className="box box1">
+                 <div className="text">
+                   <h2 className="topic-heading">{service.name}</h2>
+                   <h2 className="topic">{service.hours}</h2>
+                 </div>
+               </div>
+              )}
+              {/* <div className="box box1">
                 <div className="text">
                   <h2 className="topic-heading">Garden</h2>
                   <h2 className="topic">7:00 AM - 5:00 PM</h2>
@@ -72,7 +72,7 @@ function ResidentDashboard() {
                   <h2 className="topic-heading">Gym</h2>
                   <h2 className="topic">5:00 AM - 12:00 AM</h2>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div className="m-auto">

@@ -41,7 +41,6 @@ function ManagerHome(props) {
     const addEmployee = (e) =>{
         e.preventDefault();
         let emp = employee
-        console.log(employee)
         // for(let emp in employees){
         //     if(emp.email!=)
         // }
@@ -78,7 +77,6 @@ function ManagerHome(props) {
         })
         setEdit(email)
         setEditEmp(emp);
-        console.log(email)
     }
 
     const handleEdit = e => {
@@ -101,7 +99,6 @@ function ManagerHome(props) {
     }
 
     useEffect(() => {
-        console.log(user)
         // let selected = window.location.pathname.replace("/", "");
         // setUserType(selected);
         // getEmployees().then(data=>{
@@ -112,7 +109,7 @@ function ManagerHome(props) {
 
     return (
         <div className="container">
-            <div class="main">
+            <div className="main">
                 <div className="box-container">
                     {boxData.map(box=><button className="button">{box.title}</button>)}
                 </div>
@@ -132,7 +129,7 @@ function ManagerHome(props) {
                         </div>
                         
                         <div>
-                            <label for="" >Employee Email </label>
+                            <label htmlFor="" >Employee Email </label>
                             <input name="email" type="email" onChange={handleOnChange} value={employee.email}/>
                         </div>
 

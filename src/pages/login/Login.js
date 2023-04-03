@@ -80,6 +80,11 @@ function Login({setIsLoggedIn, setUser}) {
             // dispatch(setIsLogged())
             setIsLoggedIn(localStorage.getItem('user'))
             setUser(res.user)
+            if(res.user.type=='user'){
+              window.location.href='resident'
+            }else{
+              window.location.href='dashboard'
+            }
             // navigate('/home');
           }else{
             alert('Invalid username/password')
