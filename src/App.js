@@ -31,13 +31,13 @@ function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    console.log(user);
+  // useEffect(() => {
+  //   console.log(user);
     
-  },[]);
+  // },[]);
 
   const renderDashboard = (user) => {
-    if(user.type && user.type=='resident'){
+    if(user.type && user.type=='user'){
       return <ResidentDashboard setIsLoggedIn={setIsLoggedIn}/>
     }else if(user.type && user.type=='visitor'){
       <VisitorDashboard setIsLoggedIn={setIsLoggedIn}/>
