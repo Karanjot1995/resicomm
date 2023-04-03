@@ -39,7 +39,6 @@ function App() {
         <Routes>
           <Route path="/verify" element={<VerifyEmail setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/dashboard" element={<Manager user={user}/>} />
-
           <Route path="/home" element={<Home setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/profile" element={<UserProfile setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/resident" element={<ResidentDashboard setIsLoggedIn={setIsLoggedIn}/>} />
@@ -47,10 +46,10 @@ function App() {
           <Route path="/create-request" element={<VisitorCreateRequest setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/add-vehicle" element={<VisitorAddVehicle setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/driving-instructions" element={<DrivingInstructions setIsLoggedIn={setIsLoggedIn}/>} />
-          <Route path="/pool-manager" element={<PoolManager setIsLoggedIn={setIsLoggedIn}/>} />
+          {/* <Route path="/pool-manager" element={<PoolManager setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/garden-manager" element={<GardenManager setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/building-manager" element={<BuildingManager setIsLoggedIn={setIsLoggedIn}/>} />
-          <Route path="/security-manager" element={<SecurityManager setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="/security-manager" element={<SecurityManager setIsLoggedIn={setIsLoggedIn}/>} /> */}
           <Route path="/about" element={<About setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/contact-us" element={<Contactus setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/services" element={<Services setIsLoggedIn={setIsLoggedIn}/>} />
