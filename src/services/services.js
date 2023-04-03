@@ -67,6 +67,20 @@ export const resendVerification = async (data) => {
   }).then((res) => res.json());
 };
 
+export const forgetPassword = async (data) => {
+  return await fetch(`${API_URL}/forget-password`, {
+    ...postOptions,
+    body: JSON.stringify(data),
+  }).then((res) => res.json());
+};
+
+export const resetPassword = async (data) => {
+  return await fetch(`${API_URL}/reset-password`, {
+    ...postOptions,
+    body: JSON.stringify(data),
+  }).then((res) => res.json());
+};
+
 export const getVendors = async () => {
   return await fetch(`${API_URL}/users/vendors`, {
     ...getOptions,
