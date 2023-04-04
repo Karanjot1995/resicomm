@@ -41,7 +41,7 @@ export const signIn = async (data) => {
 }
 
 export const getServices = async () => {
-  return await fetch(`${API_URL}/services`).then(res=> res.json())
+  return await fetch(`${API_URL}/amenities`).then(res=> res.json())
 }
 
 export const register = async (data) => {
