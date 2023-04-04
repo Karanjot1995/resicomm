@@ -22,6 +22,7 @@ import UserProfile from "./pages/login/UserProfile";
 import DrivingInstructions from "./pages/Visitor/DrivingInstructions";
 import VerifyEmail from "./pages/login/Verify";
 import Manager from "./pages/Manager/Manager";
+import ResetPassword from "./pages/login/ResetPassword";
 // import { useLocalStorage } from "./utils/useLocalStorage";
 // import ProtectedRoute from "./utils/ProtectedRoute";
 
@@ -94,6 +95,7 @@ function App() {
           <Route path="*" element={<Navigate replace to="/login"/>} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
         </Routes>
         }
       </div>
