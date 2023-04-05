@@ -2,17 +2,21 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./resident.scss";
 import "../../../App.scss";
-import { getServices } from "../../../services/services";
+import { getServices, getVehicles } from "../../../services/services";
 
 function ResidentDashboard() {
   const navigate = useNavigate();
   const [userType, setUserType] = useState("resident");
   const [active, setActive] = useState("home");
   const [amenities, setAmenities] = useState([]);
+  const [vehicles, setVehicles] = useState([]);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
 
   useEffect(() => {
-    getServices().then(res=>setAmenities(res))
-  });
+    console.log("user is " + JSON.stringify(user));
+    getServices().then((res) => setAmenities(res));
+    getVehicles().then((res) => setVehicles(res));
+  }, []);
 
   const changeType = (e) => {
     window.location.href = e.target.value;
@@ -53,14 +57,15 @@ function ResidentDashboard() {
         <div className="container">
           <div className="main">
             <div className="box-container">
-              {amenities && amenities.map(service=>
-                 <div className="box box1">
-                 <div className="text">
-                   <h2 className="topic-heading">{service.name}</h2>
-                   <h2 className="topic">{service.hours}</h2>
-                 </div>
-               </div>
-              )}
+              {amenities &&
+                amenities.map((service) => (
+                  <div className="box box1">
+                    <div className="text">
+                      <h2 className="topic-heading">{service.name}</h2>
+                      <h2 className="topic">{service.hours}</h2>
+                    </div>
+                  </div>
+                ))}
               {/* <div className="box box1">
                 <div className="text">
                   <h2 className="topic-heading">Garden</h2>
@@ -146,132 +151,64 @@ function ResidentDashboard() {
                     <button className="view">View All</button>
                   </div>
 
-                  <div className="report-body">
-                    <table style={{ width: "100%", textAlign: "center" }}>
+                  <div className="report-body table-container">
+                    <table
+                      style={{
+                        width: "100%",
+                        textAlign: "center",
+                      }}
+                    >
                       <thead>
                         <tr>
-                          <th style={{ width: "10%" }}>Visitor Name</th>
-                          <th style={{ width: "20%" }}>Reason</th>
-                          <th style={{ width: "32%" }}>In-Time/Out-Time</th>
-                          <th style={{ width: "19%" }}>Status</th>
+                          <th style={{ width: "10%" }}>Make</th>
+                          <th style={{ width: "20%" }}>Model</th>
+                          <th style={{ width: "32%" }}>Number Plate</th>
+                          <th style={{ width: "19%" }}>Color</th>
                           <th style={{ width: "5%" }}></th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>John Doe</td>
-                          <td>Electricity</td>
-                          <td>Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM</td>
-                          <td className="visitor-table-request-visited">
-                            Visited
-                          </td>
-                          <td>
-                            <div className="visitor-schedule-action-container">
-                              <a>
-                                <img
-                                  src="./images/more_vert.png"
-                                  height="24px"
-                                  width="24px"
-                                />
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Sam Smith</td>
-                          <td>Plumbing</td>
-                          <td>Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM</td>
-                          <td className="visitor-table-request-entered">
-                            Entered
-                          </td>
-                          <td>
-                            <div className="visitor-schedule-action-container">
-                              <a>
-                                <img
-                                  src="./images/more_vert.png"
-                                  height="24px"
-                                  width="24px"
-                                />
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Victor Dean</td>
-                          <td>Guest</td>
-                          <td>Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM</td>
-                          <td className="visitor-table-request-requested">
-                            Requested
-                          </td>
-                          <td>
-                            <div className="visitor-schedule-action-container">
-                              <a>
-                                <img
-                                  src="./images/more_vert.png"
-                                  height="24px"
-                                  width="24px"
-                                />
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Lisa Harris</td>
-                          <td>Guest</td>
-                          <td>Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM</td>
-                          <td className="visitor-table-request-declined">
-                            Declined
-                          </td>
-                          <td>
-                            <div className="visitor-schedule-action-container">
-                              <a>
-                                <img
-                                  src="./images/more_vert.png"
-                                  height="24px"
-                                  width="24px"
-                                />
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Peter Spencer</td>
-                          <td>Housekeeping</td>
-                          <td>Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM</td>
-                          <td className="visitor-table-request-approved">
-                            Approved
-                          </td>
-                          <td>
-                            <div className="visitor-schedule-action-container">
-                              <a>
-                                <img
-                                  src="./images/more_vert.png"
-                                  height="24px"
-                                  width="24px"
-                                />
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Daniel Geroge</td>
-                          <td>Delivery</td>
-                          <td>Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM</td>
-                          <td className="visitor-table-request-declined">
-                            Declined
-                          </td>
-                          <td>
-                            <div className="visitor-schedule-action-container">
-                              <a>
-                                <img
-                                  src="./images/more_vert.png"
-                                  height="24px"
-                                  width="24px"
-                                />
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
+                        {vehicles.map((vehicle, index) =>
+                          vehicle.user_id == user.id ? (
+                            <tr>
+                              <td>{vehicle.make}</td>
+                              <td>{vehicle.model}</td>
+                              <td>{vehicle.number_plate}</td>
+                              <td className="visitor-table-request-visited">
+                                {vehicle.color}
+                              </td>
+                              <td>
+                                {/* <div className="visitor-schedule-action-container">
+                                  <a>
+                                    <img
+                                      src="./images/more_vert.png"
+                                      height="24px"
+                                      width="24px"
+                                    />
+                                  </a>
+                                </div> */}
+                                <div className="dropdown-container">
+                                  <i className="fa fa-ellipsis-v dropdown-icon" />
+                                  <ul className="dropdown-menu text-left">
+                                    <li
+                                      key={vehicle.id + "edit"}
+                                      onClick={
+                                        () => {
+                                          navigate(`/edit-vehicle/${vehicle.id}`);
+                                        }
+                                      }
+                                    >
+                                      Edit
+                                    </li>
+                                    <li key={vehicle.id + "delete"}>Delete</li>
+                                  </ul>
+                                </div>
+                              </td>
+                            </tr>
+                          ) : (
+                            ""
+                          )
+                        )}
                       </tbody>
                     </table>
                   </div>
@@ -581,9 +518,9 @@ function ResidentDashboard() {
                                   width="24px"
                                 />
                               </a> */}
-                              <label class="switch">
+                              <label className="switch">
                                 <input type="checkbox" defaultChecked />
-                                <span class="slider round"></span>
+                                <span className="slider round"></span>
                               </label>
                             </div>
                           </td>
@@ -602,9 +539,9 @@ function ResidentDashboard() {
                                   width="24px"
                                 />
                               </a> */}
-                              <label class="switch">
+                              <label className="switch">
                                 <input type="checkbox" />
-                                <span class="slider round"></span>
+                                <span className="slider round"></span>
                               </label>
                             </div>
                           </td>
@@ -623,9 +560,9 @@ function ResidentDashboard() {
                                   width="24px"
                                 />
                               </a> */}
-                              <label class="switch">
+                              <label className="switch">
                                 <input type="checkbox" defaultChecked />
-                                <span class="slider round"></span>
+                                <span className="slider round"></span>
                               </label>
                             </div>
                           </td>
@@ -644,9 +581,9 @@ function ResidentDashboard() {
                                   width="24px"
                                 />
                               </a> */}
-                              <label class="switch">
+                              <label className="switch">
                                 <input type="checkbox" defaultChecked />
-                                <span class="slider round"></span>
+                                <span className="slider round"></span>
                               </label>
                             </div>
                           </td>

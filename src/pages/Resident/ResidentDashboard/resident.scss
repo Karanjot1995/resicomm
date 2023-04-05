@@ -47,7 +47,48 @@ Gampa, Sai Gayathri - 1002090414
  .logo_section {
    gap: 60px;
  }
+
+ .table-container {
+  position: relative;
+  z-index: 1;
+}
+
  
+ .dropdown-container {
+  position: relative;
+
+  .dropdown-icon {
+    cursor: pointer;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+    z-index: 10;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+
+    li {
+      list-style: none;
+      margin: 0;
+      padding: 5px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #f1f1f1;
+      }
+    }
+  }
+
+  &:hover .dropdown-menu {
+    display: block;
+  }
+}
+
+
  .search_bar {
    width: 250px;
    height: 42px;
@@ -325,7 +366,7 @@ Gampa, Sai Gayathri - 1002090414
  }
  
  .report-body {
-   overflow-x: auto;
+  //  overflow-x: auto;
    padding: 20px;
  }
  .report_topic_heading,
@@ -365,7 +406,7 @@ Gampa, Sai Gayathri - 1002090414
  .container {
    margin-top: 30px;
    width:80%;
-   margin:auto
+   margin:auto;
  }
  
  table {

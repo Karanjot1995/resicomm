@@ -107,7 +107,6 @@ function Login({ setIsLoggedIn, setUser }) {
         signIn(data).then((res) => {
           if (res.status == 200) {
             let isVerified = res.user["verified"] == 0 ? false : true;
-            console.log("is verified is " + isVerified);
             if (isVerified === false) {
               openModal();
             } else {
@@ -117,6 +116,7 @@ function Login({ setIsLoggedIn, setUser }) {
               setUser(res.user);
               // navigate('/home');
               let user_type = res.user["type"];
+              console.log("type is " + user_type);
               switch (user_type) {
                 case "user":
                   navigate("/resident");

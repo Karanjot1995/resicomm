@@ -57,8 +57,13 @@ Gampa, Sai Gayathri - 1002090414
   justify-content: space-around;
 }
 
+.bg-green {
+  background-color: green;
+}
+
 .d-flex {
   display: flex;
+  align-items: center; 
 }
 .d-block {
   display: block;
@@ -68,6 +73,14 @@ Gampa, Sai Gayathri - 1002090414
 }
 .d-inline {
   display: inline;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.row {
+  flex-direction: row;
 }
 
 .d-grid {

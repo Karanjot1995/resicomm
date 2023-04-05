@@ -17,6 +17,13 @@ let getOptions = {
   },
 };
 
+let putOptions = {
+  method: "PUT",
+  headers: {
+    "Content-Type": "application/json",
+  },
+};
+
 let options = {
   method: "POST",
   headers: {
@@ -41,8 +48,25 @@ export const signIn = async (data) => {
 };
 
 export const getServices = async () => {
-  return await fetch(`${API_URL}/services`).then(res=> res.json())
-}
+  return await fetch(`${API_URL}/amenities`).then((res) => res.json());
+};
+
+export const getVehicles = async () => {
+  return await fetch(`${API_URL}/vehicles`).then((res) => res.json());
+};
+
+export const getVehicleDetails = async (data) => {
+  return await fetch(`${API_URL}/vehicles?id=${data.vehicle_id}`, {
+    ...getOptions,
+  }).then((res) => res.json());
+};
+
+export const updateVehicleDetails = async (data) => {
+  return await fetch(`${API_URL}/vehicles?id=${data.vehicle_id}`, {
+    body: JSON.stringify(data),
+    ...putOptions,
+  }).then((res) => res.json());
+};
 
 export const register = async (data) => {
   return await fetch(`${API_URL}/register`, {
