@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Loader from "../../components/loader/Loader";
 import {
+  addVehicle,
   getVehicleDetails,
   updateVehicleDetails,
 } from "../../services/services";
 import "./visitor.scss";
 import "../../App.scss";
 
-function VisitorAddEditVehicle() {
+function VisitorAddEditVehicle({ route, navigation }) {
+  const location = useLocation();
+  const navigateBack = location.state.navigateBack;
   const { vehicle_id } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -54,7 +57,46 @@ function VisitorAddEditVehicle() {
         .then((res) => {
           if (res.status == 200) {
             alert(res.message);
-            handleReload();
+            if (navigateBack) {
+              navigate("/dashboard");
+            } else {
+              handleReload();
+            }
+          } else {
+            alert(res.message);
+          }
+        })
+        .catch((error) => {
+          console.error("Error resetting password:", error);
+        });
+    }
+  };
+
+
+  const addNewVehicle = async (e) => {
+    if (!vehicleDetails.type) {
+      alert("Select a valid vehicle type!");
+    } else if (!vehicleDetails.make) {
+      alert("Enter a valid vehicle make!");
+    } else if (!vehicleDetails.model) {
+      alert("Enter a valid vehicle model!");
+    } else if (!vehicleDetails.number_plate) {
+      alert("Enter a valid vehicle number plate!");
+    } else if (!vehicleDetails.color) {
+      alert("Enter a valid vehicle color!");
+    } else {
+      let data = vehicleDetails;
+      data.user_id = user.id;
+      console.log("data is " + JSON.stringify(data));
+      addVehicle(data)
+        .then((res) => {
+          if (res.status == 200) {
+            alert(res.message);
+            if (navigateBack) {
+              navigate("/dashboard");
+            } else {
+              handleReload();
+            }
           } else {
             alert(res.message);
           }
@@ -309,7 +351,16 @@ function VisitorAddEditVehicle() {
                           />
                         </div>
                         <br />
-                        <button className="btn-primary" onClick={updateVehicle}>
+                        <button
+                          className="btn-primary"
+                          onClick={() => {
+                            if (vehicle_id) {
+                              updateVehicle();
+                            } else {
+                              addNewVehicle();
+                            }
+                          }}
+                        >
                           Submit
                         </button>
                       </div>
