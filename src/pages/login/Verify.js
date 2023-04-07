@@ -23,18 +23,7 @@ function VerifyEmail() {
       hash: hash,
     };
 
-    verifyEmail(data)
-      .then((response) => {
-        setIsLoaded(true);
-        if (response.status == 200 || response.status == 404) {
-          console.log("asdasdasd");
-          setIsVerified(true);
-        }
-        setErrorText(response.message);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+
   }, []);
 
   return (

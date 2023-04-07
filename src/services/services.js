@@ -17,6 +17,20 @@ let getOptions = {
   },
 };
 
+let putOptions = {
+  method: "PUT",
+  headers: {
+    "Content-Type": "application/json",
+  },
+};
+
+let deleteOptons = {
+  method: "DELETE",
+  headers: {
+    "Content-Type": "application/json",
+  },
+};
+
 let options = {
   method: "POST",
   headers: {
@@ -41,8 +55,40 @@ export const signIn = async (data) => {
 };
 
 export const getServices = async () => {
-  return await fetch(`${API_URL}/amenities`).then(res=> res.json())
-}
+  return await fetch(`${API_URL}/amenities`).then((res) => res.json());
+};
+
+export const getVehicles = async () => {
+  return await fetch(`${API_URL}/vehicles`).then((res) => res.json());
+};
+
+export const getVehicleDetails = async (data) => {
+  return await fetch(`${API_URL}/vehicles?id=${data.vehicle_id}`, {
+    ...getOptions,
+  }).then((res) => res.json());
+};
+
+export const updateVehicleDetails = async (data) => {
+  return await fetch(`${API_URL}/vehicles?id=${data.vehicle_id}`, {
+    body: JSON.stringify(data),
+    ...putOptions,
+  }).then((res) => res.json());
+};
+
+export const addVehicle = async (data) => {
+  return await fetch(`${API_URL}/add-vehicle`, {
+    body: JSON.stringify(data),
+    ...postOptions,
+  }).then((res) => res.json());
+};
+
+
+export const deleteVehicle = async (data) => {
+  return await fetch(`${API_URL}/vehicles?id=${data.vehicle_id}`, {
+    body: JSON.stringify(data),
+    ...deleteOptons,
+  }).then((res) => res.json());
+};
 
 export const register = async (data) => {
   return await fetch(`${API_URL}/register`, {

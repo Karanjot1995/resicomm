@@ -17,7 +17,7 @@ import Contactus from "./pages/contactus/Contactus";
 import Services from "./pages/services/Services";
 import VisitorDashboard from "./pages/Visitor/VisitorDashboard";
 import VisitorCreateRequest from "./pages/Visitor/CreateVisitRequest";
-import VisitorAddVehicle from "./pages/Visitor/AddVehicle";
+import VisitorAddEditVehicle from "./pages/Visitor/AddEditVehicle";
 import UserProfile from "./pages/login/UserProfile";
 import DrivingInstructions from "./pages/Visitor/DrivingInstructions";
 import VerifyEmail from "./pages/login/Verify";
@@ -38,7 +38,7 @@ function App() {
   // },[]);
 
   const renderDashboard = (user) => {
-    if(user.type && user.type=='user'){
+    if(user.type && (user.type=='user' || user.type=='resident')){
       return <ResidentDashboard setIsLoggedIn={setIsLoggedIn}/>
     }else if(user.type && user.type=='visitor'){
       <VisitorDashboard setIsLoggedIn={setIsLoggedIn}/>
@@ -61,7 +61,8 @@ function App() {
           {user.type=='resident' && <Route path="/resident" element={<ResidentDashboard setIsLoggedIn={setIsLoggedIn}/>} />}
           {user.type == 'visitor' && <Route path="/visitor" element={<VisitorDashboard setIsLoggedIn={setIsLoggedIn}/>} />} */}
           <Route path="/create-request" element={<VisitorCreateRequest setIsLoggedIn={setIsLoggedIn}/>} />
-          <Route path="/add-vehicle" element={<VisitorAddVehicle setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="/add-vehicle" element={<VisitorAddEditVehicle setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="/edit-vehicle/:vehicle_id" element={<VisitorAddEditVehicle setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/driving-instructions" element={<DrivingInstructions setIsLoggedIn={setIsLoggedIn}/>} />
           {/* <Route path="/pool-manager" element={<PoolManager setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/garden-manager" element={<GardenManager setIsLoggedIn={setIsLoggedIn}/>} />
