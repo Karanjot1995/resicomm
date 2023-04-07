@@ -65,20 +65,9 @@ function Manager(props) {
     // })
   },[]);
 
-  const changeType = (e) => {
-    window.location.href = e.target.value;
-  };
 
   return (
     <div className="pt-50 resident">
-      {/* <select onChange={changeType} value={userType} className="type-select">
-        <option value="resident">Resident</option>
-        <option value="visitor">Visitor</option>
-        <option value="building-manager">Building Manager</option>
-        <option value="pool-manager">Pool Manager</option>
-        <option value="garden-manager">Garden Manager</option>
-        <option value="security-manager">Security Manager</option>
-      </select> */}
         <div>
             <h2 className="text-center pt-5">{user.department} Manager</h2>
             {employees.length ? <ManagerHome boxData={boxData2} employees={employees} />:''}

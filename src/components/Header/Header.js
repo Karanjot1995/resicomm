@@ -30,6 +30,7 @@ function Header({ isLoggedIn }) {
             <li><a href="/services">Services</a></li>
             <li><a href="/about">About</a></li>
             <li><a href="/contact-us">Contact us</a></li>
+            {isLoggedIn && <li><a href="/dashboard">Dashboard</a></li>}
             {isLoggedIn?
               <div>
                 <div

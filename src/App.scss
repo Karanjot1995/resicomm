@@ -139,6 +139,16 @@ Gampa, Sai Gayathri - 1002090414
   }
 }
 
+.add-emp-inp{
+  position: relative;
+  .error-msg{
+    position: absolute;
+    font-size: 10px;
+    color: #e50914;
+    top:90%;
+  }
+}
+
 
 // input, select{
 //   box-sizing: border-box!important;
