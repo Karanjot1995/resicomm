@@ -183,7 +183,7 @@ function Membership(props) {
                   <div className="box1">
                     <div className="text d-flex">
                       <h1 className="red">{amenityDetails.name} Amenity</h1>
-                      {membershipsList.indexOf(amenityDetails.id) > -1 == 0 ? (
+                      {membershipsList && membershipsList.indexOf(amenityDetails.id) > -1 == 0 ? (
                         props.joinButton
                       ) : (
                         <button

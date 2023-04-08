@@ -53,3 +53,12 @@ export const validateEmail = (e, setEmployee, employee, errMsgs, setErrMsgs) => 
     }
   }
   
+  export const validateDepartment = (e, setEmployee, employee, errMsgs, setErrMsgs) =>{
+    let value = e.target.value
+    setEmployee({ ...employee, department: value });
+    if(!value){
+      setErrMsgs({ ...errMsgs, 'department': "Enter valid first name." })
+    }else{
+      setErrMsgs({ ...errMsgs, 'department': '' })
+    }
+  }

@@ -5,13 +5,11 @@ import "../../App.scss";
 
 function VisitorDashboard() {
   const navigate = useNavigate();
-  const [userType, setUserType] = useState("visitor");
+  // const [userType, setUserType] = useState("visitor");
   const [active, setActive] = useState("home");
 
   useEffect(() => {
-    let selected = window.location.pathname.replace("/", "");
-    setUserType(selected);
-    console.log();
+    // console.log("hi");
   });
 
   const changeType = (e) => {
@@ -19,32 +17,21 @@ function VisitorDashboard() {
   };
   return (
     <div className="pt-50 resident" id="visitor">
-      <div className="report-container">
-        <div className="report-header d-flex justify-content-between align-items-center">
-          <select
-            onChange={changeType}
-            value={userType}
-            className="type-select"
-          >
-            <option value="resident">Resident</option>
-            <option value="visitor">Visitor</option>
-            <option value="building-manager">Building Manager</option>
-            <option value="pool-manager">Pool Manager</option>
-            <option value="garden-manager">Garden Manager</option>
-            <option value="security-manager">Security Manager</option>
-          </select>{" "}
-          <button className="view" onClick={() => navigate("/create-request")}>
-            Create a visit request
-          </button>
-        </div>
-      </div>
-
+     
       {/* <div className="tab-toggle">
 				<button onClick={()=>setActive('home')} className={`custom-btn ${active=='home'?'active':''}`}>Home</button>
 				<button onClick={()=>setActive('dashboard')} className={`custom-btn ${active=='dashboard'?'active':''}`}>Dashboard</button>
 			</div> */}
       <div className="container">
         <div className="main">
+        <div className="report-container">
+          <div className="report-header d-flex justify-content-between align-items-center">
+            <button className="view" onClick={() => navigate("/create-request")}>
+              Create a visit request
+            </button>
+          </div>
+        </div>
+
           <div className="container">
             <div className="report">
               <div className="report-container">

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { addEmployee, editEmployee } from "../../services/services";
-import { validateEmail, validateFirstName, validateLastName, validatePassword, validatePhone } from "./validate";
+import { validateDepartment, validateEmail, validateFirstName, validateLastName, validatePassword, validatePhone } from "./validate";
 
 function ManagerHome(props) {
 
@@ -15,7 +15,8 @@ function ManagerHome(props) {
         lname:'',
         email:'',
         phone:'',
-        password:''
+        password:'',
+        department:'',
     });
 
     const [editEmp, setEditEmp] = useState({
@@ -40,7 +41,9 @@ function ManagerHome(props) {
         let valid = true;
         let emp = employee
         emp.type = 'employee';
-        emp.department = user.department;
+        if(!emp.department){
+            emp.department = user.department;
+        }
         for (const key in errMsgs) {
             if(errMsgs[key]){
               valid = false
@@ -124,9 +127,11 @@ function ManagerHome(props) {
     return (
         <div className="container">
             <div className="main">
-                <div className="box-container">
+                {user.type=='manager' && user.department=='building'?
+                 <div className="box-container">
                     {boxData.map(box=><button onClick={()=>changeView(box)} className="button">{box.title}</button>)}
-                </div>
+                </div>:''}
+               
                 <div className="form-container">
                     <form className="left">
                         <div className="add-emp-inp">
@@ -158,6 +163,19 @@ function ManagerHome(props) {
                             <input name="password" type="text" onChange = { (e) => validatePassword(e, setEmployee, employee, errMsgs, setErrMsgs)} value={employee.password}/>
                             <p className="error-msg">{errMsgs['password']?errMsgs['password']:''}</p>
                         </div>
+
+
+                        {user.type=='manager' && user.department=='building'?
+                        <div className="add-emp-inp">
+                            <label>Department</label>
+                            <select name="type" onChange = { (e) => validateDepartment(e, setEmployee, employee, errMsgs, setErrMsgs)} value={employee.department}>
+                                <option value="pool">pool</option>
+                                <option value="garden">garden</option>
+                                <option value="security">security</option>
+                            </select>
+                            <p className="error-msg">{errMsgs['department']?errMsgs['department']:''}</p>
+                        </div>
+                        :''}
 
                         <div className="form_action--button">
                             <input type="submit" onClick={addEmp} value="submit"/>
