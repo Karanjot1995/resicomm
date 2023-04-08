@@ -68,8 +68,41 @@ export const getVehicleDetails = async (data) => {
   }).then((res) => res.json());
 };
 
+export const getUser = async (data) => {
+  return await fetch(`${API_URL}/users?user_id=${data.user_id}`, {
+    ...getOptions,
+  }).then((res) => res.json());
+};
+
+export const getAmenityDetails = async (data) => {
+  return await fetch(`${API_URL}/amenity?id=${data.amenity_id}`, {
+    ...getOptions,
+  }).then((res) => res.json());
+};
+
+export const getEvents = async (data) => {
+  return await fetch(`${API_URL}/events`, {
+    body: JSON.stringify(data),
+    ...postOptions,
+  }).then((res) => res.json());
+};
+
 export const updateVehicleDetails = async (data) => {
   return await fetch(`${API_URL}/vehicles?id=${data.vehicle_id}`, {
+    body: JSON.stringify(data),
+    ...putOptions,
+  }).then((res) => res.json());
+};
+
+export const joinMembership = async (data) => {
+  return await fetch(`${API_URL}/add-membership?user_id=${data.user_id}&membership_id=${data.membership_id}`, {
+    body: JSON.stringify(data),
+    ...putOptions,
+  }).then((res) => res.json());
+};
+
+export const leaveMembership = async (data) => {
+  return await fetch(`${API_URL}/remove-membership?user_id=${data.user_id}&membership_id=${data.membership_id}`, {
     body: JSON.stringify(data),
     ...putOptions,
   }).then((res) => res.json());
@@ -82,6 +115,19 @@ export const addVehicle = async (data) => {
   }).then((res) => res.json());
 };
 
+export const addPayment = async (data) => {
+  return await fetch(`${API_URL}/add-payment`, {
+    body: JSON.stringify(data),
+    ...postOptions,
+  }).then((res) => res.json());
+};
+
+export const getPayments = async (data) => {
+  return await fetch(`${API_URL}/payments`, {
+    body: JSON.stringify(data),
+    ...postOptions,
+  }).then((res) => res.json());
+};
 
 export const deleteVehicle = async (data) => {
   return await fetch(`${API_URL}/vehicles?id=${data.vehicle_id}`, {

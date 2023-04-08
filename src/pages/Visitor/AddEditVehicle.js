@@ -11,7 +11,7 @@ import "../../App.scss";
 
 function VisitorAddEditVehicle({ route, navigation }) {
   const location = useLocation();
-  const navigateBack = location.state.navigateBack;
+  const navigateBack = location.state.navigateBack? location.state.navigateBack : false;
   const { vehicle_id } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);

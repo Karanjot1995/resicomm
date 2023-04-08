@@ -4,4 +4,5 @@ export const Colors = {
   mainOrange: "#E76F51",
   fadedOrange: "#F4A261",
   yellow: "#E9C46A",
+  red: "#e50914",
 };
