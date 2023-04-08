@@ -1,29 +1,27 @@
 import React, { useState, useEffect } from "react";
 
-function ManagerDashboard(props) {
-  const { boxData, reportData } = props;
+function ManagerType(props) {
+    const [start_time, setStart] = useState('');
+    const [end_time, setEnd] = useState('');
+
+    const saveHours = ()=>{
+        console.log(start_time, end_time)
+    }
 
   return (
     <div className="container">
       <div className="main">
-        {/* <div className="box-container">
-          {boxData.map((box) => (
-            <div className="box box3">
-              <div className="text">
-                <h2 className="topic_heading">{box.description}</h2>
-                <h2 className="topic">{box.heading}</h2>
-              </div>
-            </div>
-          ))}
-        </div> */}
 
         <div className="report_Container">
-          <div className="report_Header">
+          {/* <div className="report_Header">
             <h1 className="recent_Articles">Recent Reports</h1>
-            <button className="view">View All</button>
-          </div>
+          </div> */}
           <div className="report-body">
-            <table className="list">
+            <div className="manage-timing">
+                <h3>Manage Timings</h3>
+                <p className="mt-1">From: <input value={start_time} onChange={(e)=>setStart(e.target.value)} type="time"/> , To: <input value={end_time} onChange={(e)=>setEnd(e.target.value)} type="time"/> <button onClick={saveHours} className="view ml-1">Save</button></p>
+            </div>
+            {/* <table className="list">
               <tr>
                 {reportData.titles.map((t) => (
                   <th>{t}</th>
@@ -37,7 +35,7 @@ function ManagerDashboard(props) {
                   <td><button className="view-report">View Report</button></td>
                 </tr>
               ))}
-            </table>
+            </table> */}
           </div>
         </div>
       </div>
@@ -45,4 +43,4 @@ function ManagerDashboard(props) {
   );
 }
 
-export default ManagerDashboard;
+export default ManagerType;

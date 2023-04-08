@@ -41,7 +41,7 @@ function App() {
     if(user.type && (user.type=='user' || user.type=='resident')){
       return <ResidentDashboard setIsLoggedIn={setIsLoggedIn}/>
     }else if(user.type && user.type=='visitor'){
-      <VisitorDashboard setIsLoggedIn={setIsLoggedIn}/>
+      return <VisitorDashboard setIsLoggedIn={setIsLoggedIn}/>
     }else if(user.type && user.type=='manager'){
       return <Manager user={user}/>
     }
