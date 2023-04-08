@@ -108,7 +108,6 @@ function Register() {
       dob: DOB,
       isVisitor: isVisitor,
     };
-    console.log(data);
     e.preventDefault();
     let valid = true;
     for (const key in errMsgs) {
@@ -145,8 +144,10 @@ function Register() {
       };
       register(data)
         .then((response) => {
+          console.log(response)
           if (response.status == 200) {
             alert("Successfully registered! Verify your email to continue.");
+            window.location.href = '/login'
           } else {
             alert(response.message);
           }

@@ -46,6 +46,10 @@ export const getEmployees = async () => {
   return await fetch(`${API_URL}/employees`).then((res) => res.json());
 };
 
+export const getUsers = async () => {
+  return await fetch(`${API_URL}/all-users`).then((res) => res.json());
+};
+
 export const signIn = async (data) => {
   console.log(data);
   return await fetch(`${API_URL}/user/login`, {

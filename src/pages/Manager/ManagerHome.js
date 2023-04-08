@@ -6,8 +6,9 @@ import { validateEmail, validateFirstName, validateLastName, validatePassword, v
 function ManagerHome(props) {
 
     const {boxData} = props;
-    const [employees, setEmployees] = useState(props.employees)
+    const [users, setUsers] = useState(props.users)
     const [errMsgs, setErrMsgs] = useState({})
+    const [clicked, setClicked] = useState('');
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
     const [employee, setEmployee] = useState({
         fname:'',
@@ -23,17 +24,10 @@ function ManagerHome(props) {
         fname:'',
         lname:'',
         phone:'',
+        type:'',
     });
 
     const [edit, setEdit] = useState();
-
-    // console.log(employees)
-
-    // useEffect(() => {
-    //     setEmployees(props.employees)
-    //     console.log(props)
-    // },[]);
-
 
 
     const handleOnChange = e => {
@@ -68,15 +62,14 @@ function ManagerHome(props) {
 
     const deleteEmployee = (e,email) => {
         e.preventDefault();
-        let emps = employees;
+        let emps = users;
         emps = emps.filter(emp=> emp.email!=email)
-        setEmployees(emps)
-
+        setUsers(emps)
     }
 
     const editEm = (email) => {
         let emp = {}
-        employees.map(em=>{
+        users.map(em=>{
             if(em.email ==email){
                 emp = em
             }
@@ -92,23 +85,13 @@ function ManagerHome(props) {
 
     const saveEmployee = (email) => {
         let emp = {}
-        let emps = employees
-        console.log(editEmp)
+        let emps = users
         editEmployee(editEmp).then(res=>{
             if(res.status==200){
                 alert(res.message)
                 window.location.reload(true);
             }
         })
-        // emps.map(em=>{
-        //     if(em.email ==email){
-        //         em.fname = editEmp.fname;
-        //         em.lname = editEmp.lname;
-        //         em.phone = editEmp.phone
-        //     }
-        // })
-        // setEmployees(emps)
-        // setEdit()
     }
 
     useEffect(() => {
@@ -120,11 +103,29 @@ function ManagerHome(props) {
         // })
     })
 
+    const changeView = (box) =>{
+        let dept = box.dept
+        let usrs = [];
+        console.log(box)
+        if(box.role == 'user'){
+            usrs = props.users.filter(u=>u.type == 'user')
+            dept = 'residents'
+        }else if(box.role=='visitor'){
+            usrs = props.users.filter(u=>u.type == 'visitor')
+            dept = 'visitors'
+        }else{
+            usrs = props.users.filter(u=>u.department == dept)
+        }
+        setUsers(usrs)
+        setClicked(dept)
+    }
+    console.log(clicked)
+
     return (
         <div className="container">
             <div className="main">
                 <div className="box-container">
-                    {boxData.map(box=><button className="button">{box.title}</button>)}
+                    {boxData.map(box=><button onClick={()=>changeView(box)} className="button">{box.title}</button>)}
                 </div>
                 <div className="form-container">
                     <form className="left">
@@ -164,15 +165,18 @@ function ManagerHome(props) {
                         </div>  
                     </form>
                     <div className="right">
+                        <h3 style={{"text-transform":"uppercase"}}>{clicked}</h3>
                         <table className="list" id="storeList">
-                            <thead>
+                            {/* <thead> */}
                                 <tr>
                                     {/* <th>Employee Id</th> */}
-                                    <th>Employee Name</th>
-                                    <th>Employee Email</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
                                     <th>Phone Number</th>
+                                    <th>Role</th>
+                                    <th>Department</th>
                                 </tr>
-                            </thead>
+                            {/* </thead> */}
                             {/* {employees && employees.map(employee=>
                                 <tr>
                                     <td>{employee.fname + ' ' + employee.lname}</td>
@@ -181,12 +185,14 @@ function ManagerHome(props) {
                                     <td><button onClick={()=>editEmployee(employee.email)}>Edit</button><button onClick={(e)=>deleteEmployee(e,employee.email)}>Delete</button></td>
                                 </tr>
                             )} */}
-                            {employees && employees.map(employee=>
+                            {users && users.map(employee=>
                                 edit!==employee.email?
                                 <tr>
                                     <td>{employee.fname + ' ' + employee.lname}</td>
                                     <td>{employee.email}</td>
                                     <td>{employee.phone}</td>
+                                    <td>{employee.type}</td>
+                                    <td>{employee.department}</td>
                                     <td><button onClick={()=>editEm(employee.email)}>Edit</button><button onClick={(e)=>deleteEmployee(e,employee.email)}>Delete</button></td>
                                 </tr>
                                 :
@@ -199,6 +205,13 @@ function ManagerHome(props) {
                                     <td>                                       
                                         <span className="edit-field">Phone: <input name="phone" onChange={handleEdit} type="text" value={editEmp.phone}/></span>
                                     </td>
+                                    <td>
+                                        <select name="type" onChange={handleEdit} value={editEmp.type}>
+                                            <option value="manager">manager</option>
+                                            <option value="employee">employee</option>
+                                        </select>
+                                    </td>
+                                    <td>{employee.department}</td>
                                     <td><button onClick={()=>saveEmployee(employee.email)}>Save</button></td>
                                 </tr>
                             )}

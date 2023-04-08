@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { users, getEmployees } from "../../services/services";
+import { users, getEmployees, getUsers } from "../../services/services";
 import ManagerDashboard from "./ManagerDashboard";
 import ManagerHome from "./ManagerHome";
+import ManagerType from "./ManagerType";
 
 const boxData = [
   {
@@ -16,11 +17,11 @@ const boxData = [
 ];
 
 const boxData2 = [
-  { title: "Manage Security Manager" },
-  { title: "Manage Pool Manager" },
-  { title: "Manage Garden Manager" },
-  { title: "Manage Resident and Visitors" },
-  { title: "Generate Reports" },
+  { title: "Manage Security Manager" ,dept:"security"},
+  { title: "Manage Pool Manager" ,dept:"pool"},
+  { title: "Manage Garden Manager" ,dept:"garden"},
+  { title: "Manage Residents", role:'user'},
+  { title: "Manage Visitors", role:'visitor'}
 ];
 
 const reportData = {
@@ -35,20 +36,22 @@ const reportData = {
 function Manager(props) {
   const navigate = useNavigate();
   const [active, setActive] = useState("home");
-  const [employees, setEmployees] = useState([]);
+  const [users, setUsers] = useState([]);
   const [user, setUser] = useState(props.user)
 
   useEffect(() => {
-    getEmployees().then(data=>{
+    getUsers().then(data=>{
         if(user.type=="manager"){ 
             if(user.department=="building"){
-                setEmployees(data.building)
+              let allManagers = [];
+              Object.keys(data).map(key=>allManagers.push(...data[key]));
+              setUsers(allManagers)
             }else if(user.department=="security"){
-                setEmployees(data.security)
+              setUsers(data.security)
             }else if(user.department=="pool"){
-                setEmployees(data.pool)
+              setUsers(data.pool)
             }else if(user.department="garden"){
-                setEmployees(data.garden)
+              setUsers(data.garden)
             }
         }
        
@@ -70,7 +73,8 @@ function Manager(props) {
     <div className="pt-50 resident">
         <div>
             <h2 className="text-center pt-5">{user.department} Manager</h2>
-            {employees.length ? <ManagerHome boxData={boxData2} employees={employees} />:''}
+            <ManagerType/>
+            {users.length ? <ManagerHome boxData={boxData2} users={users} reportData={reportData}/>:''}
             <ManagerDashboard boxData={boxData} reportData={reportData} />
         </div>
     </div>
