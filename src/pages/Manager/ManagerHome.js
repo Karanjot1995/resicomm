@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from 'uuid';
+import { addEmployee, editEmployee } from "../../services/services";
+import { validateEmail, validateFirstName, validateLastName, validatePassword, validatePhone } from "./validate";
 
 function ManagerHome(props) {
 
     const {boxData} = props;
     const [employees, setEmployees] = useState(props.employees)
+    const [errMsgs, setErrMsgs] = useState({})
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
     const [employee, setEmployee] = useState({
-        id:'',
         fname:'',
         lname:'',
         email:'',
         phone:'',
+        password:''
     });
 
     const [editEmp, setEditEmp] = useState({
@@ -38,26 +41,29 @@ function ManagerHome(props) {
         setEmployee({ ...employee, [name]: value });
     };
 
-    const addEmployee = (e) =>{
+    const addEmp = (e) =>{
         e.preventDefault();
+        let valid = true;
         let emp = employee
-        // for(let emp in employees){
-        //     if(emp.email!=)
-        // }
-        // emp.id = Object.keys(employees).length+1
-        setEmployees((prev) => {
-            return [ ...prev, emp];
-        });
-        // setEmployees(emps)
-        // fetch('data/employees.json',{  
-        //     method: 'POST',
-        //     headers : { 
-        //         'Content-Type': 'application/json',
-        //         'Accept': 'application/json'
-        //     },
-        //     body: JSON.stringify(emps)
-        // })
-        // .then(res=>console.log(res))
+        emp.type = 'employee';
+        emp.department = user.department;
+        for (const key in errMsgs) {
+            if(errMsgs[key]){
+              valid = false
+            }
+        }
+        if(!emp.email || !emp.password || !emp.fname || !emp.lname || !emp.phone){
+            alert('All fields marked with * are mandatory!')
+        }else{
+            if(valid){
+                addEmployee(emp).then(res=> {
+                    if(res.status==200){
+                       alert(res.message)
+                       window.location.href = 'dashboard';
+                    }
+                })
+            }
+        }
     };
 
     const deleteEmployee = (e,email) => {
@@ -68,7 +74,7 @@ function ManagerHome(props) {
 
     }
 
-    const editEmployee = (email) => {
+    const editEm = (email) => {
         let emp = {}
         employees.map(em=>{
             if(em.email ==email){
@@ -87,15 +93,22 @@ function ManagerHome(props) {
     const saveEmployee = (email) => {
         let emp = {}
         let emps = employees
-        emps.map(em=>{
-            if(em.email ==email){
-                em.fname = editEmp.fname;
-                em.lname = editEmp.lname;
-                em.phone = editEmp.phone
+        console.log(editEmp)
+        editEmployee(editEmp).then(res=>{
+            if(res.status==200){
+                alert(res.message)
+                window.location.reload(true);
             }
         })
-        setEmployees(emps)
-        setEdit()
+        // emps.map(em=>{
+        //     if(em.email ==email){
+        //         em.fname = editEmp.fname;
+        //         em.lname = editEmp.lname;
+        //         em.phone = editEmp.phone
+        //     }
+        // })
+        // setEmployees(emps)
+        // setEdit()
     }
 
     useEffect(() => {
@@ -115,31 +128,38 @@ function ManagerHome(props) {
                 </div>
                 <div className="form-container">
                     <form className="left">
-                        <div>
-                            {/* <input name="id" onChange={handleID} value={employee.id}/> */}
-                        </div>
-                        <div>
+                        <div className="add-emp-inp">
                             <label>First Name</label>
-                            <input name="fname" onChange={handleOnChange} type="text" value={employee.fname}/>
+                            <input name="fname" onChange = { (e) => validateFirstName(e, setEmployee, employee, errMsgs, setErrMsgs)} type="text" value={employee.fname}/>
+                            <p className="error-msg">{errMsgs['fname']?errMsgs['fname']:''}</p>
                         </div>
 
-                        <div>
+                        <div className="add-emp-inp">
                             <label>Last Name </label>
-                            <input name="lname" type="text" onChange={handleOnChange} value={employee.lname}/>
+                            <input name="lname" type="text" onChange = { (e) => validateLastName(e, setEmployee, employee, errMsgs, setErrMsgs)} value={employee.lname}/>
+                            <p className="error-msg">{errMsgs['lname']?errMsgs['lname']:''}</p>
                         </div>
                         
-                        <div>
+                        <div className="add-emp-inp">
                             <label htmlFor="" >Employee Email </label>
-                            <input name="email" type="email" onChange={handleOnChange} value={employee.email}/>
+                            <input name="email" type="email" onChange = { (e) => validateEmail(e, setEmployee, employee, errMsgs, setErrMsgs)} value={employee.email}/>
+                            <p className="error-msg">{errMsgs['email']?errMsgs['email']:''}</p>
                         </div>
 
-                        <div>
+                        <div className="add-emp-inp">
                             <label>Phone Number</label>
-                            <input name="phone" type="tel" onChange={handleOnChange} value={employee.phone}/>
+                            <input name="phone" type="number" onChange = { (e) => validatePhone(e, setEmployee, employee, errMsgs, setErrMsgs)} value={employee.phone}/>
+                            <p className="error-msg">{errMsgs['phone']?errMsgs['phone']:''}</p>
+                        </div>
+
+                        <div className="add-emp-inp">
+                            <label>Password</label>
+                            <input name="password" type="text" onChange = { (e) => validatePassword(e, setEmployee, employee, errMsgs, setErrMsgs)} value={employee.password}/>
+                            <p className="error-msg">{errMsgs['password']?errMsgs['password']:''}</p>
                         </div>
 
                         <div className="form_action--button">
-                            <input type="submit" onClick={addEmployee} value="submit"/>
+                            <input type="submit" onClick={addEmp} value="submit"/>
                             <input type="reset" value="reset"/>
                         </div>  
                     </form>
@@ -167,7 +187,7 @@ function ManagerHome(props) {
                                     <td>{employee.fname + ' ' + employee.lname}</td>
                                     <td>{employee.email}</td>
                                     <td>{employee.phone}</td>
-                                    <td><button onClick={()=>editEmployee(employee.email)}>Edit</button><button onClick={(e)=>deleteEmployee(e,employee.email)}>Delete</button></td>
+                                    <td><button onClick={()=>editEm(employee.email)}>Edit</button><button onClick={(e)=>deleteEmployee(e,employee.email)}>Delete</button></td>
                                 </tr>
                                 :
                                 <tr className="edit-employee">

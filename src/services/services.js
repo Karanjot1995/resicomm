@@ -1,6 +1,6 @@
 // const API_URL = "http://localhost:5000"
 // const API_URL = "https://9e26-64-189-206-39.ngrok.io"
-const API_URL = "http://localhost/resicomm-backend/index.php";
+const API_URL = "http://localhost/resicomm-server/index.php";
 
 let postOptions = {
   method: "POST",
@@ -142,6 +142,23 @@ export const register = async (data) => {
     body: JSON.stringify(data),
   }).then((res) => res.json());
 };
+
+export const addEmployee = async (data) => {
+  console.log(data)
+  return await fetch(`${API_URL}/employee/add`, {
+    ...postOptions,
+    body: JSON.stringify(data),
+  }).then((res) => res.json());
+};
+
+export const editEmployee = async (data) => {
+  console.log(data)
+  return await fetch(`${API_URL}/employee/edit`, {
+    ...postOptions,
+    body: JSON.stringify(data),
+  }).then((res) => res.json());
+};
+
 
 export const verifyEmail = async (data) => {
   return await fetch(
