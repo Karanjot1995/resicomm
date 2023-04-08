@@ -9,15 +9,36 @@ import {
 } from "../../../services/services";
 import Modal from "react-modal";
 import Loader from "../../../components/loader/Loader";
+import { convertTo12Hour } from "../../../utils/utils.js";
+import Membership from "../Membership";
+import { Weekdays } from "../../../utils/constants";
+import Payment from "../Payment";
 
 const customStyles = {
   content: {
-    top: "50%",
+    top: "55%",
     left: "50%",
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    maxHeight: "80vh",
+    maxWidth: "80vw",
+    zIndex: 30,
+  },
+};
+
+const membershipCustomStyles = {
+  content: {
+    top: "55%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    maxHeight: "80vh",
+    maxWidth: "80vw",
+    minWidth: "80vw",
     zIndex: 30,
   },
 };
@@ -31,9 +52,14 @@ function ResidentDashboard() {
   const [active, setActive] = useState("home");
   const [selectedVehicleId, setSelectedVehicleId] = useState(null);
   const [amenities, setAmenities] = useState([]);
+  const [selectedAmenityId, setSelectedAmenityId] = useState(null);
+  const [selectedBuilding, setSelectedBuilding] = useState(null);
   const [vehicles, setVehicles] = useState([]);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [membershipModalIsOpen, setMembershipModalIsOpen] = useState(false);
+  const [paymentModalIsOpen, setPaymentModalisOpen] = useState(false);
+  const [paymentType, setPaymentType] = useState("");
 
   useEffect(() => {
     setLoading(true);
@@ -79,12 +105,7 @@ function ResidentDashboard() {
   }
 
   if (loading) {
-    return (
-      <div>
-        {/* <button onClick={handleButtonClick}>Load Data</button> */}
-        {loading && <Loader />}
-      </div>
-    );
+    return <div>{loading && <Loader />}</div>;
   } else {
     return (
       <div className="pt-50 resident">
@@ -142,16 +163,97 @@ function ResidentDashboard() {
                   </div>
                 </Modal>
               )}
+              {membershipModalIsOpen && (
+                <Modal
+                  isOpen={membershipModalIsOpen}
+                  onHide={() => setMembershipModalIsOpen(false)}
+                  onRequestClose={() => {
+                    setSelectedAmenityId(null);
+                    setMembershipModalIsOpen(false);
+                  }}
+                  style={membershipCustomStyles}
+                  contentLabel="Example Modal"
+                >
+                  <i
+                    className="fa fa-times"
+                    style={{ float: "right" }}
+                    onClick={() => {
+                      setMembershipModalIsOpen(false);
+                    }}
+                  ></i>
+                  <Membership
+                    amenity_id={selectedAmenityId}
+                    joinButton={
+                      <button
+                        className="btn-red ms-5"
+                        style={{ paddingLeft: 16, paddingRight: 16 }}
+                        onClick={() => {
+                          setMembershipModalIsOpen(false);
+                          setPaymentModalisOpen(true);
+                        }}
+                      >
+                        Join Membership
+                      </button>
+                    }
+                  />
+                </Modal>
+              )}
+
+              {paymentModalIsOpen && (
+                <Modal
+                  isOpen={paymentModalIsOpen}
+                  onHide={() => setPaymentModalisOpen(false)}
+                  onRequestClose={() => {
+                    // setSelectedAmenityId(null);
+                    setPaymentModalisOpen(false);
+                  }}
+                  style={membershipCustomStyles}
+                  contentLabel="Example Modal"
+                >
+                  <i
+                    className="fa fa-times"
+                    style={{ float: "right" }}
+                    onClick={() => {
+                      setPaymentModalisOpen(false);
+                    }}
+                  ></i>
+                  <Payment
+                    amenity_id={selectedAmenityId}
+                    building={selectedBuilding}
+                  />
+                </Modal>
+              )}
               <div className="box-container">
                 {amenities &&
-                  amenities.map((service) => (
-                    <div className="box box1">
-                      <div className="text">
-                        <h2 className="topic-heading">{service.name}</h2>
-                        <h2 className="topic">{service.hours}</h2>
+                  amenities.map((service) => {
+                    const today = new Date();
+                    const currentWeekday = Weekdays[today.getDay()]
+                      .slice(0, 3)
+                      .toLowerCase();
+
+                    let startTime = convertTo12Hour(
+                      service[currentWeekday + "_in_time"]
+                    );
+                    let endTime = convertTo12Hour(
+                      service[currentWeekday + "_out_time"]
+                    );
+                    return (
+                      <div
+                        className="box box1"
+                        onClick={() => {
+                          setSelectedAmenityId(service.id);
+                          setMembershipModalIsOpen(true);
+                        }}
+                      >
+                        <div className="text">
+                          <h2 className="topic-heading">{service.name}</h2>
+                          <h2 className="topic">
+                            {startTime} - {endTime}
+                          </h2>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 {/* <div className="box box1">
                 <div className="text">
                   <h2 className="topic-heading">Garden</h2>

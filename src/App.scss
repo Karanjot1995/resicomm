@@ -14,6 +14,211 @@ Gampa, Sai Gayathri - 1002090414
   text-align: left!important;
 }
 
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+}
+.table > thead > tr > th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #ddd;
+}
+.table > caption + thead > tr:first-child > th,
+.table > colgroup + thead > tr:first-child > th,
+.table > thead:first-child > tr:first-child > th,
+.table > caption + thead > tr:first-child > td,
+.table > colgroup + thead > tr:first-child > td,
+.table > thead:first-child > tr:first-child > td {
+  border-top: 0;
+}
+.table > tbody + tbody {
+  border-top: 2px solid #ddd;
+}
+.table .table {
+  background-color: #fff;
+}
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+.table-hover > tbody > tr:hover {
+  background-color: #f5f5f5;
+}
+table col[class*="col-"] {
+  position: static;
+  display: table-column;
+  float: none;
+}
+table td[class*="col-"],
+table th[class*="col-"] {
+  position: static;
+  display: table-cell;
+  float: none;
+}
+.table > thead > tr > td.active,
+.table > tbody > tr > td.active,
+.table > tfoot > tr > td.active,
+.table > thead > tr > th.active,
+.table > tbody > tr > th.active,
+.table > tfoot > tr > th.active,
+.table > thead > tr.active > td,
+.table > tbody > tr.active > td,
+.table > tfoot > tr.active > td,
+.table > thead > tr.active > th,
+.table > tbody > tr.active > th,
+.table > tfoot > tr.active > th {
+  background-color: #f5f5f5;
+}
+.table-hover > tbody > tr > td.active:hover,
+.table-hover > tbody > tr > th.active:hover,
+.table-hover > tbody > tr.active:hover > td,
+.table-hover > tbody > tr:hover > .active,
+.table-hover > tbody > tr.active:hover > th {
+  background-color: #e8e8e8;
+}
+.table > thead > tr > td.success,
+.table > tbody > tr > td.success,
+.table > tfoot > tr > td.success,
+.table > thead > tr > th.success,
+.table > tbody > tr > th.success,
+.table > tfoot > tr > th.success,
+.table > thead > tr.success > td,
+.table > tbody > tr.success > td,
+.table > tfoot > tr.success > td,
+.table > thead > tr.success > th,
+.table > tbody > tr.success > th,
+.table > tfoot > tr.success > th {
+  background-color: #dff0d8;
+}
+.table-hover > tbody > tr > td.success:hover,
+.table-hover > tbody > tr > th.success:hover,
+.table-hover > tbody > tr.success:hover > td,
+.table-hover > tbody > tr:hover > .success,
+.table-hover > tbody > tr.success:hover > th {
+  background-color: #d0e9c6;
+}
+.table > thead > tr > td.info,
+.table > tbody > tr > td.info,
+.table > tfoot > tr > td.info,
+.table > thead > tr > th.info,
+.table > tbody > tr > th.info,
+.table > tfoot > tr > th.info,
+.table > thead > tr.info > td,
+.table > tbody > tr.info > td,
+.table > tfoot > tr.info > td,
+.table > thead > tr.info > th,
+.table > tbody > tr.info > th,
+.table > tfoot > tr.info > th {
+  background-color: #d9edf7;
+}
+.table-hover > tbody > tr > td.info:hover,
+.table-hover > tbody > tr > th.info:hover,
+.table-hover > tbody > tr.info:hover > td,
+.table-hover > tbody > tr:hover > .info,
+.table-hover > tbody > tr.info:hover > th {
+  background-color: #c4e3f3;
+}
+.table > thead > tr > td.warning,
+.table > tbody > tr > td.warning,
+.table > tfoot > tr > td.warning,
+.table > thead > tr > th.warning,
+.table > tbody > tr > th.warning,
+.table > tfoot > tr > th.warning,
+.table > thead > tr.warning > td,
+.table > tbody > tr.warning > td,
+.table > tfoot > tr.warning > td,
+.table > thead > tr.warning > th,
+.table > tbody > tr.warning > th,
+.table > tfoot > tr.warning > th {
+  background-color: #fcf8e3;
+}
+.table-hover > tbody > tr > td.warning:hover,
+.table-hover > tbody > tr > th.warning:hover,
+.table-hover > tbody > tr.warning:hover > td,
+.table-hover > tbody > tr:hover > .warning,
+.table-hover > tbody > tr.warning:hover > th {
+  background-color: #faf2cc;
+}
+.table > thead > tr > td.danger,
+.table > tbody > tr > td.danger,
+.table > tfoot > tr > td.danger,
+.table > thead > tr > th.danger,
+.table > tbody > tr > th.danger,
+.table > tfoot > tr > th.danger,
+.table > thead > tr.danger > td,
+.table > tbody > tr.danger > td,
+.table > tfoot > tr.danger > td,
+.table > thead > tr.danger > th,
+.table > tbody > tr.danger > th,
+.table > tfoot > tr.danger > th {
+  background-color: #f2dede;
+}
+.table-hover > tbody > tr > td.danger:hover,
+.table-hover > tbody > tr > th.danger:hover,
+.table-hover > tbody > tr.danger:hover > td,
+.table-hover > tbody > tr:hover > .danger,
+.table-hover > tbody > tr.danger:hover > th {
+  background-color: #ebcccc;
+}
+.table-responsive {
+  min-height: .01%;
+  overflow-x: auto;
+}
+
+.btn-outline-red {
+  height: 35px;
+  // width: 90px;
+  border-radius: 8px;
+  background-color: white;
+  color: #e50914;
+  font-size: 15px;
+  border: 1px solid #e50914;
+  cursor: pointer;
+ }
+
+.btn-outline-red:hover {
+  background-color: white;
+  color: #e50914;
+ }
+
+.btn-outline-black {
+  border-radius: 8px;
+  background-color: white;
+  color: black;
+  font-size: 15px;
+  border: 1px solid black;
+  cursor: pointer;
+ }
+
+.btn-outline-black:hover {
+  background-color: white;
+  color: black;
+ }
+
+.btn-outline-grey {
+  border-radius: 8px;
+  background-color: white;
+  color: grey;
+  font-size: 15px;
+  border: 1px solid grey;
+  cursor: pointer;
+ }
+
+.btn-outline-grey:hover {
+  background-color: white;
+  color: grey;
+ }
+
 .text-right{
   text-align: right!important;
 }
@@ -22,10 +227,19 @@ Gampa, Sai Gayathri - 1002090414
   text-align: center!important;
 }
 
+.text-justify{
+  text-align: justify!important;
+}
+
 .logo {
   font-size: 25px;
   font-weight: 600;
   color: rgb(47, 141, 70);
+}
+
+.red {
+  // background-color: #e50914;
+  color: #e50914;
 }
 
 .app-container{
@@ -52,6 +266,39 @@ Gampa, Sai Gayathri - 1002090414
   // font-size: 20px;
 }
 
+.btn-red {
+  height: 35px;
+  // width: 90px;
+  border-radius: 8px;
+  background-color: #e50914;
+  color: white;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #e50914;
+    color: white;
+   }
+ }
+
+ .rounded {
+  border-radius: 10px;
+ }
+
+ .w-25 {
+  width: 25% !important;
+}
+.w-50 {
+  width: 50% !important;
+}
+.w-75 {
+  width: 75% !important;
+}
+.w-100 {
+  width: 100% !important;
+}
+
 .form_action--button{
   display: flex;
   justify-content: space-around;
@@ -59,6 +306,60 @@ Gampa, Sai Gayathri - 1002090414
 
 .bg-green {
   background-color: green;
+}
+
+.align-items-start {
+  align-items: flex-start !important;
+}
+.align-items-end {
+  align-items: flex-end !important;
+}
+.align-items-center {
+  align-items: center !important;
+}
+.align-items-baseline {
+  align-items: baseline !important;
+}
+.align-items-stretch {
+  align-items: stretch !important;
+}
+
+.align-content-start {
+  align-content: flex-start !important;
+}
+.align-content-end {
+  align-content: flex-end !important;
+}
+.align-content-center {
+  align-content: center !important;
+}
+.align-content-between {
+  align-content: space-between !important;
+}
+.align-content-around {
+  align-content: space-around !important;
+}
+.align-content-stretch {
+  align-content: stretch !important;
+}
+
+.align-self-auto {
+  align-self: auto !important;
+}
+.align-self-start {
+  align-self: flex-start !important;
+}
+.align-self-end {
+  align-self: flex-end !important;
+}
+.align-self-center {
+  align-self: center !important;
+}
+.align-self-baseline {
+  align-self: baseline !important;
+}
+.align-self-stretch {
+  align-self: stretch !important;
 }
 
 .d-flex {
@@ -99,17 +400,464 @@ Gampa, Sai Gayathri - 1002090414
   width: 25vw;
 }
 
-.mt-5 {
-  margin-top: 5rem;
+.m-0 {
+  margin: 0 !important;
 }
-.mt-4 {
-  margin-top: 4rem;
+.m-1 {
+  margin: 0.25rem !important;
 }
-.mt-3 {
-  margin-top: 3rem;
+.m-2 {
+  margin: 0.5rem !important;
+}
+.m-3 {
+  margin: 1rem !important;
+}
+.m-4 {
+  margin: 1.5rem !important;
+}
+.m-5 {
+  margin: 3rem !important;
+}
+.m-auto {
+  margin: auto !important;
+}
+.mx-0 {
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+.mx-1 {
+  margin-right: 0.25rem !important;
+  margin-left: 0.25rem !important;
+}
+.mx-2 {
+  margin-right: 0.5rem !important;
+  margin-left: 0.5rem !important;
+}
+.mx-3 {
+  margin-right: 1rem !important;
+  margin-left: 1rem !important;
+}
+.mx-4 {
+  margin-right: 1.5rem !important;
+  margin-left: 1.5rem !important;
+}
+.mx-5 {
+  margin-right: 3rem !important;
+  margin-left: 3rem !important;
+}
+.mx-auto {
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+.my-0 {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+.my-1 {
+  margin-top: 0.25rem !important;
+  margin-bottom: 0.25rem !important;
+}
+.my-2 {
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+.my-3 {
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+.my-4 {
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+}
+.my-5 {
+  margin-top: 3rem !important;
+  margin-bottom: 3rem !important;
+}
+.my-auto {
+  margin-top: auto !important;
+  margin-bottom: auto !important;
+}
+.mt-0 {
+  margin-top: 0 !important;
 }
 .mt-1 {
-  margin-top: 1rem;
+  margin-top: 0.25rem !important;
+}
+.mt-2 {
+  margin-top: 0.5rem !important;
+}
+.mt-3 {
+  margin-top: 1rem !important;
+}
+.mt-4 {
+  margin-top: 1.5rem !important;
+}
+.mt-5 {
+  margin-top: 3rem !important;
+}
+.mt-auto {
+  margin-top: auto !important;
+}
+.me-0 {
+  margin-right: 0 !important;
+}
+.me-1 {
+  margin-right: 0.25rem !important;
+}
+.me-2 {
+  margin-right: 0.5rem !important;
+}
+.me-3 {
+  margin-right: 1rem !important;
+}
+.me-4 {
+  margin-right: 1.5rem !important;
+}
+.me-5 {
+  margin-right: 3rem !important;
+}
+.me-auto {
+  margin-right: auto !important;
+}
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+.mb-1 {
+  margin-bottom: 0.25rem !important;
+}
+.mb-2 {
+  margin-bottom: 0.5rem !important;
+}
+.mb-3 {
+  margin-bottom: 1rem !important;
+}
+.mb-4 {
+  margin-bottom: 1.5rem !important;
+}
+.mb-5 {
+  margin-bottom: 3rem !important;
+}
+.mb-auto {
+  margin-bottom: auto !important;
+}
+.mb-6 {
+  margin-bottom: 3.5rem !important;
+}
+.mb-7 {
+  margin-bottom: 4rem !important;
+}
+.mb-8 {
+  margin-bottom: 5rem !important;
+}
+.mb-9 {
+  margin-bottom: 6rem !important;
+}
+.mb-10 {
+  margin-bottom: 8rem !important;
+}
+.mb-11 {
+  margin-bottom: 10rem !important;
+}
+.mb-12 {
+  margin-bottom: 12rem !important;
+}
+.mb-13 {
+  margin-bottom: 14rem !important;
+}
+.mb-14 {
+  margin-bottom: 16rem !important;
+}
+.ms-0 {
+  margin-left: 0 !important;
+}
+.ms-1 {
+  margin-left: 0.25rem !important;
+}
+.ms-2 {
+  margin-left: 0.5rem !important;
+}
+.ms-3 {
+  margin-left: 1rem !important;
+}
+.ms-4 {
+  margin-left: 1.5rem !important;
+}
+.ms-5 {
+  margin-left: 3rem !important;
+}
+.ms-auto {
+  margin-left: auto !important;
+}
+.m-n1 {
+  margin: -0.25rem !important;
+}
+.m-n2 {
+  margin: -0.5rem !important;
+}
+.m-n3 {
+  margin: -1rem !important;
+}
+.m-n4 {
+  margin: -1.5rem !important;
+}
+.m-n5 {
+  margin: -3rem !important;
+}
+.mx-n1 {
+  margin-right: -0.25rem !important;
+  margin-left: -0.25rem !important;
+}
+.mx-n2 {
+  margin-right: -0.5rem !important;
+  margin-left: -0.5rem !important;
+}
+.mx-n3 {
+  margin-right: -1rem !important;
+  margin-left: -1rem !important;
+}
+.mx-n4 {
+  margin-right: -1.5rem !important;
+  margin-left: -1.5rem !important;
+}
+.mx-n5 {
+  margin-right: -3rem !important;
+  margin-left: -3rem !important;
+}
+.my-n1 {
+  margin-top: -0.25rem !important;
+  margin-bottom: -0.25rem !important;
+}
+.my-n2 {
+  margin-top: -0.5rem !important;
+  margin-bottom: -0.5rem !important;
+}
+.my-n3 {
+  margin-top: -1rem !important;
+  margin-bottom: -1rem !important;
+}
+.my-n4 {
+  margin-top: -1.5rem !important;
+  margin-bottom: -1.5rem !important;
+}
+.my-n5 {
+  margin-top: -3rem !important;
+  margin-bottom: -3rem !important;
+}
+.mt-n1 {
+  margin-top: -0.25rem !important;
+}
+.mt-n2 {
+  margin-top: -0.5rem !important;
+}
+.mt-n3 {
+  margin-top: -1rem !important;
+}
+.mt-n4 {
+  margin-top: -1.5rem !important;
+}
+.mt-n5 {
+  margin-top: -3rem !important;
+}
+.me-n1 {
+  margin-right: -0.25rem !important;
+}
+.me-n2 {
+  margin-right: -0.5rem !important;
+}
+.me-n3 {
+  margin-right: -1rem !important;
+}
+.me-n4 {
+  margin-right: -1.5rem !important;
+}
+.me-n5 {
+  margin-right: -3rem !important;
+}
+.mb-n1 {
+  margin-bottom: -0.25rem !important;
+}
+.mb-n2 {
+  margin-bottom: -0.5rem !important;
+}
+.mb-n3 {
+  margin-bottom: -1rem !important;
+}
+.mb-n4 {
+  margin-bottom: -1.5rem !important;
+}
+.mb-n5 {
+  margin-bottom: -3rem !important;
+}
+.ms-n1 {
+  margin-left: -0.25rem !important;
+}
+.ms-n2 {
+  margin-left: -0.5rem !important;
+}
+.ms-n3 {
+  margin-left: -1rem !important;
+}
+.ms-n4 {
+  margin-left: -1.5rem !important;
+}
+.ms-n5 {
+  margin-left: -3rem !important;
+}
+.p-0 {
+  padding: 0 !important;
+}
+.p-1 {
+  padding: 0.25rem !important;
+}
+.p-2 {
+  padding: 0.5rem !important;
+}
+.p-3 {
+  padding: 1rem !important;
+}
+.p-4 {
+  padding: 1.5rem !important;
+}
+.p-5 {
+  padding: 3rem !important;
+}
+.px-0 {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+.px-1 {
+  padding-right: 0.25rem !important;
+  padding-left: 0.25rem !important;
+}
+.px-2 {
+  padding-right: 0.5rem !important;
+  padding-left: 0.5rem !important;
+}
+.px-3 {
+  padding-right: 1rem !important;
+  padding-left: 1rem !important;
+}
+.px-4 {
+  padding-right: 1.5rem !important;
+  padding-left: 1.5rem !important;
+}
+.px-5 {
+  padding-right: 3rem !important;
+  padding-left: 3rem !important;
+}
+.py-0 {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+.py-1 {
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
+}
+.py-2 {
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+}
+.py-3 {
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
+}
+.py-4 {
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+}
+.py-5 {
+  padding-top: 3rem !important;
+  padding-bottom: 3rem !important;
+}
+.pt-0 {
+  padding-top: 0 !important;
+}
+.pt-1 {
+  padding-top: 0.25rem !important;
+}
+.pt-2 {
+  padding-top: 0.5rem !important;
+}
+.pt-3 {
+  padding-top: 1rem !important;
+}
+.pt-4 {
+  padding-top: 1.5rem !important;
+}
+.pt-5 {
+  padding-top: 3rem !important;
+}
+.pe-0 {
+  padding-right: 0 !important;
+}
+.pe-1 {
+  padding-right: 0.25rem !important;
+}
+.pe-2 {
+  padding-right: 0.5rem !important;
+}
+.pe-3 {
+  padding-right: 1rem !important;
+}
+.pe-4 {
+  padding-right: 1.5rem !important;
+}
+.pe-5 {
+  padding-right: 3rem !important;
+}
+.pb-0 {
+  padding-bottom: 0 !important;
+}
+.pb-1 {
+  padding-bottom: 0.25rem !important;
+}
+.pb-2 {
+  padding-bottom: 0.5rem !important;
+}
+.pb-3 {
+  padding-bottom: 1rem !important;
+}
+.pb-4 {
+  padding-bottom: 1.5rem !important;
+}
+.pb-5 {
+  padding-bottom: 3rem !important;
+}
+.ps-0 {
+  padding-left: 0 !important;
+}
+.ps-1 {
+  padding-left: 0.25rem !important;
+}
+.ps-2 {
+  padding-left: 0.5rem !important;
+}
+.ps-3 {
+  padding-left: 1rem !important;
+}
+.ps-4 {
+  padding-left: 1.5rem !important;
+}
+.ps-5 {
+  padding-left: 3rem !important;
+}
+.gap-0 {
+  gap: 0 !important;
+}
+.gap-1 {
+  gap: 0.25rem !important;
+}
+.gap-2 {
+  gap: 0.5rem !important;
+}
+.gap-3 {
+  gap: 1rem !important;
+}
+.gap-4 {
+  gap: 1.5rem !important;
+}
+.gap-5 {
+  gap: 3rem !important;
 }
 
 .ml-1 {

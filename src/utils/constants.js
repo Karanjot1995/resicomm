@@ -1205,3 +1205,5 @@ export const country_code_list = [
     country_name: "Zimbabwe",
   },
 ];
+
+export const Weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
