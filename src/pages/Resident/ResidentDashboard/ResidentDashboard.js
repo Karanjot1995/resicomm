@@ -220,6 +220,9 @@ function ResidentDashboard() {
                   <Payment
                     amenity_id={selectedAmenityId}
                     building={selectedBuilding}
+                    onRequestClose={() => {
+                    setPaymentModalisOpen(false);
+                  }}
                   />
                 </Modal>
               )}
