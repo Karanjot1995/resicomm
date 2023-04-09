@@ -4,8 +4,10 @@ import "./resident.scss";
 import "../../../App.scss";
 import {
   deleteVehicle,
+  getResidentVisitRequests,
   getServices,
   getVehicles,
+  getVisitRequests,
 } from "../../../services/services";
 import Modal from "react-modal";
 import Loader from "../../../components/loader/Loader";
@@ -60,6 +62,7 @@ function ResidentDashboard() {
   const [membershipModalIsOpen, setMembershipModalIsOpen] = useState(false);
   const [paymentModalIsOpen, setPaymentModalisOpen] = useState(false);
   const [paymentType, setPaymentType] = useState("");
+  const [visits, setVisits] = useState([]);
 
   useEffect(() => {
     setLoading(true);
@@ -69,6 +72,8 @@ function ResidentDashboard() {
       setVehicles(res);
       setLoading(false);
     });
+    let uid = user.id
+    getResidentVisitRequests({uid}).then(res=>setVisits(res.data))
   }, []);
 
   const changeType = (e) => {
@@ -435,28 +440,40 @@ function ResidentDashboard() {
                     </div>
 
                     <div className="report-body">
-                      <table style={{ width: "100%", textAlign: "center" }}>
-                        <thead>
+                    {visits && visits.length>0 ? 
+                    <table>
+                      <tbody>
+                        <tr>
+                          <th>Request Id</th>
+                          <th>Resident</th>
+                          <th>Building-Apartment Unit</th>
+                          <th>In-Time/Out-Time</th>
+                          <th>Status</th>
+                          <th></th>
+                        </tr>
+                          {visits.map(v=>
                           <tr>
-                            <th style={{ width: "10%" }}>Visitor Name</th>
-                            <th style={{ width: "20%" }}>Reason</th>
-                            <th style={{ width: "32%" }}>In-Time/Out-Time</th>
-                            <th style={{ width: "19%" }}>Status</th>
-                            <th style={{ width: "5%" }}></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>John Doe</td>
-                            <td>Electricity</td>
-                            <td>
-                              Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM
-                            </td>
-                            <td className="visitor-table-request-visited">
-                              Visited
-                            </td>
+                            <td>{v.id}</td>
+                            <td>{v.resident.fname} {v.resident.lname}</td>
+                            <td>{v.resident.building? v.resident.building+'-'+v.resident.apt:''}</td>
+                            <td>{v.in_time}-{v.out_time}</td>
+                            <td>{v.accepted!=0?(v.accepted==1?'Accepted':'Rejected'):'Requested'}</td>
                             <td>
                               <div className="visitor-schedule-action-container">
+                                {/* <a href="./visitor_driving_instructions.html">
+                                  <img
+                                    src="./images/map.png"
+                                    height="24px"
+                                    width="24px"
+                                  />
+                                </a> */}
+                                <button
+                                  className="driving-instructions"
+                                  onClick={() => navigate("/driving-instructions")}
+                                >
+                                  Driving Instructions
+                                </button>
+
                                 <a>
                                   <img
                                     src="./images/more_vert.png"
@@ -467,117 +484,16 @@ function ResidentDashboard() {
                               </div>
                             </td>
                           </tr>
-                          <tr>
-                            <td>Sam Smith</td>
-                            <td>Plumbing</td>
-                            <td>
-                              Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM
-                            </td>
-                            <td className="visitor-table-request-entered">
-                              Entered
-                            </td>
-                            <td>
-                              <div className="visitor-schedule-action-container">
-                                <a>
-                                  <img
-                                    src="./images/more_vert.png"
-                                    height="24px"
-                                    width="24px"
-                                  />
-                                </a>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Victor Dean</td>
-                            <td>Guest</td>
-                            <td>
-                              Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM
-                            </td>
-                            <td className="visitor-table-request-requested">
-                              Requested
-                            </td>
-                            <td>
-                              <div className="visitor-schedule-action-container">
-                                <a>
-                                  <img
-                                    src="./images/more_vert.png"
-                                    height="24px"
-                                    width="24px"
-                                  />
-                                </a>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Lisa Harris</td>
-                            <td>Guest</td>
-                            <td>
-                              Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM
-                            </td>
-                            <td className="visitor-table-request-declined">
-                              Declined
-                            </td>
-                            <td>
-                              <div className="visitor-schedule-action-container">
-                                <a>
-                                  <img
-                                    src="./images/more_vert.png"
-                                    height="24px"
-                                    width="24px"
-                                  />
-                                </a>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Peter Spencer</td>
-                            <td>Housekeeping</td>
-                            <td>
-                              Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM
-                            </td>
-                            <td className="visitor-table-request-approved">
-                              Approved
-                            </td>
-                            <td>
-                              <div className="visitor-schedule-action-container">
-                                <a>
-                                  <img
-                                    src="./images/more_vert.png"
-                                    height="24px"
-                                    width="24px"
-                                  />
-                                </a>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Daniel Geroge</td>
-                            <td>Delivery</td>
-                            <td>
-                              Feb 21, 2023 12:30 PM / Feb 21, 2023 12:30 PM
-                            </td>
-                            <td className="visitor-table-request-declined">
-                              Declined
-                            </td>
-                            <td>
-                              <div className="visitor-schedule-action-container">
-                                <a>
-                                  <img
-                                    src="./images/more_vert.png"
-                                    height="24px"
-                                    width="24px"
-                                  />
-                                </a>
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
+                          )}
+                          
+                        
+                      </tbody>
+                    </table>
+                    :'No requests yet.'}
+                  </div>
                   </div>
                 </div>
-
+{/* 
                 <div className="report">
                   <div className="report-container">
                     <div className="report-header d-flex justify-content-between align-items-center">
@@ -708,7 +624,7 @@ function ResidentDashboard() {
                       </table>
                     </div>
                   </div>
-                </div>
+                </div> */}
 
                 <div className="report">
                   <div className="report-container">

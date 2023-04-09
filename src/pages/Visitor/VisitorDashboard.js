@@ -13,7 +13,7 @@ function VisitorDashboard() {
   useEffect(() => {
     let uid = user.id
     getVisitRequests({uid}).then(res=>setVisits(res.data))
-  });
+  },[]);
 
   const changeType = (e) => {
     window.location.href = e.target.value;
@@ -62,7 +62,7 @@ function VisitorDashboard() {
                             <td>{v.resident.fname} {v.resident.lname}</td>
                             <td>{v.resident.building? v.resident.building+'-'+v.resident.apt:''}</td>
                             <td>{v.in_time}-{v.out_time}</td>
-                            <td>{v.accepted==1?'Approved':'Requested'}</td>
+                            <td>{v.accepted!=0?(v.accepted==1?'Accepted':'Rejected'):'Requested'}</td>
                             <td>
                               <div className="visitor-schedule-action-container">
                                 {/* <a href="./visitor_driving_instructions.html">
