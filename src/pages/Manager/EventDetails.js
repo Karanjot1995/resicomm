@@ -33,7 +33,7 @@ import {
   validatePassword,
   validateUPI,
 } from "../../utils/validation";
-import Datetime from "react-datetime";
+import DateTimePicker from "react-datetime-picker";
 
 function EventDetails(props) {
   const navigate = useNavigate();
@@ -49,6 +49,7 @@ function EventDetails(props) {
   const [eventEndTime, seteventEndTime] = useState({});
   const [eventLocation, setEventLocation] = useState("");
   const [eventType, setEventType] = useState("");
+  const [value, setValue] = useState(new Date());
 
   useEffect(() => {
     if (event_id != "") {
@@ -190,11 +191,10 @@ function EventDetails(props) {
                               <label>
                                 <b>Event Start:</b>
                               </label>
-                              <Datetime
-                                value={eventStartTime}
-                                onChange={(newDate) => {
-                                  console.log("newDate is " + newDate);
-                                }}
+                              <DateTimePicker
+                                label="Controlled picker"
+                                value={value}
+                                onChange={(newValue) => setValue(newValue)}
                               />
                               {/* <input
                             className=""

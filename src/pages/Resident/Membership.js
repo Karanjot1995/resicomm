@@ -492,7 +492,9 @@ function Membership(props) {
                                           <ul className="dropdown-menu text-left">
                                             <li
                                               key={event.id + "edit"}
-                                              onClick={() => {props.onViewEventCick(event.id)}}
+                                              onClick={() => {
+                                                props.onViewEventCick(event.id);
+                                              }}
                                             >
                                               View
                                             </li>
