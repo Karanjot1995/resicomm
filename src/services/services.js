@@ -1,6 +1,6 @@
 // const API_URL = "http://localhost:5000"
 // const API_URL = "https://9e26-64-189-206-39.ngrok.io"
-const API_URL = "http://localhost/resicomm-backend/index.php";
+const API_URL = "http://localhost/resicomm-server/index.php";
 
 let postOptions = {
   method: "POST",
@@ -113,6 +113,13 @@ export const registerEvent = async (data) => {
 
 export const getVisitRequests = async (data) => {
   return await fetch(`${API_URL}/visits/get`, {
+    body: JSON.stringify(data),
+    ...postOptions,
+  }).then((res) => res.json());
+};
+
+export const getResidentVisitRequests = async (data) => {
+  return await fetch(`${API_URL}/visits/resident`, {
     body: JSON.stringify(data),
     ...postOptions,
   }).then((res) => res.json());
