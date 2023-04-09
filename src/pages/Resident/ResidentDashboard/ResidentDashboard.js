@@ -381,7 +381,7 @@ function ResidentDashboard() {
                 <div className="report">
                   <div className="report-container">
                     <div className="report-header d-flex justify-content-between align-items-center">
-                      <h1 className="recent-Articles">Registered Vehicles</h1>
+                      <h2 className="recent-Articles">Registered Vehicles</h2>
                       <div className="d-flex justify-content-around">
                         <button
                           className="btn-red"
@@ -473,7 +473,7 @@ function ResidentDashboard() {
                 <div className="report">
                   <div className="report-container">
                     <div className="report-header d-flex justify-content-between align-items-center">
-                      <h1 className="recent-Articles">Visitor Requests</h1>
+                      <h2 className="recent-Articles">Visitor Requests</h2>
                       <button className="view">View All</button>
                     </div>
 
