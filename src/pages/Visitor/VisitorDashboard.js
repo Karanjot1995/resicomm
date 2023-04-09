@@ -46,6 +46,7 @@ function VisitorDashboard() {
                   </div>
 
                   <div className="report-body">
+                  {visits.length>0? 
                     <table>
                       <tbody>
                         <tr>
@@ -56,7 +57,7 @@ function VisitorDashboard() {
                           <th>Status</th>
                           <th></th>
                         </tr>
-                          {visits.length>0? visits.map(v=>
+                         {visits.map(v=>
                           <tr>
                             <td>{v.id}</td>
                             <td>{v.resident.fname} {v.resident.lname}</td>
@@ -89,11 +90,10 @@ function VisitorDashboard() {
                               </div>
                             </td>
                           </tr>
-                          ):''}
-                          
-                        
+                        )}
                       </tbody>
                     </table>
+                    :"No visitation requests yet!"}
                   </div>
                 </div>
               </div>

@@ -489,7 +489,7 @@ function ResidentDashboard() {
                           <th>Status</th>
                           <th></th>
                         </tr>
-                          {visits.map(v=>
+                          {visits.length>0 && visits.map(v=>
                           <tr>
                             <td>{v.id}</td>
                             <td>{v.resident.fname} {v.resident.lname}</td>

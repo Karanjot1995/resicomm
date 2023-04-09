@@ -22,7 +22,6 @@ function AmenityAccess(props) {
         let year = date.getFullYear();
         let month = (1 + date.getMonth()).toString().padStart(2, '0');
         let day = date.getDate().toString().padStart(2, '0');
-    
         return month + '/' + day + '/' + year;
     }
 
@@ -90,8 +89,6 @@ function AmenityAccess(props) {
                     <td>{log.accepted!=0?(log.accepted==1?'Accepted':'Rejected'):'Requested'}</td>
                     </tr>
                     ):''}
-                    
-                
                 </tbody>
             </table>
         </div>
