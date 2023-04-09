@@ -30,7 +30,6 @@ function ManagerHome(props) {
 
     const [edit, setEdit] = useState();
 
-
     const handleOnChange = e => {
         const { name, value } = e.target;
         setEmployee({ ...employee, [name]: value });
@@ -109,7 +108,6 @@ function ManagerHome(props) {
     const changeView = (box) =>{
         let dept = box.dept
         let usrs = [];
-        console.log(box)
         if(box.role == 'user'){
             usrs = props.users.filter(u=>u.type == 'user')
             dept = 'residents'
@@ -122,7 +120,6 @@ function ManagerHome(props) {
         setUsers(usrs)
         setClicked(dept)
     }
-    console.log(clicked)
 
     return (
         <div className="container">

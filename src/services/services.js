@@ -38,8 +38,8 @@ let options = {
   },
 };
 
-export const users = async () => {
-  return await fetch(`${API_URL}/`).then((res) => res.json());
+export const getAllUsers = async () => {
+  return await fetch(`${API_URL}/users`).then((res) => res.json());
 };
 
 export const getEmployees = async () => {
@@ -97,8 +97,22 @@ export const getEvents = async (data) => {
   }).then((res) => res.json());
 };
 
+export const visitRequest = async (data) => {
+  return await fetch(`${API_URL}/visits/create`, {
+    body: JSON.stringify(data),
+    ...postOptions,
+  }).then((res) => res.json());
+};
+
 export const registerEvent = async (data) => {
   return await fetch(`${API_URL}/events/register`, {
+    body: JSON.stringify(data),
+    ...postOptions,
+  }).then((res) => res.json());
+};
+
+export const getVisitRequests = async (data) => {
+  return await fetch(`${API_URL}/visits/get`, {
     body: JSON.stringify(data),
     ...postOptions,
   }).then((res) => res.json());
