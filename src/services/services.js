@@ -1,6 +1,7 @@
 // const API_URL = "http://localhost:5000"
 // const API_URL = "https://9e26-64-189-206-39.ngrok.io"
-const API_URL = "http://localhost/resicomm-server/index.php";
+// const API_URL = "http://localhost/resicomm-server/index.php";
+const API_URL = "https://kxs9016.uta.cloud/resicomm-server/index.php"
 
 let postOptions = {
   method: "POST",
