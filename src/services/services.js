@@ -248,3 +248,20 @@ export const getVendors = async () => {
     // body: JSON.stringify(data),
   }).then((res) => res.json());
 };
+
+export const getAccessLogs = async (data) => {
+  return await fetch(`${API_URL}/access-logs/resident`, {
+    body: JSON.stringify(data),
+    ...postOptions,
+  }).then((res) => res.json());
+};
+
+export const addAccessLog = async (data) => {
+  return await fetch(`${API_URL}/access-logs/create`, {
+    body: JSON.stringify(data),
+    ...postOptions,
+  }).then((res) => res.json());
+};
+
+
+
