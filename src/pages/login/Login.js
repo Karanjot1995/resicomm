@@ -58,6 +58,7 @@ function Login({ setIsLoggedIn, setUser }) {
       fetch(
         `http://localhost/resicomm-server/index.php/verify?email=${email}&hash=${hash}`
       );
+      alert('Successfully verified. Logion to continue.')
       window.location.href = "/login";
     }
     // fetch("https://countrycode.dev/api/calls")
