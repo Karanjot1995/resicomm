@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./visitor.scss";
 import "../../App.scss";
+import { GoogleMap, LoadScript } from "@react-google-maps/api";
 
 function DrivingInstructions() {
   const navigate = useNavigate();
   const [userType, setUserType] = useState("visitor");
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [active, setActive] = useState("home");
 
   useEffect(() => {
@@ -27,7 +29,7 @@ function DrivingInstructions() {
                 <div className="visitor-box-container">
                   <div className=" box1">
                     <div className="text">
-                      <div className="logo">Hi Visitor</div>
+                      <div className="logo">Hi {user.fname}</div>
                     </div>
                   </div>
                 </div>
@@ -46,6 +48,7 @@ function DrivingInstructions() {
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"
                       ></iframe>
+                      {/* <iframe src="https://www.google.com/maps/d/embed?mid=1q34OCJg3rep-qh8qH_ZyTa76jWYtFms&ehbc=2E312F" width="100%" height="480"></iframe> */}
                     </div>
                   </div>
                 </div>
@@ -56,6 +59,26 @@ function DrivingInstructions() {
       </div>
     </div>
   );
+
+  // const mapStyles = {
+  //   height: "100vh",
+  //   width: "100%",
+  // };
+
+  // const defaultCenter = {
+  //   lat: 41.3851,
+  //   lng: 2.1734,
+  // };
+
+  // return (
+  //   <LoadScript googleMapsApiKey="AIzaSyAc49AINR73SvhaeLaJquHMXWgDOjKkJDo">
+  //     <GoogleMap
+  //       mapContainerStyle={mapStyles}
+  //       zoom={13}
+  //       center={defaultCenter}
+  //     />
+  //   </LoadScript>
+  // );
 }
 
 export default DrivingInstructions;

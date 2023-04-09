@@ -1,176 +1,174 @@
-  /* Shrivastava, Jatin - 1002032011
+/* Shrivastava, Jatin - 1002032011
 Suresh, Shobika – 1002077439
 Sing, Karanjot - 1001949016
 Gampa, Sai Gayathri - 1002090414
  Kumar, Harihar Omkarachari Suprith - 1001880333
  */
- 
-#visitor{
+
+ #visitor {
   .view {
-    width: 120px!important;
-    height: 50px!important;
+    width: 120px !important;
+    height: 50px !important;
   }
-  
+
   .driving-instructions {
     height: 32px;
-  width: 150px;
-  border-radius: 8px;
-  background-color: #e50914;
-  color: white;
-  font-size: 15px;
-  border: none;
-  cursor: pointer;
+    width: 150px;
+    border-radius: 8px;
+    background-color: #e50914;
+    color: white;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
   }
 
-.visitor-box-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  /* gap: 50px; */
-}
-.visitor-schedule-action-container {
-  text-align: end;
-}
+  .visitor-box-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    /* gap: 50px; */
+  }
+  .visitor-schedule-action-container {
+    text-align: end;
+  }
 
-.btn-primary {
-  height: 35px;
-  width: 90px;
-  border-radius: 8px;
-  background-color: #e50914;
-  color: white;
-  font-size: 15px;
-  border: none;
-  cursor: pointer;
-}
-.d-relative {
-  position: relative;
-}
-.d-absolute {
-  position: absolute;
-}
-.container {
-  // width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
+  .btn-primary {
+    height: 35px;
+    width: 90px;
+    border-radius: 8px;
+    background-color: #e50914;
+    color: white;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+  }
+  .d-relative {
+    position: relative;
+  }
+  .d-absolute {
+    position: absolute;
+  }
+  .container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
 
-.register-vehicle-radio {
-  position: absolute;
-  opacity: 0;
-  width: 12vw;
-  height: 10vw;
-}
+  .register-vehicle-radio {
+    position: absolute;
+    opacity: 0;
+    width: 12vw;
+    height: 10vw;
+  }
 
-.register-vehicle-radio-image {
-  width: 12vw;
-  height: 10vw;
-}
+  .register-vehicle-radio-image {
+    width: 12vw;
+    height: 10vw;
+  }
 
-/* IMAGE STYLES */
-.register-vehicle-radio + .register-vehicle-radio-image {
-  cursor: pointer;
-}
+  /* IMAGE STYLES */
+  .register-vehicle-radio + .register-vehicle-radio-image {
+    cursor: pointer;
+  }
 
-/* CHECKED STYLES */
-.register-vehicle-radio:checked + .register-vehicle-radio-image {
-  outline: 2px solid #5500cb;
-}
-.driving-instructions-container {
-  position: relative;
-  min-height: 600px;
-  max-width: 1200px;
-  margin: 70px auto 0px auto;
-  background-color: #ffffff;
-  border-radius: 30px;
-  box-shadow: 3px 3px 10px rgb(188, 188, 188);
-}
-.driving-instructions-map {
-  position: absolute;
-  min-height: 600px;
-  max-width: 1200px;
-  border-radius: 30px;
-}
-.hr-rounded {
-  border-top: 2px solid #13b7a6;
-  border-radius: 5px;
-}
-.d-flex {
-  display: flex;
-}
-.d-block {
-  display: block;
-}
-.d-inline-block {
-  display: inline-block;
-}
-.d-inline {
-  display: inline;
-}
-.request-visit-btn {
-  height: 35px;
-  /* width: 190px; */
-  padding-inline: 16px;
-  border-radius: 8px;
-  background-color: #5500cb;
-  color: white;
-  font-size: 15px;
-  border: none;
-  cursor: pointer;
-}
-.visitor-table-request-approved {
-  background-color: green;
-  border-radius: 8px;
-}
-.visitor-table-request-requested {
-  background-color: orange;
-  border-radius: 8px;
-}
-.visitor-table-request-declined {
-  background-color: red;
-  border-radius: 8px;
-}
-.visitor-table-request-visited {
-  background-color: grey;
-  border-radius: 8px;
-}
-.visitor-table-request-entered {
-  background-color: greenyellow;
-  border-radius: 8px;
-}
-.resident-dashboard-container-top {
-  position: relative;
-  min-height: 300px;
-  max-width: 1200px;
-  margin: 70px auto 0px auto;
-  background-color: #ffffff;
-  border-radius: 30px;
-  box-shadow: 3px 3px 10px rgb(188, 188, 188);
-}
-.resident-dashboard-image {
-  position: absolute;
-  max-height: 100%;
-  max-width: 100%;
-  overflow: hidden;
-  border-radius: 30px 0px 0px 30px;
-}
+  /* CHECKED STYLES */
+  .register-vehicle-radio:checked + .register-vehicle-radio-image {
+    outline: 2px solid #5500cb;
+  }
+  .driving-instructions-container {
+    position: relative;
+    min-height: 600px;
+    max-width: 1200px;
+    margin: 70px auto 0px auto;
+    background-color: #ffffff;
+    border-radius: 30px;
+    box-shadow: 3px 3px 10px rgb(188, 188, 188);
+  }
+  .driving-instructions-map {
+    position: absolute;
+    min-height: 600px;
+    max-width: 1200px;
+    border-radius: 30px;
+  }
+  .hr-rounded {
+    border-top: 2px solid #13b7a6;
+    border-radius: 5px;
+  }
+  .d-flex {
+    display: flex;
+  }
+  .d-block {
+    display: block;
+  }
+  .d-inline-block {
+    display: inline-block;
+  }
+  .d-inline {
+    display: inline;
+  }
+  .request-visit-btn {
+    height: 35px;
+    /* width: 190px; */
+    padding-inline: 16px;
+    border-radius: 8px;
+    background-color: #5500cb;
+    color: white;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+  }
+  .visitor-table-request-approved {
+    background-color: green;
+    border-radius: 8px;
+  }
+  .visitor-table-request-requested {
+    background-color: orange;
+    border-radius: 8px;
+  }
+  .visitor-table-request-declined {
+    background-color: red;
+    border-radius: 8px;
+  }
+  .visitor-table-request-visited {
+    background-color: grey;
+    border-radius: 8px;
+  }
+  .visitor-table-request-entered {
+    background-color: greenyellow;
+    border-radius: 8px;
+  }
+  .resident-dashboard-container-top {
+    position: relative;
+    min-height: 300px;
+    max-width: 1200px;
+    margin: 70px auto 0px auto;
+    background-color: #ffffff;
+    border-radius: 30px;
+    box-shadow: 3px 3px 10px rgb(188, 188, 188);
+  }
+  .resident-dashboard-image {
+    position: absolute;
+    max-height: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 30px 0px 0px 30px;
+  }
 
-.report-container {
-  text-align: center;
-}
+  .report-container {
+    text-align: center;
+  }
 
+  .driving-instructions-map {
+    position: relative;
+    min-height: 600px;
+    min-width: 100%;
+    border-radius: 30px;
+  }
 
-.driving-instructions-map {
-  position: relative;
-  min-height: 600px;
-  min-width: 100%;
-  border-radius: 30px;
-}
-
-.form-input {
-  width: 35%;
-}
-
+  .form-input {
+    width: 35%;
+  }
 }
