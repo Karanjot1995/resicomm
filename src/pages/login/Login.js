@@ -56,7 +56,8 @@ function Login({ setIsLoggedIn, setUser }) {
       let email = urlParams.get("email");
       let hash = urlParams.get("hash");
       fetch(
-        `http://localhost/resicomm-server/index.php/verify?email=${email}&hash=${hash}`
+        // `http://localhost/resicomm-server/index.php/verify?email=${email}&hash=${hash}`
+        `http://kxs9016.uta.cloud/resicomm-server/index.php/verify?email=${email}&hash=${hash}`
       );
       alert('Successfully verified. Logion to continue.')
       window.location.href = "/login";
