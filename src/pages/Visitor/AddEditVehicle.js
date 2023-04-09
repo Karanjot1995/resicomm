@@ -11,6 +11,7 @@ import "../../App.scss";
 
 function VisitorAddEditVehicle({ route, navigation }) {
   const location = useLocation();
+  console.log(location)
   const navigateBack = location.state.navigateBack? location.state.navigateBack : false;
   const { vehicle_id } = useParams();
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ function VisitorAddEditVehicle({ route, navigation }) {
         vehicle_id: vehicle_id,
       };
 
+      console.log('hi')
       getVehicleDetails(data)
         .then((response) => {
           setLoading(false);
