@@ -16,6 +16,8 @@ import Membership from "../Membership";
 import { Weekdays } from "../../../utils/constants";
 import Payment from "../Payment";
 import EventDetails from "../../Manager/EventDetails";
+import AmenityAccess from "./AmenityAccess";
+import RequestAccess from "./RequestAccess";
 
 const customStyles = {
   content: {
@@ -662,111 +664,20 @@ function ResidentDashboard() {
                   </div>
                 </div> */}
 
-                <div className="report">
+                {/* <div className="report">
                   <div className="report-container">
                     <div className=" d-flex justify-content-between align-items-center">
-                      <h1 className="recent-Articles">Memberships</h1>
+                      <h1 className="recent-Articles">Request Access for Amenity</h1>
                     </div>
-
-                    <div className="report-body">
-                      <table style={{ width: "100%", textAlign: "center" }}>
-                        <thead>
-                          <tr>
-                            <th style={{ width: "10%" }}>Sr. No.</th>
-                            <th style={{ width: "15%" }}>Membership Name</th>
-                            <th style={{ width: "35%" }}>Issued On</th>
-                            <th style={{ width: "35%" }}>Expires On</th>
-                            <th style={{ width: "5%" }}></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>Gym</td>
-                            <td>Feb 21, 2023</td>
-                            <td>Feb 21, 2023</td>
-                            <td>
-                              <div className="visitor-schedule-action-container">
-                                {/* <a>
-                                <img
-                                  src="./images/more_vert.png"
-                                  height="24px"
-                                  width="24px"
-                                />
-                              </a> */}
-                                <label className="switch">
-                                  <input type="checkbox" defaultChecked />
-                                  <span className="slider round"></span>
-                                </label>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>2</td>
-                            <td>Pool</td>
-                            <td>Feb 21, 2023</td>
-                            <td>Feb 21, 2023</td>
-                            <td>
-                              <div className="visitor-schedule-action-container">
-                                {/* <a>
-                                <img
-                                  src="./images/more_vert.png"
-                                  height="24px"
-                                  width="24px"
-                                />
-                              </a> */}
-                                <label className="switch">
-                                  <input type="checkbox" />
-                                  <span className="slider round"></span>
-                                </label>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>3</td>
-                            <td>Tennis Court</td>
-                            <td>Feb 21, 2023</td>
-                            <td>Feb 21, 2023</td>
-                            <td>
-                              <div className="visitor-schedule-action-container">
-                                {/* <a>
-                                <img
-                                  src="./images/more_vert.png"
-                                  height="24px"
-                                  width="24px"
-                                />
-                              </a> */}
-                                <label className="switch">
-                                  <input type="checkbox" defaultChecked />
-                                  <span className="slider round"></span>
-                                </label>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>4</td>
-                            <td>Badminton</td>
-                            <td>Feb 21, 2023</td>
-                            <td>Feb 21, 2023</td>
-                            <td>
-                              <div className="visitor-schedule-action-container">
-                                {/* <a>
-                                <img
-                                  src="./images/more_vert.png"
-                                  height="24px"
-                                  width="24px"
-                                />
-                              </a> */}
-                                <label className="switch">
-                                  <input type="checkbox" defaultChecked />
-                                  <span className="slider round"></span>
-                                </label>
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
+                    <RequestAccess user={user}/>
+                    
+                  </div>
+                </div> */}
+                <div className="report">
+                  <div className="report-container">
+                   
+                    <AmenityAccess user={user}/>
+                    
                   </div>
                 </div>
               </div>
