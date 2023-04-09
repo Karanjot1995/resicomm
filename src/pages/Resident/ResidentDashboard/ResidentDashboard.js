@@ -13,6 +13,7 @@ import { convertTo12Hour } from "../../../utils/utils.js";
 import Membership from "../Membership";
 import { Weekdays } from "../../../utils/constants";
 import Payment from "../Payment";
+import EventDetails from "../../Manager/EventDetails";
 
 const customStyles = {
   content: {
@@ -53,12 +54,14 @@ function ResidentDashboard() {
   const [selectedVehicleId, setSelectedVehicleId] = useState(null);
   const [amenities, setAmenities] = useState([]);
   const [selectedAmenityId, setSelectedAmenityId] = useState(null);
+  const [selectedEventId, setSelectedEventId] = useState(null);
   const [selectedBuilding, setSelectedBuilding] = useState(null);
   const [vehicles, setVehicles] = useState([]);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [modalIsOpen, setIsOpen] = useState(false);
   const [membershipModalIsOpen, setMembershipModalIsOpen] = useState(false);
   const [paymentModalIsOpen, setPaymentModalisOpen] = useState(false);
+  const [eventModalIsOpen, setEventModalIsOpen] = useState(false);
   const [paymentType, setPaymentType] = useState("");
 
   useEffect(() => {
@@ -183,6 +186,11 @@ function ResidentDashboard() {
                   ></i>
                   <Membership
                     amenity_id={selectedAmenityId}
+                    onViewEventCick={(event_id) => {
+                      setMembershipModalIsOpen(false);
+                      setSelectedEventId(event_id);
+                      setEventModalIsOpen(true);
+                    }}
                     joinButton={
                       <button
                         className="btn-red ms-5"
@@ -221,8 +229,36 @@ function ResidentDashboard() {
                     amenity_id={selectedAmenityId}
                     building={selectedBuilding}
                     onRequestClose={() => {
-                    setPaymentModalisOpen(false);
+                      setPaymentModalisOpen(false);
+                    }}
+                  />
+                </Modal>
+              )}
+
+              {eventModalIsOpen && (
+                <Modal
+                  isOpen={eventModalIsOpen}
+                  onHide={() => setEventModalIsOpen(false)}
+                  onRequestClose={() => {
+                    // setSelectedAmenityId(null);
+                    setEventModalIsOpen(false);
                   }}
+                  style={membershipCustomStyles}
+                  contentLabel="Example Modal"
+                >
+                  <i
+                    className="fa fa-times"
+                    style={{ float: "right" }}
+                    onClick={() => {
+                      setEventModalIsOpen(false);
+                    }}
+                  ></i>
+                  <EventDetails
+                    isEdit={true}
+                    event_id={selectedEventId}
+                    onRequestClose={() => {
+                      setEventModalIsOpen(false);
+                    }}
                   />
                 </Modal>
               )}

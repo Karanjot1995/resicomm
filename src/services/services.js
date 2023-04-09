@@ -84,6 +84,12 @@ export const getAmenityDetails = async (data) => {
   }).then((res) => res.json());
 };
 
+export const getEventDetails = async (data) => {
+  return await fetch(`${API_URL}/events?id=${data.event_id}`, {
+    ...getOptions,
+  }).then((res) => res.json());
+};
+
 export const getEvents = async (data) => {
   return await fetch(`${API_URL}/events`, {
     body: JSON.stringify(data),
