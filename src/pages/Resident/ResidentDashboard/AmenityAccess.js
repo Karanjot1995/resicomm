@@ -34,7 +34,7 @@ function AmenityAccess(props) {
         if(amenity.in_time && amenity.out_time && amenity.name){
             addAccessLog(amenity).then(res=>console.log(res))
         }else{
-            alert('All foields are mandatory!')
+            alert('All fields are mandatory!')
         }
     }
 
@@ -80,7 +80,7 @@ function AmenityAccess(props) {
                     <th>Status</th>
                     <th></th>
                 </tr>
-                    {logs.length>0? logs.map(log=>
+                    {logs && logs.length>0? logs.map(log=>
                     <tr>
                     <td>{log.amenity.name}</td>
                     <td>{log.in_time}</td>
