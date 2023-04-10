@@ -1,6 +1,6 @@
 // const API_URL = "http://localhost:5000"
 // const API_URL = "https://9e26-64-189-206-39.ngrok.io"
-// const API_URL = "http://localhost/resicomm-server/index.php";
+// const API_URL = "http://localhost/resicomm-backend/index.php";
 const API_URL = "https://kxs9016.uta.cloud/resicomm-server/index.php"
 
 let postOptions = {
@@ -245,6 +245,13 @@ export const resetPassword = async (data) => {
 
 export const getVendors = async () => {
   return await fetch(`${API_URL}/users/vendors`, {
+    ...getOptions,
+    // body: JSON.stringify(data),
+  }).then((res) => res.json());
+};
+
+export const getLocations = async () => {
+  return await fetch(`${API_URL}/locations`, {
     ...getOptions,
     // body: JSON.stringify(data),
   }).then((res) => res.json());

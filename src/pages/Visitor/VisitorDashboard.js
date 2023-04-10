@@ -11,9 +11,9 @@ function VisitorDashboard() {
   const [visits, setVisits] = useState([]);
 
   useEffect(() => {
-    let uid = user.id
-    getVisitRequests({uid}).then(res=>setVisits(res.data))
-  },[]);
+    let uid = user.id;
+    getVisitRequests({ uid }).then((res) => setVisits(res.data));
+  }, []);
 
   const changeType = (e) => {
     window.location.href = e.target.value;
@@ -21,7 +21,6 @@ function VisitorDashboard() {
 
   return (
     <div className="pt-50 resident" id="visitor">
-     
       {/* <div className="tab-toggle">
 				<button onClick={()=>setActive('home')} className={`custom-btn ${active=='home'?'active':''}`}>Home</button>
 				<button onClick={()=>setActive('dashboard')} className={`custom-btn ${active=='dashboard'?'active':''}`}>Dashboard</button>
@@ -29,13 +28,16 @@ function VisitorDashboard() {
       <div>
         <div className="container">
           <div className="main">
-          <div className="report-container">
-            <div className="report-header d-flex justify-content-between align-items-center">
-              <button className="view" onClick={() => navigate("/create-request")}>
-                Create a visit request
-              </button>
+            <div className="report-container">
+              <div className="report-header d-flex justify-content-between align-items-center">
+                <button
+                  className="view"
+                  onClick={() => navigate("/create-request")}
+                >
+                  Create a visit request
+                </button>
+              </div>
             </div>
-          </div>
 
             <div className="container">
               <div className="report">
@@ -46,54 +48,82 @@ function VisitorDashboard() {
                   </div>
 
                   <div className="report-body">
-                  {visits.length>0? 
-                    <table>
-                      <tbody>
-                        <tr>
-                          <th>Request Id</th>
-                          <th>Resident</th>
-                          <th>Building-Apartment Unit</th>
-                          <th>In-Time/Out-Time</th>
-                          <th>Status</th>
-                          <th></th>
-                        </tr>
-                         {visits.map(v=>
+                    {visits.length > 0 ? (
+                      <table>
+                        <tbody>
                           <tr>
-                            <td>{v.id}</td>
-                            <td>{v.resident.fname} {v.resident.lname}</td>
-                            <td>{v.resident.building? v.resident.building+'-'+v.resident.apt:''}</td>
-                            <td>{v.in_time}-{v.out_time}</td>
-                            <td>{v.accepted!=0?(v.accepted==1?'Accepted':'Rejected'):'Requested'}</td>
-                            <td>
-                              <div className="visitor-schedule-action-container">
-                                {/* <a href="./visitor_driving_instructions.html">
+                            <th>Request Id</th>
+                            <th>Resident</th>
+                            <th>Building-Apartment Unit</th>
+                            <th>In-Time/Out-Time</th>
+                            <th>Status</th>
+                            <th></th>
+                          </tr>
+                          {visits.map((v) => {
+                            let property_details = v.resident.property_details;
+
+                            return (
+                              <tr>
+                                <td>{v.id}</td>
+                                <td>
+                                  {v.resident.fname} {v.resident.lname}
+                                </td>
+                                <td>
+                                  {v.resident.property_details
+                                    ? v.resident.property_details.building +
+                                      "-" +
+                                      v.resident.apt
+                                    : ""}
+                                </td>
+                                <td>
+                                  {v.in_time}-{v.out_time}
+                                </td>
+                                <td>
+                                  {v.accepted != 0
+                                    ? v.accepted == 1
+                                      ? "Accepted"
+                                      : "Rejected"
+                                    : "Requested"}
+                                </td>
+                                <td>
+                                  <div className="visitor-schedule-action-container">
+                                    {/* <a href="./visitor_driving_instructions.html">
                                   <img
                                     src="./images/map.png"
                                     height="24px"
                                     width="24px"
                                   />
                                 </a> */}
-                                <button
-                                  className="driving-instructions"
-                                  onClick={() => navigate("/driving-instructions")}
-                                >
-                                  Driving Instructions
-                                </button>
+                                    <button
+                                      className="driving-instructions"
+                                      onClick={() =>
+                                        navigate("/driving-instructions", {
+                                          state: {
+                                            destination: property_details,
+                                          },
+                                        })
+                                      }
+                                    >
+                                      Driving Instructions
+                                    </button>
 
-                                <a>
-                                  <img
-                                    src="./images/more_vert.png"
-                                    height="24px"
-                                    width="24px"
-                                  />
-                                </a>
-                              </div>
-                            </td>
-                          </tr>
-                        )}
-                      </tbody>
-                    </table>
-                    :"No visitation requests yet!"}
+                                    <a>
+                                      <img
+                                        src="./images/more_vert.png"
+                                        height="24px"
+                                        width="24px"
+                                      />
+                                    </a>
+                                  </div>
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    ) : (
+                      "No visitation requests yet!"
+                    )}
                   </div>
                 </div>
               </div>
@@ -101,7 +131,6 @@ function VisitorDashboard() {
           </div>
         </div>
       </div>
-      
     </div>
   );
 }
