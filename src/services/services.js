@@ -59,6 +59,14 @@ export const signIn = async (data) => {
   }).then((res) => res.json());
 };
 
+export const updateUser = async (data) => {
+  console.log(data);
+  return await fetch(`${API_URL}/user/update`, {
+    ...postOptions,
+    body: JSON.stringify(data),
+  }).then((res) => res.json());
+};
+
 export const getServices = async () => {
   return await fetch(`${API_URL}/amenities`).then((res) => res.json());
 };

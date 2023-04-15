@@ -75,7 +75,7 @@ function Register() {
     const regex = /^\d{10}$/;
 
     if (regex.test(phoneNumber)) {
-      setPhone(countryCode + phoneNumber);
+      setPhone(countryCode + " " + phoneNumber);
       setErrMsgs((prevState) => ({ ...prevState, phone: "" }));
     } else {
       setPhone("");
@@ -111,7 +111,7 @@ function Register() {
     e.preventDefault();
     let valid = true;
     for (const key in errMsgs) {
-      if (errMsgs[key] && key != "name") {
+      if (errMsgs[key] && key != "randomKey") {
         valid = false;
       }
     }
@@ -142,12 +142,14 @@ function Register() {
         dob: DOB,
         isVisitor: isVisitor,
       };
+
+      console.log("data is " + JSON.stringify(data));
       register(data)
         .then((response) => {
-          console.log(response)
+          console.log(response);
           if (response.status == 200) {
             alert("Successfully registered! Verify your email to continue.");
-            window.location.href = '/login'
+            window.location.href = "/login";
           } else {
             alert(response.message);
           }
@@ -176,7 +178,7 @@ function Register() {
                       <b>First Name:</b>
                     </label>
                     <input
-                      className=""
+                      className="exclude"
                       type="text"
                       placeholder="John"
                       onChange={(e) =>
@@ -194,7 +196,7 @@ function Register() {
                       <b>Last Name:</b>
                     </label>
                     <input
-                      className=""
+                      className="exclude"
                       type="text"
                       placeholder="Doe"
                       onChange={(e) =>
@@ -213,7 +215,7 @@ function Register() {
                     <b>Email:</b>
                   </label>
                   <input
-                    className="email"
+                    className="email exclude"
                     type="email"
                     placeholder="Email*"
                     onChange={(e) =>
@@ -231,7 +233,7 @@ function Register() {
                   </label>
                   <div className="password-wrapper">
                     <input
-                      className="password"
+                      className="password exclude"
                       type="password"
                       placeholder="Password*"
                       onChange={(e) =>
@@ -256,7 +258,7 @@ function Register() {
                     <b>Confirm Password:</b>
                   </label>
                   <input
-                    className="password"
+                    className="password exclude"
                     type="password"
                     placeholder="Confirm Password*"
                     onChange={(e) => {
@@ -291,7 +293,7 @@ function Register() {
                   <div className="phone-wrapper">
                     <select
                       defaultValue=""
-                      className="country-code"
+                      className="country-code exclude"
                       onChange={(e) => {
                         setCountryCode(e.target.value);
                         validatePhone(
@@ -326,7 +328,7 @@ function Register() {
                     <b>Mobile:</b>
                   </label>
                   <input
-                    className=""
+                    className="exclude"
                     type="number"
                     placeholder="Phone Number*"
                     maxLength="10"
@@ -355,7 +357,7 @@ function Register() {
                     <b>Date of Birth:</b>
                   </label>
                   <input
-                    className=""
+                    className="exclude"
                     type="date"
                     placeholder="Date of birth*"
                     onChange={(e) => {

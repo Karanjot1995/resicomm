@@ -13,6 +13,20 @@ export const validateEmail = (e, setEmail, errMsgs, setErrMsgs) => {
   }
 };
 
+export const validateLicenseNumber = (e, setLicenseNumber, errMsgs, setErrMsgs) => {
+  let licenseNumber = e.target.value;
+  setLicenseNumber(licenseNumber);
+  const regex = /^[a-zA-Z0-9]+$/;
+  if (licenseNumber.length !== 10 || !regex.test(licenseNumber)) {
+    setErrMsgs({
+      ...errMsgs,
+      licenseNumber: "Please enter a valid 10 character license number.",
+    });
+  } else {
+    setErrMsgs({ ...errMsgs, licenseNumber: "" });
+  }
+};
+
 export const validateCardNumber = (e, setCardNumber, errMsgs, setErrMsgs) => {
   let cardNumber = e.target.value.replace(/\s/g, "");
   setCardNumber(cardNumber);
