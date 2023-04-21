@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { getUser, register, updateUser } from "../../services/services";
+import {
+  getLocations,
+  getPayments,
+  getUser,
+  register,
+  updateUser,
+} from "../../services/services";
 import { useNavigate } from "react-router-dom";
 import "../../App.scss";
 import "./login.scss";
+import Modal from "react-modal";
+import Payment from "./../Resident/Payment";
 import {
   validateCity,
   validateCountry,
@@ -18,8 +26,23 @@ import {
 } from "../../utils/validation";
 import { country_code_list } from "../../utils/constants";
 import Loader from "../../components/loader/Loader";
-// import { setUserData } from "../actions";
-// import { useHistory } from "react-router-dom";
+
+const membershipCustomStyles = {
+  content: {
+    top: "55%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    maxHeight: "80vh",
+    maxWidth: "80vw",
+    minWidth: "80vw",
+    zIndex: 30,
+  },
+};
+
+Modal.setAppElement(document.getElementById("visitor"));
 
 function UserProfile() {
   const navigate = useNavigate();
@@ -35,6 +58,9 @@ function UserProfile() {
   const [fullPhone, setFullPhone] = useState(null);
   const [DOB, setDob] = useState(null);
   const [errMsgs, setErrMsgs] = useState({});
+  const [propertyDetails, setPropertyDetails] = useState({});
+  const [paymentList, setPaymentList] = useState([]);
+  const [paymentModalIsOpen, setPaymentModalisOpen] = useState(false);
 
   const validatePhone = (code, phone, setPhone, errMsgs, setErrMsgs) => {
     const countryCode = code;
@@ -54,17 +80,17 @@ function UserProfile() {
   };
 
   useEffect(() => {
-    // let selected = window.location.pathname.replace("/", "");
-    // setUserType(selected);
-    // console.log();
+    console.log("user is ", JSON.stringify(user));
     setFname(user.fname);
     setLname(user.lname);
     setFullPhone(user.phone);
     setFname(user.fname);
-    setLoading(false);
+    // setLoading(false);
     setDob(user.dob);
     setLicenseNumber(user.license_number);
     setCountryCodeAndPhone();
+    getPaymentDetails();
+    getPropertyDetails();
   }, [user]);
 
   const setCountryCodeAndPhone = () => {
@@ -82,6 +108,52 @@ function UserProfile() {
   function chkLen(e, l) {
     if (e.target.value.length > l) e.target.value = e.target.value.slice(0, l);
   }
+
+  const getPaymentDetails = () => {
+    let data = {
+      user_id: user.id,
+      payment_type: "rent",
+    };
+    getPayments(data)
+      .then((response) => {
+        if (response.status == 200) {
+          let object = [];
+          response.payments.map((item) => {
+            object.push(item);
+          });
+          setPaymentList(object);
+          // setLoading(false);
+        } else {
+          alert(response.message);
+          setLoading(false);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+      });
+  };
+
+  const getPropertyDetails = () => {
+    getLocations()
+      .then((response) => {
+        if (response.status == 200) {
+          let object = {};
+          response.locations.map((item) => {
+            object[item.id] = item;
+          });
+          setPropertyDetails(object);
+          setLoading(false);
+        } else {
+          alert(response.message);
+          setLoading(false);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+      });
+  };
 
   const updateUserData = async (e) => {
     e.preventDefault();
@@ -153,8 +225,65 @@ function UserProfile() {
   if (loading) {
     return <div>{loading && <Loader />}</div>;
   } else {
+    // const dateStr = paymentList[0]["payment_date"];
+    const dateStr =
+      paymentList.length === 0 ? "" : paymentList[0]["payment_date"];
+    const payment_date = new Date(dateStr);
+    
+    let currentDate = new Date();
+
+    // create a new Date object for the given date
+    let expDateString =
+      paymentList.length === 0 ? "" : paymentList[0]["expiry_date"];
+    let formattedExpDate = new Date(expDateString);
+
+    // compare the two dates using getTime() method
+    let datePassed = false;
+    if (currentDate.getTime() > formattedExpDate.getTime()) {
+      datePassed = true;
+    }
+
+    const firstDayOfMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      1
+    ); // get the first day of the current month
+    const timeDiff = currentDate.getTime() - firstDayOfMonth.getTime(); // calculate the time difference in milliseconds
+    const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
     return (
       <div className="pt-50 resident profile" id="visitor">
+        {paymentModalIsOpen && (
+          <Modal
+            isOpen={paymentModalIsOpen}
+            onHide={() => setPaymentModalisOpen(false)}
+            onRequestClose={() => {
+              // setSelectedAmenityId(null);
+              setPaymentModalisOpen(false);
+            }}
+            style={membershipCustomStyles}
+            contentLabel="Example Modal"
+          >
+            <i
+              className="fa fa-times"
+              style={{ float: "right" }}
+              onClick={() => {
+                setPaymentModalisOpen(false);
+              }}
+            ></i>
+            <Payment
+              amenity_id={""}
+              building={""}
+              payment_amount={parseFloat(
+                propertyDetails[user.property_id]["amount"]
+              ).toFixed(2)}
+              onRequestClose={() => {
+                setPaymentModalisOpen(false);
+                getPaymentDetails();
+              }}
+            />
+          </Modal>
+        )}
         <div className="container">
           <div className="main">
             <div className="container">
@@ -252,7 +381,7 @@ function UserProfile() {
                                   }}
                                   required
                                 >
-                                  <option value="" disabled>
+                                  <option value="" disabled={true}>
                                     Select country code
                                   </option>
                                   {country_code_list &&
@@ -302,39 +431,13 @@ function UserProfile() {
                             </div>
                           </div>
                           <br />
-                          {/* <div className="d-flex justify-content-center">
-                          <div className="d-grid">
-                            <label for="vehicle_number">Gender:</label>
-                            <select id="vehicle_number" name="vehicle_number">
-                              <option value="">Select Gender</option>
-                              <option value="M" selected>
-                                Male
-                              </option>
-                              <option value="F">Female</option>
-                              <option value="O">Other</option>
-                            </select>
-                          </div>
-                          &nbsp; &nbsp; &nbsp; &nbsp;
                           <div className="d-flex">
                             <div className="d-inline">
-                              <label for="apartment_number">
-                                Date of Birth:
+                              <label htmlFor="apartment_number">
+                                Building:
                               </label>
                               <input
-                                type="text"
-                                id="apartment_number"
-                                name="apartment_number"
-                                value="07/16/1997"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <br /> */}
-                          <div className="d-flex">
-                            <div className="d-inline">
-                              <label for="apartment_number">Building:</label>
-                              <input
-                                disabled="true"
+                                disabled={true}
                                 type="text"
                                 id="apartment_number"
                                 name="apartment_number"
@@ -350,11 +453,11 @@ function UserProfile() {
                             &nbsp; &nbsp; &nbsp; &nbsp;
                             <div className="d-flex">
                               <div className="d-inline">
-                                <label for="apartment_number">
+                                <label htmlFor="apartment_number">
                                   Apt. Number:
                                 </label>
                                 <input
-                                  disabled="true"
+                                  disabled={true}
                                   type="text"
                                   id="apartment_number"
                                   name="apartment_number"
@@ -385,93 +488,6 @@ function UserProfile() {
                             />
                           </div>
                           <br />
-                          {/* <div className="d-flex">
-                          <div className="d-inline">
-                            <label for="apartment_number">City:</label>
-                            <input
-                              type="text"
-                              id="apartment_number"
-                              name="apartment_number"
-                              value="Arlington"
-                            />
-                          </div>
-                          &nbsp; &nbsp; &nbsp; &nbsp;
-                          <div className="d-grid">
-                            <label for="vehicle_number">State:</label>
-                            <select
-                              id="vehicle_number"
-                              name="vehicle_number"
-                              className="mt-8"
-                            >
-                              <option value="">Select State</option>
-                              <option value="AL">Alabama</option>
-                              <option value="AK">Alaska</option>
-                              <option value="AZ">Arizona</option>
-                              <option value="AR">Arkansas</option>
-                              <option value="CA">California</option>
-                              <option value="CO">Colorado</option>
-                              <option value="CT">Connecticut</option>
-                              <option value="DE">Delaware</option>
-                              <option value="DC">District Of Columbia</option>
-                              <option value="FL">Florida</option>
-                              <option value="GA">Georgia</option>
-                              <option value="HI">Hawaii</option>
-                              <option value="ID">Idaho</option>
-                              <option value="IL">Illinois</option>
-                              <option value="IN">Indiana</option>
-                              <option value="IA">Iowa</option>
-                              <option value="KS">Kansas</option>
-                              <option value="KY">Kentucky</option>
-                              <option value="LA">Louisiana</option>
-                              <option value="ME">Maine</option>
-                              <option value="MD">Maryland</option>
-                              <option value="MA">Massachusetts</option>
-                              <option value="MI">Michigan</option>
-                              <option value="MN">Minnesota</option>
-                              <option value="MS">Mississippi</option>
-                              <option value="MO">Missouri</option>
-                              <option value="MT">Montana</option>
-                              <option value="NE">Nebraska</option>
-                              <option value="NV">Nevada</option>
-                              <option value="NH">New Hampshire</option>
-                              <option value="NJ">New Jersey</option>
-                              <option value="NM">New Mexico</option>
-                              <option value="NY">New York</option>
-                              <option value="NC">North Carolina</option>
-                              <option value="ND">North Dakota</option>
-                              <option value="OH">Ohio</option>
-                              <option value="OK">Oklahoma</option>
-                              <option value="OR">Oregon</option>
-                              <option value="PA">Pennsylvania</option>
-                              <option value="RI">Rhode Island</option>
-                              <option value="SC">South Carolina</option>
-                              <option value="SD">South Dakota</option>
-                              <option value="TN">Tennessee</option>
-                              <option value="TX" selected>
-                                Texas
-                              </option>
-                              <option value="UT">Utah</option>
-                              <option value="VT">Vermont</option>
-                              <option value="VA">Virginia</option>
-                              <option value="WA">Washington</option>
-                              <option value="WV">West Virginia</option>
-                              <option value="WI">Wisconsin</option>
-                              <option value="WY">Wyoming</option>
-                            </select>
-                            <br />
-                          </div>
-                          &nbsp; &nbsp; &nbsp; &nbsp;
-                          <div className="d-inline">
-                            <label for="building_number">Zip:</label>
-                            <input
-                              type="text"
-                              id="building_number"
-                              name="building_number"
-                              value="76013"
-                            />
-                          </div>
-                        </div>
-                        <br /> */}
                           <hr className="hr-rounded" />
                           <br />
                           <div className="d-flex justify-content-center">
@@ -517,6 +533,102 @@ function UserProfile() {
                       </div>
                     </div>
                   </div>
+
+                  {user.type === "resident" || user.type === "user" ? (
+                    <div className="report-container">
+                      <div className="report-header">
+                        <h1 className="recent-Articles">Rent Details</h1>
+                      </div>
+                      <div className="card text-center">
+                        <div className="report-body text-left">
+                          <ul
+                            className="text-left"
+                            style={{ listStyleType: "none" }}
+                          >
+                            <li key="rent">
+                              <div className="d-flex container row">
+                                <div
+                                  style={{
+                                    width: "10%",
+                                  }}
+                                >
+                                  <b>Monthly Rent:</b>
+                                </div>
+                                <div
+                                  style={{
+                                    textAlign: "left",
+                                    paddingLeft: "10%",
+                                  }}
+                                >
+                                  ${propertyDetails[user.property_id]["amount"]}
+                                </div>
+                              </div>
+                            </li>
+                            <li key="dueDate">
+                              <div className="d-flex container row">
+                                <div
+                                  style={{
+                                    width: "10%",
+                                  }}
+                                >
+                                  <b>Due Date:</b>
+                                </div>
+                                <div
+                                  style={{
+                                    textAlign: "left",
+                                    paddingLeft: "10%",
+                                  }}
+                                >
+                                  1st of every month
+                                </div>
+                              </div>
+                            </li>
+                            <li key="lastPayment">
+                              <div className="d-flex container row">
+                                <div
+                                  style={{
+                                    width: "17%",
+                                  }}
+                                >
+                                  <b>Last Payment Received:</b>
+                                </div>
+                                <div
+                                  style={{
+                                    textAlign: "left",
+                                    paddingLeft: "3%",
+                                  }}
+                                >
+                                  {payment_date.toUTCString().substring(0, 16)}
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                          <br />
+                          {datePassed ? (
+                            <div className="ms-3">
+                              <p style={{ color: "red" }}>
+                                You are {daysPassed} days past the due date!
+                              </p>
+                              <br />
+                              <button
+                                className="btn-red"
+                                style={{ paddingLeft: 16, paddingRight: 16 }}
+                                onClick={() => {
+                                  setPaymentModalisOpen(true);
+                                }}
+                              >
+                                Pay Rent
+                              </button>
+                            </div>
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             </div>

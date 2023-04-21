@@ -111,7 +111,7 @@ const MapContainer = ({ array, loading, destination }) => {
     <>
       <LoadScript
         id="script-loader"
-        googleMapsApiKey="AIzaSyD0Z0FXlpdqVn_9l-6BR501_1OXhfAbY_Y"
+        googleMapsApiKey=""
       >
         <div className="p-3 pt-5">
           <div className="d-flex row ps-3 card align-items-stretch">

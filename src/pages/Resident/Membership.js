@@ -7,6 +7,7 @@ import {
   getAmenityDetails,
   getEventRegistrations,
   getEvents,
+  getLocations,
   getPayments,
   getUser,
   getVehicleDetails,
@@ -53,6 +54,7 @@ function Membership(props) {
   const [registerModalIsOpen, setRegisterModalIsOpen] = React.useState(false);
   const [unregisterModalIsOpen, setUnregisterModalIsOpen] =
     React.useState(false);
+  const [locationDetails, setLocationDetails] = useState({});
 
   useEffect(() => {
     if (amenity_id != "") {
@@ -90,6 +92,29 @@ function Membership(props) {
       })
       .catch((error) => {
         console.error(error);
+      });
+
+    getPropertyDetails();
+  };
+
+  const getPropertyDetails = () => {
+    getLocations()
+      .then((response) => {
+        if (response.status == 200) {
+          let object = {}
+          response.locations.map((item) => {
+            object[item.id] = item
+          });
+
+          setLocationDetails(object);
+        } else {
+          // alert(response.message);
+        }
+        // setLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
       });
   };
 
@@ -483,7 +508,7 @@ function Membership(props) {
                                       <td className="text-justify">
                                         {event.description.slice(0, 100)}...
                                       </td>
-                                      <td>{event.location}</td>
+                                      <td>{locationDetails[event.location]['address']}</td>
                                       <td>{event.start_time}</td>
                                       <td>{event.end_time}</td>
                                       <td className="text-center">

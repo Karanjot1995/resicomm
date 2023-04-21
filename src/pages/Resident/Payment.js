@@ -39,6 +39,7 @@ function Payment(props) {
   const [paymentLoading, setPaymentLoading] = useState(false);
   const [amenity_id, setAmenity_id] = useState(props.amenity_id);
   const [building, setBuilding] = useState(props.building);
+  const [paymentAmount, setPaymentAmount] = useState(props.payment_amount);
   const [paymentDetails, setPaymentDetails] = useState({
     payment_method: "Credit/Debit Card",
   });
@@ -58,6 +59,8 @@ function Payment(props) {
   useEffect(() => {
     if (amenity_id != "") {
       initData();
+    } else {
+      setLoading(false);
     }
   }, []);
 
@@ -78,6 +81,10 @@ function Payment(props) {
             user_id: user.id,
             payment_type: response.amenity_details.name.toLowerCase(),
           });
+
+          setPaymentAmount(
+            parseFloat(response.amenity_details.membership_price).toFixed(2)
+          );
           setLoading(false);
         }
       })
@@ -91,26 +98,61 @@ function Payment(props) {
     if (validate()) {
       setPaymentLoading(true);
       const payment_date = new Date().toISOString().slice(0, 10);
+      let exp_date = "";
+      let data = {};
+      if (amenity_id != "") {
+        const currentDate = new Date();
 
-      const currentDate = new Date();
+        const expiryDate = new Date();
+        expiryDate.setDate(currentDate.getDate() + 29);
+        exp_date = expiryDate.toISOString().slice(0, 10);
 
-      const expiryDate = new Date();
-      expiryDate.setDate(currentDate.getDate() + 29);
-      const expiry_date = expiryDate.toISOString().slice(0, 10);
+        setPaymentDetails({
+          ...paymentDetails,
+          last_four_digits: cardNumber.slice(-4),
+          payment_date: payment_date,
+          expiry_date: exp_date,
+        });
 
-      setPaymentDetails({
-        ...paymentDetails,
-        last_four_digits: cardNumber.slice(-4),
-        payment_date: payment_date,
-        expiry_date: expiry_date,
-      });
+        data = {
+          ...paymentDetails,
+          last_four_digits: cardNumber.slice(-4),
+          user_id: user.id,
+          payment_date: payment_date,
+          expiry_date: exp_date,
+        };
+      } else {
+        const currentDate = new Date();
 
-      let data = {
-        ...paymentDetails,
-        last_four_digits: cardNumber.slice(-4),
-        payment_date: payment_date,
-        expiry_date: expiry_date,
-      };
+        // Get last day of the month
+        const lastDay = new Date(
+          currentDate.getFullYear(),
+          currentDate.getMonth() + 1,
+          0
+        );
+        exp_date = lastDay.toISOString().slice(0, 10);
+
+        setPaymentDetails({
+          ...paymentDetails,
+          payment_amount: paymentAmount,
+          payment_type: "rent",
+          last_four_digits: cardNumber.slice(-4),
+          payment_date: payment_date,
+          expiry_date: exp_date,
+        });
+
+        data = {
+          ...paymentDetails,
+          last_four_digits: cardNumber.slice(-4),
+          payment_amount: paymentAmount,
+          payment_type: "rent",
+          user_id: user.id,
+          payment_date: payment_date,
+          expiry_date: exp_date,
+        };
+      }
+
+      console.log("data is " + JSON.stringify(data));
 
       addPayment(data)
         .then((response) => {
@@ -131,6 +173,7 @@ function Payment(props) {
                 });
             } else {
               alert(response.message);
+              handleReload();
             }
             //   handleReload();
           } else {
@@ -279,7 +322,7 @@ function Payment(props) {
               type="submit"
               onClick={createPayment}
             >
-              Pay {amenityDetails.membership_price}
+              Pay ${paymentAmount}
             </button>
           </form>
         </div>
@@ -344,7 +387,7 @@ function Payment(props) {
               type="submit"
               onClick={createPayment}
             >
-              Pay {amenityDetails.membership_price}
+              Pay ${paymentAmount}
             </button>
           </form>
         </div>
@@ -389,7 +432,7 @@ function Payment(props) {
               type="submit"
               onClick={createPayment}
             >
-              Pay {amenityDetails.membership_price}
+              Pay ${paymentAmount}
             </button>
           </form>
         </div>
@@ -419,7 +462,7 @@ function Payment(props) {
               type="submit"
               onClick={createPayment}
             >
-              Pay {amenityDetails.membership_price}
+              Pay ${paymentAmount}
             </button>
           </form>
         </div>
@@ -430,6 +473,27 @@ function Payment(props) {
   if (loading) {
     return <div>{loading && <Loader />}</div>;
   } else {
+    const currentDate = new Date();
+
+    // Get first day of the month
+    let firstDay = new Date();
+
+    let lastDay = new Date();
+    if (amenity_id != "") {
+      lastDay.setDate(currentDate.getDate() + 29);
+    } else {
+      // Get last day of the month
+      lastDay = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth() + 1,
+        0
+      );
+      firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+    }
+    // Format the dates
+    const options = { month: "long", day: "numeric", year: "numeric" };
+    const formattedFirstDay = firstDay.toLocaleDateString("en-US", options);
+    const formattedLastDay = lastDay.toLocaleDateString("en-US", options);
     return (
       <div className="pt-50 resident" id="visitor">
         <div
@@ -443,9 +507,13 @@ function Payment(props) {
                 <div className="visitor-box-container">
                   <div className="box1">
                     <div className="text d-flex">
-                      <h1 className="red">
-                        Payment for {amenityDetails.name} Amenity
-                      </h1>
+                      {amenity_id != "" ? (
+                        <h1 className="red">
+                          Payment for {amenityDetails.name} Amenity
+                        </h1>
+                      ) : (
+                        <h1 className="red">Payment for Rent</h1>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -455,8 +523,10 @@ function Payment(props) {
                     <div className="report-body text-left">
                       <div className="d-flex justify-content-between">
                         <div>
-                          <h2>${amenityDetails.membership_price}</h2>
-                          <p>For Period:</p>
+                          <h2>${paymentAmount}</h2>
+                          <p>
+                            For Period: {formattedFirstDay} - {formattedLastDay}
+                          </p>
                         </div>
                         <i
                           class="fa fa-file-text-o"
@@ -519,7 +589,7 @@ function Payment(props) {
                                 paddingLeft: "10%",
                               }}
                             >
-                              asdasd
+                              {amenity_id != "" ? amenityDetails.name : "Rent"}
                             </div>
                           </div>
                         </li>
