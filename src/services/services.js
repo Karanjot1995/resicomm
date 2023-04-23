@@ -155,6 +155,13 @@ export const updateVehicleDetails = async (data) => {
   }).then((res) => res.json());
 };
 
+export const updateVisitRequest = async (data) => {
+  return await fetch(`${API_URL}/visits/edit?id=${data.request_id}`, {
+    body: JSON.stringify(data),
+    ...putOptions,
+  }).then((res) => res.json());
+};
+
 export const joinMembership = async (data) => {
   return await fetch(`${API_URL}/add-membership?user_id=${data.user_id}&membership_id=${data.membership_id}`, {
     body: JSON.stringify(data),
@@ -192,6 +199,12 @@ export const getPayments = async (data) => {
 
 export const deleteVehicle = async (data) => {
   return await fetch(`${API_URL}/vehicles?id=${data.vehicle_id}`, {
+    body: JSON.stringify(data),
+    ...deleteOptons,
+  }).then((res) => res.json());
+};
+export const deleteVisitRequest = async (data) => {
+  return await fetch(`${API_URL}/visits?id=${data.request_id}`, {
     body: JSON.stringify(data),
     ...deleteOptons,
   }).then((res) => res.json());

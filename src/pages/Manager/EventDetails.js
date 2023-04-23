@@ -621,9 +621,10 @@ function EventDetails(props) {
               className="btn-red ms-5"
               style={{ paddingLeft: 16, paddingRight: 16 }}
               onClick={() => {
+                // console.log("location details are " + JSON.stringify(locationDetails[eventLocation]));
                 navigate("/driving-instructions", {
                   state: {
-                    destination: locationDetails,
+                    destination: locationDetails[eventLocation],
                   },
                 });
               }}
