@@ -98,7 +98,7 @@ function ResidentDashboard() {
         }
       })
       .catch((error) => {
-        console.error("Error resetting password:", error);
+        console.error("Error deleting vehicle:", error);
       });
   };
 

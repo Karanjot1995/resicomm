@@ -98,11 +98,14 @@ return (
       </div>
       <div className="report-body">
         <table className="list">
+        <thead>
           <tr>
             {reportData.titles.map((t) => (
               <th>{t}</th>
             ))}
           </tr>
+          </thead>
+          <tbody>
           {reportData.rows.map((row) => (
             <tr className="">
               {row.map((d) => (
@@ -111,6 +114,7 @@ return (
               <td><button className="view-report" onClick={downloadReportPDF}>Download Report</button></td>
             </tr>
           ))}
+          </tbody>
         </table>
       </div>
     </div>

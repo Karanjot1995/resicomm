@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Loader from "../../components/loader/Loader";
+import moment from "moment";
 import {
   addPayment,
   addVehicle,
   cancelEventRegistration,
+  createEvent,
   getAmenityDetails,
   getEventDetails,
   getEventRegistrations,
@@ -16,11 +18,12 @@ import {
   joinMembership,
   leaveMembership,
   registerEvent,
+  updateEvent,
   updateVehicleDetails,
 } from "../../services/services";
 import "./../Resident/ResidentDashboard/resident.scss";
 import Modal from "react-modal";
-// import "../../App.scss";
+import "../../App.scss";
 import { Weekdays } from "../../utils/constants";
 import { convertTo12Hour } from "../../utils/utils";
 import { Colors } from "../../utils/colors";
@@ -30,11 +33,13 @@ import {
   validateCardCvc,
   validateCardExpiry,
   validateCardNumber,
+  validateCurrentDateTime,
   validateEmail,
   validateIFSC,
   validateLastName,
   validateName,
   validatePassword,
+  validateText,
   validateUPI,
 } from "../../utils/validation";
 import Datetime from "react-datetime";
@@ -79,11 +84,16 @@ function EventDetails(props) {
   const [registerModalIsOpen, setRegisterModalIsOpen] = React.useState(false);
   const [unregisterModalIsOpen, setUnregisterModalIsOpen] =
     React.useState(false);
-  const [locationDetails, setLocationDetails] = useState({});
+  const [locationDetails, setLocationDetails] = useState(null);
 
   useEffect(() => {
+    getPropertyDetails();
     if (event_id != "") {
       initData();
+    } else {
+      setViewMode("edit");
+      setLoading(false);
+      setEventType(user.department);
     }
   }, []);
 
@@ -110,9 +120,14 @@ function EventDetails(props) {
     setEventDescription(data.description);
     setEventDescription(data.description);
     setEventLocation(data.location);
-    setEventStartTime(data.start_time);
-    setEventEndTime(data.end_time);
-    getPropertyDetails();
+    const startTime = data.start_time + "Z";
+    const unixStartTime = new Date(startTime).getTime();
+    setEventType(data.type);
+    const endTime = data.end_time + "Z";
+    const unixEndTime = new Date(endTime).getTime();
+    setEventStartTime(unixStartTime);
+    setEventEndTime(unixEndTime);
+    setLoading(false);
   };
 
   const getRegistrations = (event_id) => {
@@ -149,15 +164,12 @@ function EventDetails(props) {
             object[item.id] = item;
           });
           setLocationDetails(object);
-          setLoading(false);
         } else {
           alert(response.message);
-          setLoading(false);
         }
       })
       .catch((error) => {
         console.error(error);
-        setLoading(false);
       });
   };
 
@@ -201,6 +213,63 @@ function EventDetails(props) {
       });
   };
 
+  const update = () => {
+    let sTime = new Date(eventStartTime);
+    let eTime = new Date(eventEndTime);
+    let sIsoString = sTime.toISOString().slice(0, 19).replace("T", " ");
+    let iIsoString = eTime.toISOString().slice(0, 19).replace("T", " ");
+
+    let data = {
+      name: eventName,
+      description: eventDescription,
+      start_time: sIsoString,
+      end_time: iIsoString,
+      location: eventLocation,
+      id: event_id,
+    };
+
+    updateEvent(data)
+      .then((response) => {
+        setLoading(false);
+        console.log(response);
+        if (response.status == 200) {
+          alert(response.message);
+          props.onUpdate();
+        } else {
+          alert(response.message);
+        }
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.error("Error updating amenity:", error);
+      });
+  };
+
+  const create = () => {
+    if (validate()) {
+      let iTime = new Date(eventStartTime);
+      let oTime = new Date(eventEndTime);
+      let iIsoString = iTime.toISOString().slice(0, 19).replace("T", " ");
+      let oIsoString = oTime.toISOString().slice(0, 19).replace("T", " ");
+      let request = {
+        name: eventName,
+        description: eventDescription,
+        type: eventType,
+        location: eventLocation,
+        start_time: iIsoString,
+        end_time: oIsoString,
+      };
+      createEvent(request).then((res) => {
+        if (res.status == 200) {
+          alert(res.message);
+          window.location.href = "/dashboard";
+        } else {
+          alert(res.message);
+        }
+      });
+    }
+  };
+
   const handleReload = () => {
     initData();
   };
@@ -231,182 +300,256 @@ function EventDetails(props) {
     return valid;
   };
 
+  const isValid = (e) => {
+    var yesterday = moment().subtract(1, "day");
+    return e.isAfter(yesterday);
+  };
+
+  const isValidEnd = (e) => {
+    if (eventStartTime != "") {
+      return Date(e) == Date(eventStartTime) || e.isAfter(eventStartTime);
+    } else {
+      var yesterday = moment().subtract(1, "day");
+      return e.isAfter(yesterday);
+    }
+  };
+
   if (loading) {
     return <div>{loading && <Loader />}</div>;
   } else if (viewMode === "edit") {
     return (
-      <div className="pt-50 resident" id="visitor">
-        <div
-          className="container"
-          id="resident-dashboard-payment-modal"
-          style={{ width: "100%" }}
-        >
-          <div className="container">
-            <div className="report">
-              <div className="report-container">
-                <div className="visitor-box-container">
-                  <div className="box1">
-                    <div className="text d-flex">
-                      <h1 className="red">Event Details</h1>
-                    </div>
-                  </div>
-                </div>
-                <div className="d-flex column">
-                  <div className="report-body">
-                    {/* <h3 className="text-left">Select a payment method:</h3> */}
-                    <br />
-                    <div className="pt-3 pb-3">
-                      <div>
-                        <form className="register-form" id="register-form">
-                          <div className="lInput w-48">
-                            <label>
-                              <b>Event Name:</b>
-                            </label>
-                            <input
-                              className=""
-                              type="text"
-                              maxLength={16}
-                              id="cardNumber"
-                              placeholder="1234 1234 1234 1234"
-                              onChange={(e) => {
-                                //   validateCardNumber(
-                                //     e,
-                                //     setCardNumber,
-                                //     errMsgs,
-                                //     setErrMsgs
-                                //   );
-                              }}
-                              required
-                            />
-                            <p className="error-msg">
-                              {errMsgs["cardNumber"]
-                                ? errMsgs["cardNumber"]
-                                : ""}
-                            </p>
-                          </div>
-                          <div className="lInput w-48">
-                            <label>
-                              <b>Event Description:</b>
-                            </label>
-                            <textarea
-                              name="description"
-                              placeholder="Enter description..."
-                              // value={description}
-                              // onChange={(e) => setDescription(e.target.value)}
-                            />
-                            {/* <input
-                                className=""
-                                type="text"
-                                id="cardExpiry"
-                                placeholder="MM/YY"
-                                maxLength={5}
-                                onChange={
-                                  (e) => {}
-                                  //   validateCardExpiry(
-                                  //     e,
-                                  //     setCardExpiry,
-                                  //     errMsgs,
-                                  //     setErrMsgs
-                                  //   )
-                                }
-                                required
-                              /> */}
-                            <p className="error-msg">
-                              {errMsgs["cardExpiry"]
-                                ? errMsgs["cardExpiry"]
-                                : ""}
-                            </p>
-                          </div>
-                          <div className="lInput w-48">
-                            <label>
-                              <b>Event Location:</b>
-                            </label>
-                            <input
-                              className=""
-                              type="text"
-                              maxLength={16}
-                              id="cardNumber"
-                              placeholder="1234 1234 1234 1234"
-                              onChange={(e) => {
-                                //   validateCardNumber(
-                                //     e,
-                                //     setCardNumber,
-                                //     errMsgs,
-                                //     setErrMsgs
-                                //   );
-                              }}
-                              required
-                            />
-                            <p className="error-msg">
-                              {errMsgs["cardNumber"]
-                                ? errMsgs["cardNumber"]
-                                : ""}
-                            </p>
-                          </div>
-                          <div className="lInput w-48">
-                            <label>
-                              <b>Event Start:</b>
-                            </label>
-                            <div>
-                              <Datetime />
-                            </div>
-                            <p className="error-msg">
-                              {errMsgs["cardCvc"] ? errMsgs["cardCvc"] : ""}
-                            </p>
-                          </div>
-                          <div className="lInput w-48">
-                            <label>
-                              <b>Event End:</b>
-                            </label>
-                            <div>
-                              <Datetime />
-                            </div>
-                            <p className="error-msg">
-                              {errMsgs["cardCvc"] ? errMsgs["cardCvc"] : ""}
-                            </p>
-                          </div>
-                          <button
-                            className="btn-primary"
-                            type="submit"
-                            onClick={() => {}}
-                          >
-                            Save
-                          </button>
-                        </form>
+      <div className="container resident ps-5 pe-5 pt-5" id="visitor">
+        <div className="report-container">
+          <div className="visitor-box-container">
+            <div className="box1">
+              <div className="text d-flex">
+                <h1 className="red">Event Details</h1>
+                {/* {user.manager ? (
+                  <button
+                    className="btn-red ms-5"
+                    style={{ paddingLeft: 16, paddingRight: 16 }}
+                    onClick={() => {
+                      setViewMode("view");
+                    }}
+                  >
+                    Cancel
+                  </button>
+                ) : (
+                  ""
+                )} */}
+              </div>
+            </div>
+          </div>
+          <div className="d-flex column align-items-start">
+            {/* <h3 className="text-left">Select a payment method:</h3> */}
+            <br />
+            <div className="w-100">
+              <div className="lInput w-50">
+                <label>
+                  <h2 className="text-left">Name</h2>
+                </label>
+                <input
+                  className=""
+                  value={eventName}
+                  type="text"
+                  maxLength={16}
+                  id="name"
+                  placeholder="Event Name"
+                  onChange={(e) => {
+                    validateName(e, setEventName, errMsgs, setErrMsgs);
+                  }}
+                  required
+                />
+                <p className="error-msg text-left ps-4">
+                  {errMsgs["name"] ? errMsgs["name"] : ""}
+                </p>
+              </div>
+              <div className="lInput">
+                <label>
+                  <h2 className="text-left">Description</h2>
+                </label>
+                <textarea
+                  value={eventDescription}
+                  className="ms-n5"
+                  name="description"
+                  placeholder="Enter description..."
+                  onChange={(e) => {
+                    validateText(
+                      e,
+                      setEventDescription,
+                      errMsgs,
+                      setErrMsgs,
+                      "description"
+                    );
+                  }}
+                  required
+                />
+                <p className="error-msg text-left ps-4">
+                  {errMsgs["description"] ? errMsgs["description"] : ""}
+                </p>
+              </div>
+              <div className="">
+                <h2 className="text-left">Event Timings</h2>
+                <ul
+                  className="text-left"
+                  style={{ listStyleType: "none", paddingLeft: "2%" }}
+                >
+                  <li key="startTime">
+                    <div className="d-flex row">
+                      <div
+                        style={{
+                          width: "5%",
+                        }}
+                      >
+                        {/* <div className="lInput w-48 d-flex row"> */}
+                        <label>
+                          <b>From:</b>
+                        </label>
+
+                        {/* </div> */}
+                      </div>
+                      <div
+                        style={{
+                          textAlign: "left",
+                          paddingLeft: "1%",
+                        }}
+                      >
+                        <div>
+                          <Datetime
+                            isValidDate={isValid}
+                            value={event_id != "" ? eventStartTime : null}
+                            onChange={(e) => {
+                              validateCurrentDateTime(
+                                e,
+                                setEventStartTime,
+                                errMsgs,
+                                setErrMsgs,
+                                "startDateTime"
+                              );
+                            }}
+                          />
+                        </div>
+                        <p className="error-msg">
+                          {errMsgs["startDateTime"]
+                            ? errMsgs["startDateTime"]
+                            : ""}
+                        </p>
                       </div>
                     </div>
-                  </div>
-                </div>
+                  </li>
+
+                  <li key="endTime">
+                    <div className="d-flex row">
+                      <div
+                        style={{
+                          width: "5%",
+                        }}
+                      >
+                        {/* <div className="lInput w-48 d-flex row"> */}
+                        <label>
+                          <b>To:</b>
+                        </label>
+
+                        {/* </div> */}
+                      </div>
+                      <div
+                        style={{
+                          textAlign: "left",
+                          paddingLeft: "1%",
+                        }}
+                      >
+                        <div>
+                          <Datetime
+                            isValidDate={isValidEnd}
+                            value={event_id != "" ? eventEndTime : null}
+                            onChange={(e) => {
+                              validateCurrentDateTime(
+                                e,
+                                setEventEndTime,
+                                errMsgs,
+                                setErrMsgs,
+                                "endDateTime"
+                              );
+                            }}
+                          />
+                        </div>
+                        <p className="error-msg">
+                          {errMsgs["endDateTime"] ? errMsgs["endDateTime"] : ""}
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
               </div>
+
+              <div className="">
+                <label>
+                  <h2 className="text-left">Location</h2>
+                </label>
+                <div className=" text-left w-25 ps-4">
+                  {" "}
+                  <select
+                    id="event_location"
+                    name="vehicle_number"
+                    defaultValue="select"
+                    value={event_id != "" ? eventLocation : null}
+                    onChange={(e) => setEventLocation(e.target.value)}
+                  >
+                    <option value="select" disabled>
+                      Select Location
+                    </option>
+                    {/* locationDetails.map((location) => */}
+
+                    {locationDetails &&
+                      Object.values(locationDetails).map((location) =>
+                        location.building.includes(
+                          user.department.charAt(0).toUpperCase() +
+                            user.department.slice(1)
+                        ) ? (
+                          <option value={location.id}>
+                            {location.building}
+                          </option>
+                        ) : (
+                          ""
+                        )
+                      )}
+                  </select>
+                </div>
+                <p className="error-msg">
+                  {errMsgs["cardNumber"] ? errMsgs["cardNumber"] : ""}
+                </p>
+              </div>
+              <button
+                className="btn-primary"
+                onClick={() => {
+                  if (event_id != "") {
+                    update();
+                  } else {
+                    create();
+                  }
+                }}
+              >
+                {event_id == "" ? "Create Event" : "Save"}
+              </button>
             </div>
           </div>
         </div>
       </div>
     );
   } else {
-    let startTime = convertTo12Hour(eventStartTime.split(" ")[1]);
+    let iTime = new Date(eventStartTime);
+    const idate = new Date(iTime);
+    const formattedStartDate = idate.toLocaleString();
 
-    const startDate = new Date(eventStartTime.split(" ")[0]);
-    const formattedStartDate = startDate
-      .toLocaleDateString("en-US", {
-        month: "2-digit",
-        day: "2-digit",
-        year: "2-digit",
-      })
-      .replace(/\//g, "-");
+    let oTime = new Date(eventEndTime);
+    const odate = new Date(oTime);
+    const formattedEndDate = odate.toLocaleString();
 
-    let endTime = convertTo12Hour(eventEndTime.split(" ")[1]);
-
-    const endDate = new Date(eventEndTime.split(" ")[0]);
-    const formattedEndDate = endDate
-      .toLocaleDateString("en-US", {
-        month: "2-digit",
-        day: "2-digit",
-        year: "2-digit",
-      })
-      .replace(/\//g, "-");
     return (
-      <div className="container" id="resident-dashboard-amenity-modal">
+      <div
+        className="container ps-5 pt-5 pe-5"
+        id="resident-dashboard-amenity-modal"
+      >
         {registerModalIsOpen && (
           <Modal
             isOpen={registerModalIsOpen}
@@ -497,8 +640,7 @@ function EventDetails(props) {
               className="btn-red ms-5"
               style={{ paddingLeft: 16, paddingRight: 16 }}
               onClick={() => {
-                // setMembershipModalIsOpen(false);
-                // setPaymentModalisOpen(true);
+                setViewMode("edit");
               }}
             >
               Edit
@@ -571,7 +713,7 @@ function EventDetails(props) {
                     paddingLeft: "1%",
                   }}
                 >
-                  {formattedStartDate} {startTime}
+                  {formattedStartDate}
                 </div>
               </div>
             </li>
@@ -591,7 +733,7 @@ function EventDetails(props) {
                     paddingLeft: "1%",
                   }}
                 >
-                  {formattedEndDate} {endTime}
+                  {formattedEndDate}
                 </div>
               </div>
             </li>
@@ -615,22 +757,25 @@ function EventDetails(props) {
                 paddingLeft: "2%",
               }}
             >
-              {locationDetails[eventLocation]["address"]}
+              {locationDetails && locationDetails[eventLocation]["address"]}
             </div>
-            <button
-              className="btn-red ms-5"
-              style={{ paddingLeft: 16, paddingRight: 16 }}
-              onClick={() => {
-                // console.log("location details are " + JSON.stringify(locationDetails[eventLocation]));
-                navigate("/driving-instructions", {
-                  state: {
-                    destination: locationDetails[eventLocation],
-                  },
-                });
-              }}
-            >
-              Driving Instructions
-            </button>
+            {isRegistered ? (
+              <button
+                className="btn-red ms-5"
+                style={{ paddingLeft: 16, paddingRight: 16 }}
+                onClick={() => {
+                  navigate("/driving-instructions", {
+                    state: {
+                      destination: locationDetails[eventLocation],
+                    },
+                  });
+                }}
+              >
+                Driving Instructions
+              </button>
+            ) : (
+              ""
+            )}
           </div>
         </div>
         <br />
