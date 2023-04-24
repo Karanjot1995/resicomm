@@ -70,6 +70,10 @@ function ResidentDashboard() {
   const [visits, setVisits] = useState([]);
 
   useEffect(() => {
+   initData();
+  }, []);
+
+  const initData = () => {
     setLoading(true);
     console.log("user is " + JSON.stringify(user));
     getServices().then((res) => setAmenities(res));
@@ -77,9 +81,9 @@ function ResidentDashboard() {
       setVehicles(res);
       setLoading(false);
     });
-    let uid = user.id
-    getResidentVisitRequests({uid}).then(res=>setVisits(res.data))
-  }, []);
+    let uid = user.id;
+    getResidentVisitRequests({ uid }).then((res) => setVisits(res.data));
+  }
 
   const changeType = (e) => {
     window.location.href = e.target.value;
@@ -98,7 +102,7 @@ function ResidentDashboard() {
         }
       })
       .catch((error) => {
-        console.error("Error resetting password:", error);
+        console.error("Error deleting vehicle:", error);
       });
   };
 
@@ -478,60 +482,79 @@ function ResidentDashboard() {
                     </div>
 
                     <div className="report-body">
-                    {visits && visits.length>0 ? 
-                    <table>
-                      <tbody>
-                        <tr>
-                          <th>Request Id</th>
-                          <th>Resident</th>
-                          <th>Building-Apartment Unit</th>
-                          <th>In-Time/Out-Time</th>
-                          <th>Status</th>
-                          <th></th>
-                        </tr>
-                          {visits.length>0 && visits.map(v=>
-                          <tr>
-                            <td>{v.id}</td>
-                            <td>{v.resident.fname} {v.resident.lname}</td>
-                            <td>{v.resident.building? v.resident.building+'-'+v.resident.apt:''}</td>
-                            <td>{v.in_time}-{v.out_time}</td>
-                            <td>{v.accepted!=0?(v.accepted==1?'Accepted':'Rejected'):'Requested'}</td>
-                            <td>
-                              <div className="visitor-schedule-action-container">
-                                {/* <a href="./visitor_driving_instructions.html">
+                      {visits && visits.length > 0 ? (
+                        <table>
+                          <tbody>
+                            <tr>
+                              <th>Request Id</th>
+                              <th>Resident</th>
+                              <th>Building-Apartment Unit</th>
+                              <th>In-Time/Out-Time</th>
+                              <th>Status</th>
+                              <th></th>
+                            </tr>
+                            {visits.length > 0 &&
+                              visits.map((v) => (
+                                <tr>
+                                  <td>{v.id}</td>
+                                  <td>
+                                    {v.resident.fname} {v.resident.lname}
+                                  </td>
+                                  <td>
+                                    {v.resident.building
+                                      ? v.resident.building +
+                                        "-" +
+                                        v.resident.apt
+                                      : ""}
+                                  </td>
+                                  <td>
+                                    {v.in_time}-{v.out_time}
+                                  </td>
+                                  <td>
+                                    {v.accepted != 0
+                                      ? v.accepted == 1
+                                        ? "Accepted"
+                                        : "Rejected"
+                                      : "Requested"}
+                                  </td>
+                                  <td>
+                                    <div className="visitor-schedule-action-container">
+                                      {/* <a href="./visitor_driving_instructions.html">
                                   <img
                                     src="./images/map.png"
                                     height="24px"
                                     width="24px"
                                   />
                                 </a> */}
-                                <button
-                                  className="driving-instructions"
-                                  onClick={() => navigate("/driving-instructions")}
-                                >
-                                  Driving Instructions
-                                </button>
+                                      <button
+                                        className="driving-instructions"
+                                        onClick={() =>
+                                          navigate("/driving-instructions")
+                                        }
+                                      >
+                                        Driving Instructions
+                                      </button>
 
-                                <a>
-                                  <img
-                                    src="./images/more_vert.png"
-                                    height="24px"
-                                    width="24px"
-                                  />
-                                </a>
-                              </div>
-                            </td>
-                          </tr>
-                          )}
-                          
-                        
-                      </tbody>
-                    </table>
-                    :'No requests yet.'}
-                  </div>
+                                      <a>
+                                        <img
+                                          src="./images/more_vert.png"
+                                          height="24px"
+                                          width="24px"
+                                        />
+                                      </a>
+                                    </div>
+                                  </td>
+                                </tr>
+                              ))}
+                          </tbody>
+                        </table>
+                      ) : (
+                        "No requests yet."
+                      )}
+                    </div>
                   </div>
                 </div>
-{/* 
+                {/* 
                 <div className="report">
                   <div className="report-container">
                     <div className="report-header d-flex justify-content-between align-items-center">
@@ -675,9 +698,7 @@ function ResidentDashboard() {
                 </div> */}
                 <div className="report">
                   <div className="report-container">
-                   
-                    <AmenityAccess user={user}/>
-                    
+                    <AmenityAccess user={user} amenities={amenities} />
                   </div>
                 </div>
               </div>

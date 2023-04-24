@@ -61,6 +61,7 @@ function App() {
           {user.type=='resident' && <Route path="/resident" element={<ResidentDashboard setIsLoggedIn={setIsLoggedIn}/>} />}
           {user.type == 'visitor' && <Route path="/visitor" element={<VisitorDashboard setIsLoggedIn={setIsLoggedIn}/>} />} */}
           <Route path="/create-request" element={<VisitorCreateRequest setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="/edit-request/:request_id" element={<VisitorCreateRequest setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/add-vehicle" element={<VisitorAddEditVehicle setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/edit-vehicle/:vehicle_id" element={<VisitorAddEditVehicle setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/driving-instructions" element={<DrivingInstructions setIsLoggedIn={setIsLoggedIn}/>} />

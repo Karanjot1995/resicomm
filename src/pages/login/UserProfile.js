@@ -229,7 +229,7 @@ function UserProfile() {
     const dateStr =
       paymentList.length === 0 ? "" : paymentList[0]["payment_date"];
     const payment_date = new Date(dateStr);
-    
+
     let currentDate = new Date();
 
     // create a new Date object for the given date
@@ -431,47 +431,51 @@ function UserProfile() {
                             </div>
                           </div>
                           <br />
-                          <div className="d-flex">
-                            <div className="d-inline">
-                              <label htmlFor="apartment_number">
-                                Building:
-                              </label>
-                              <input
-                                disabled={true}
-                                type="text"
-                                id="apartment_number"
-                                name="apartment_number"
-                                placeholder="410 Kerby St."
-                                value={user.property_details.building}
-                                onFocus={(e) => {
-                                  alert(
-                                    "Building is assigned by your building manager!"
-                                  );
-                                }}
-                              />
-                            </div>
-                            &nbsp; &nbsp; &nbsp; &nbsp;
+                          {user.type != "visitor" ? (
                             <div className="d-flex">
                               <div className="d-inline">
                                 <label htmlFor="apartment_number">
-                                  Apt. Number:
+                                  <b>Building:</b>
                                 </label>
                                 <input
                                   disabled={true}
                                   type="text"
                                   id="apartment_number"
                                   name="apartment_number"
-                                  placeholder="195"
-                                  value={user.apt}
+                                  placeholder="410 Kerby St."
+                                  value={user.property_details.building}
                                   onFocus={(e) => {
                                     alert(
-                                      "Apartment number is assigned by your building manager!"
+                                      "Building is assigned by your building manager!"
                                     );
                                   }}
                                 />
                               </div>
+                              &nbsp; &nbsp; &nbsp; &nbsp;
+                              <div className="d-flex">
+                                <div className="d-inline">
+                                  <label htmlFor="apartment_number">
+                                    <b> Apt. Number:</b>
+                                  </label>
+                                  <input
+                                    disabled={true}
+                                    type="text"
+                                    id="apartment_number"
+                                    name="apartment_number"
+                                    placeholder="195"
+                                    value={user.apt}
+                                    onFocus={(e) => {
+                                      alert(
+                                        "Apartment number is assigned by your building manager!"
+                                      );
+                                    }}
+                                  />
+                                </div>
+                              </div>
                             </div>
-                          </div>
+                          ) : (
+                            ""
+                          )}
                           <div className="lInput">
                             <label>
                               <b>Date of Birth:</b>

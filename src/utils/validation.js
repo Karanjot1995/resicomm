@@ -170,7 +170,7 @@ export const validateName = (e, setName, errMsgs, setErrMsgs) => {
   let value = e.target.value;
   setName(value);
   if (!value || value.length < 2) {
-    setErrMsgs({ ...errMsgs, name: "Enter valid last name." });
+    setErrMsgs({ ...errMsgs, name: "Enter valid name." });
   } else {
     setErrMsgs({ ...errMsgs, name: "" });
   }
@@ -233,5 +233,30 @@ export const validateZip = (e, setZipCode, errMsgs, setErrMsgs) => {
     setErrMsgs({ ...errMsgs, zipcode: "Enter Valid Zipcode" });
   } else {
     setErrMsgs({ ...errMsgs, zipcode: "" });
+  }
+};
+
+export const validateCurrentDateTime = (e, setDateTime, errMsgs, setErrMsgs, objectKey) => {
+  const currentDateTime = new Date();
+  let value = e
+  setDateTime(value);
+  if (!value || value <= currentDateTime) {
+    setErrMsgs({
+      ...errMsgs,
+      [objectKey]: "Selected date and time should be greater than current date and time.",
+    });
+  } else {
+    setErrMsgs({ ...errMsgs, [objectKey]: "" });
+  }
+};
+
+
+export const validateText = (e, setName, errMsgs, setErrMsgs, objectKey) => {
+  let value = e.target.value;
+  setName(value);
+  if (!value || value.length < 2) {
+    setErrMsgs({ ...errMsgs, [objectKey]: "Enter a valid value." });
+  } else {
+    setErrMsgs({ ...errMsgs, [objectKey]: "" });
   }
 };

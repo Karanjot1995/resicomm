@@ -68,6 +68,30 @@ export const updateUser = async (data) => {
   }).then((res) => res.json());
 };
 
+export const updateAmenity = async (data) => {
+  console.log(data);
+  return await fetch(`${API_URL}/amenity/update`, {
+    ...postOptions,
+    body: JSON.stringify(data),
+  }).then((res) => res.json());
+};
+
+export const updateEvent = async (data) => {
+  console.log(data);
+  return await fetch(`${API_URL}/events/update`, {
+    ...postOptions,
+    body: JSON.stringify(data),
+  }).then((res) => res.json());
+};
+
+export const updateAccessLog = async (data) => {
+  console.log(data);
+  return await fetch(`${API_URL}/access-logs/update`, {
+    ...postOptions,
+    body: JSON.stringify(data),
+  }).then((res) => res.json());
+};
+
 export const getServices = async () => {
   return await fetch(`${API_URL}/amenities`).then((res) => res.json());
 };
@@ -109,6 +133,14 @@ export const getEvents = async (data) => {
 
 export const visitRequest = async (data) => {
   return await fetch(`${API_URL}/visits/create`, {
+    body: JSON.stringify(data),
+    ...postOptions,
+  }).then((res) => res.json());
+};
+
+
+export const createEvent = async (data) => {
+  return await fetch(`${API_URL}/events/create`, {
     body: JSON.stringify(data),
     ...postOptions,
   }).then((res) => res.json());
@@ -156,6 +188,13 @@ export const updateVehicleDetails = async (data) => {
   }).then((res) => res.json());
 };
 
+export const updateVisitRequest = async (data) => {
+  return await fetch(`${API_URL}/visits/edit?id=${data.request_id}`, {
+    body: JSON.stringify(data),
+    ...putOptions,
+  }).then((res) => res.json());
+};
+
 export const joinMembership = async (data) => {
   return await fetch(`${API_URL}/add-membership?user_id=${data.user_id}&membership_id=${data.membership_id}`, {
     body: JSON.stringify(data),
@@ -193,6 +232,20 @@ export const getPayments = async (data) => {
 
 export const deleteVehicle = async (data) => {
   return await fetch(`${API_URL}/vehicles?id=${data.vehicle_id}`, {
+    body: JSON.stringify(data),
+    ...deleteOptons,
+  }).then((res) => res.json());
+};
+
+export const deleteVisitRequest = async (data) => {
+  return await fetch(`${API_URL}/visits?id=${data.request_id}`, {
+    body: JSON.stringify(data),
+    ...deleteOptons,
+  }).then((res) => res.json());
+};
+
+export const deleteEvent = async (data) => {
+  return await fetch(`${API_URL}/events?id=${data.id}`, {
     body: JSON.stringify(data),
     ...deleteOptons,
   }).then((res) => res.json());
@@ -268,6 +321,13 @@ export const getLocations = async () => {
 
 export const getAccessLogs = async (data) => {
   return await fetch(`${API_URL}/access-logs/resident`, {
+    body: JSON.stringify(data),
+    ...postOptions,
+  }).then((res) => res.json());
+};
+
+export const getAccessLogsManager = async (data) => {
+  return await fetch(`${API_URL}/access-logs/manager`, {
     body: JSON.stringify(data),
     ...postOptions,
   }).then((res) => res.json());

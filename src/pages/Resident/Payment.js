@@ -199,7 +199,9 @@ function Payment(props) {
           localStorage.setItem("user", JSON.stringify(res.user_details));
           setUser(JSON.stringify(res.user_details));
           setPaymentLoading(false);
-          props.onRequestClose();
+          window.location.href = "/dashboard";
+
+          // props.onRequestClose();
           //   initData();
           //   window.location.reload();
         } else {
@@ -501,7 +503,7 @@ function Payment(props) {
           id="resident-dashboard-payment-modal"
           style={{ width: "100%" }}
         >
-          <div className="container">
+          <div className="">
             <div className="report">
               <div className="report-container">
                 <div className="visitor-box-container">

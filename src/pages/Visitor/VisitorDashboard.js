@@ -5,6 +5,7 @@ import "./../../App.scss";
 import "./visitor.scss";
 import {
   deleteVehicle,
+  deleteVisitRequest,
   getServices,
   getVehicles,
   getVisitRequests,
@@ -20,6 +21,7 @@ import Loader from "../../components/loader/Loader";
 import Membership from "../Resident/Membership";
 import EventDetails from "../Manager/EventDetails";
 import Payment from "../Resident/Payment";
+import AmenityAccess from "../Resident/ResidentDashboard/AmenityAccess";
 
 Modal.setAppElement(document.getElementById("visitor-dashboard"));
 
@@ -31,6 +33,7 @@ function VisitorDashboard() {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [selectedVehicleId, setSelectedVehicleId] = useState(null);
+  const [selectedRequestId, setSelectedRequestId] = useState(null);
   const [vehicles, setVehicles] = useState([]);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [active, setActive] = useState("home");
@@ -67,6 +70,23 @@ function VisitorDashboard() {
       })
       .catch((error) => {
         console.error("Error resetting password:", error);
+      });
+  };
+
+  const showDeleteRequestDialog = () => {
+    let data = { request_id: selectedRequestId };
+    deleteVisitRequest(data)
+      .then((res) => {
+        if (res.status == 200) {
+          alert(res.message);
+          setSelectedRequestId(null);
+          handleReload();
+        } else {
+          alert(res.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error deleting request:", error);
       });
   };
 
@@ -164,7 +184,16 @@ function VisitorDashboard() {
               {modalIsOpen && (
                 <Modal
                   isOpen={modalIsOpen}
-                  onHide={() => setIsOpen(false)}
+                  onAfterClose={() => {
+                    setSelectedVehicleId(null);
+                    setSelectedRequestId(null);
+                    setIsOpen(false);
+                  }}
+                  onHide={() => {
+                    setSelectedVehicleId(null);
+                    setSelectedRequestId(null);
+                    setIsOpen(false);
+                  }}
                   onRequestClose={closeModal}
                   style={customStyles}
                   contentLabel="Example Modal"
@@ -176,7 +205,15 @@ function VisitorDashboard() {
                   <div className="text-right">
                     <button onClick={closeModal}>Cancel</button>
                     &ensp;&ensp;&ensp;&ensp;
-                    <button onClick={() => showDeleteVehicleDialog()}>
+                    <button
+                      onClick={() => {
+                        if (selectedRequestId != null) {
+                          showDeleteRequestDialog();
+                        } else {
+                          showDeleteVehicleDialog();
+                        }
+                      }}
+                    >
                       Delete
                     </button>
                   </div>
@@ -252,6 +289,14 @@ function VisitorDashboard() {
                   })}
               </div>
               <div className="container">
+                <div className="report">
+                  <div className="report-container">
+                    <AmenityAccess
+                      user={user}
+                      amenities={amenities}
+                    />
+                  </div>
+                </div>
                 <div className="report">
                   <div className="report-container">
                     <div className="report-header d-flex justify-content-between align-items-center">
@@ -370,6 +415,13 @@ function VisitorDashboard() {
                               let property_details =
                                 v.resident.property_details;
 
+                              let iDateString = v.in_time;
+                              const idate = new Date(iDateString + "Z");
+                              const localInDate = idate.toLocaleString();
+
+                              let oDateString = v.out_time;
+                              const odate = new Date(oDateString + "Z");
+                              const localOutDate = odate.toLocaleString();
                               return (
                                 <tr>
                                   <td>{v.id}</td>
@@ -384,8 +436,7 @@ function VisitorDashboard() {
                                       : ""}
                                   </td>
                                   <td>
-                                    {convertTo12Hour(v.in_time)}-
-                                    {convertTo12Hour(v.out_time)}
+                                    {localInDate}-{localOutDate}
                                   </td>
                                   <td>
                                     {v.accepted != 0
@@ -422,7 +473,7 @@ function VisitorDashboard() {
                                           <li
                                             key={v.id + "edit"}
                                             onClick={() => {
-                                              navigate(`/edit-vehicle/${v.id}`);
+                                              navigate(`/edit-request/${v.id}`);
                                             }}
                                           >
                                             Edit
@@ -430,7 +481,7 @@ function VisitorDashboard() {
                                           <li
                                             key={v.id + "delete"}
                                             onClick={() => {
-                                              // setSelectedVehicleId(vehicle.id);
+                                              setSelectedRequestId(v.id);
                                               openModal();
                                             }}
                                           >
