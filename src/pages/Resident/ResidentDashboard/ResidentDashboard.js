@@ -8,6 +8,7 @@ import {
   getServices,
   getVehicles,
   getVisitRequests,
+  updateVisitRequest,
 } from "../../../services/services";
 import Modal from "react-modal";
 import Loader from "../../../components/loader/Loader";
@@ -68,14 +69,16 @@ function ResidentDashboard() {
   const [eventModalIsOpen, setEventModalIsOpen] = useState(false);
   const [paymentType, setPaymentType] = useState("");
   const [visits, setVisits] = useState([]);
+  const [acceptModalIsOpen, setAcceptModalIsOpen] = useState(false);
+  const [declineModalIsOpen, setDeclineModalIsOpen] = useState(false);
+  const [selectedVisitId, setSelectedVisitId] = useState(null);
 
   useEffect(() => {
-   initData();
+    initData();
   }, []);
 
   const initData = () => {
     setLoading(true);
-    console.log("user is " + JSON.stringify(user));
     getServices().then((res) => setAmenities(res));
     getVehicles().then((res) => {
       setVehicles(res);
@@ -83,10 +86,28 @@ function ResidentDashboard() {
     });
     let uid = user.id;
     getResidentVisitRequests({ uid }).then((res) => setVisits(res.data));
-  }
+  };
 
   const changeType = (e) => {
     window.location.href = e.target.value;
+  };
+
+  const showAcceptRejectDialog = (isAccept) => {
+    let val = isAccept ? 1 : 2;
+    let data = { request_id: selectedVisitId, accepted: val };
+    updateVisitRequest(data)
+      .then((res) => {
+        if (res.status == 200) {
+          alert(res.message);
+          setSelectedVisitId(null);
+          window.location.href = "/dashboard";
+        } else {
+          alert(res.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating log:", error);
+      });
   };
 
   const showDeleteVehicleDialog = () => {
@@ -123,36 +144,6 @@ function ResidentDashboard() {
   } else {
     return (
       <div className="pt-50 resident">
-        {/* <div className="tab-toggle">
-        <button
-          onClick={() => setActive("home")}
-          className={`custom-btn ${active == "home" ? "active" : ""}`}
-        >
-          Home
-        </button>
-        <button
-          onClick={() => setActive("dashboard")}
-          className={`custom-btn ${active == "dashboard" ? "active" : ""}`}
-        >
-          Dashboard
-        </button>
-      </div> */}
-
-        {/* <div className="menu-container side-menu">
-        <div className="menu-toggle">&#9776;</div>
-        <ul className={`menu sidebar-menu ${isOpen ? "open" : ""}`}>
-          <li>
-            <a href="#">Dashboard</a>
-          </li>
-          <li>
-            <a href="#">Profile</a>
-          </li>
-          <li>
-            <a href="#">Registered Vehicles</a>
-          </li>
-        </ul>
-      </div> */}
-
         {active == "home" ? (
           <div className="container">
             <div className="main" id="resident-dashboard">
@@ -273,6 +264,54 @@ function ResidentDashboard() {
                   />
                 </Modal>
               )}
+
+              {declineModalIsOpen && (
+                <Modal
+                  isOpen={declineModalIsOpen}
+                  onHide={() => setDeclineModalIsOpen(false)}
+                  onRequestClose={() => setDeclineModalIsOpen(false)}
+                  style={customStyles}
+                  contentLabel="Example Modal"
+                >
+                  <h2>Decline Confirmation</h2>
+                  <br></br>
+                  <p>Are you sure you want to decline the request?</p>
+                  <br></br>
+                  <div className="text-right">
+                    <button onClick={() => setDeclineModalIsOpen(false)}>
+                      Cancel
+                    </button>
+                    &ensp;&ensp;&ensp;&ensp;
+                    <button onClick={() => showAcceptRejectDialog(false)}>
+                      Confirm
+                    </button>
+                  </div>
+                </Modal>
+              )}
+
+              {acceptModalIsOpen && (
+                <Modal
+                  isOpen={acceptModalIsOpen}
+                  onHide={() => setAcceptModalIsOpen(false)}
+                  onRequestClose={() => setAcceptModalIsOpen(false)}
+                  style={customStyles}
+                  contentLabel="Example Modal"
+                >
+                  <h2>Accept Confirmation</h2>
+                  <br></br>
+                  <p>Are you sure you want to accept the request?</p>
+                  <br></br>
+                  <div className="text-right">
+                    <button onClick={() => setAcceptModalIsOpen(false)}>
+                      Cancel
+                    </button>
+                    &ensp;&ensp;&ensp;&ensp;
+                    <button onClick={() => showAcceptRejectDialog(true)}>
+                      Confirm
+                    </button>
+                  </div>
+                </Modal>
+              )}
               <div className="box-container">
                 {amenities &&
                   amenities.map((service) => {
@@ -304,82 +343,7 @@ function ResidentDashboard() {
                       </div>
                     );
                   })}
-                {/* <div className="box box1">
-                <div className="text">
-                  <h2 className="topic-heading">Garden</h2>
-                  <h2 className="topic">7:00 AM - 5:00 PM</h2>
-                </div>
               </div>
-
-              <div className="box box2">
-                <div className="text">
-                  <h2 className="topic-heading">Pool</h2>
-                  <h2 className="topic">8:00 AM - 8:00 PM</h2>
-                </div>
-              </div>
-
-              <div className="box box3">
-                <div className="text">
-                  <h2 className="topic-heading-md">Tennis Court</h2>
-                  <h2 className="topic">6:00 AM - 12:00 PM (Mor.)</h2>
-                  <h2 className="topic">4:00 PM - 10:00 PM (Eve.)</h2>
-                </div>
-              </div>
-
-              <div className="box box4">
-                <div className="text">
-                  <h2 className="topic-heading">Gym</h2>
-                  <h2 className="topic">5:00 AM - 12:00 AM</h2>
-                </div>
-              </div> */}
-              </div>
-
-              {/* <div className="m-auto">
-              <div className="home-section-vehicle report-header d-block m-auto">
-                <div className="input-group">
-                  <div className="input-box">
-                    <h4>Vehicle Registration</h4>
-                  </div>
-                </div>
-                <div className="input-group">
-                  <div className="input-box">
-                    <input
-                      type="text"
-                      placeholder="Vehicle Model"
-                      required
-                      className="name"
-                    />
-                    <i className="bx bxs-user"></i>
-                  </div>
-                  <div className="input-box">
-                    <input
-                      type="text"
-                      placeholder="License Plate"
-                      required
-                      className="name"
-                    />
-                    <i className="bx bxs-phone"></i>
-                  </div>
-                  <div className="input-box">
-                    <p>Expiry Date</p>
-                    <select>
-                      <option>01 Jun</option>
-                    </select>
-                    <select>
-                      <option>2023</option>
-                    </select>
-                  </div>
-                </div>
-                <br />
-                <div className="input-group">
-                  <div className="input-box">
-                    <button type="submit" className="vehicle-submit">
-                      Register
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div> */}
 
               <div className="container">
                 <div className="report">
@@ -488,64 +452,65 @@ function ResidentDashboard() {
                             <tr>
                               <th>Request Id</th>
                               <th>Resident</th>
-                              <th>Building-Apartment Unit</th>
+                              <th>Reason</th>
                               <th>In-Time/Out-Time</th>
                               <th>Status</th>
-                              <th></th>
+                              <th style={{ width: "5%" }}></th>
                             </tr>
                             {visits.length > 0 &&
-                              visits.map((v) => (
-                                <tr>
-                                  <td>{v.id}</td>
-                                  <td>
-                                    {v.resident.fname} {v.resident.lname}
-                                  </td>
-                                  <td>
-                                    {v.resident.building
-                                      ? v.resident.building +
-                                        "-" +
-                                        v.resident.apt
-                                      : ""}
-                                  </td>
-                                  <td>
-                                    {v.in_time}-{v.out_time}
-                                  </td>
-                                  <td>
-                                    {v.accepted != 0
-                                      ? v.accepted == 1
-                                        ? "Accepted"
-                                        : "Rejected"
-                                      : "Requested"}
-                                  </td>
-                                  <td>
-                                    <div className="visitor-schedule-action-container">
-                                      {/* <a href="./visitor_driving_instructions.html">
-                                  <img
-                                    src="./images/map.png"
-                                    height="24px"
-                                    width="24px"
-                                  />
-                                </a> */}
-                                      <button
-                                        className="driving-instructions"
-                                        onClick={() =>
-                                          navigate("/driving-instructions")
-                                        }
-                                      >
-                                        Driving Instructions
-                                      </button>
+                              visits.map((v) => {
+                                let iDateString = v.in_time;
+                                const idate = new Date(iDateString + "Z");
+                                const localInDate = idate.toLocaleString();
 
-                                      <a>
-                                        <img
-                                          src="./images/more_vert.png"
-                                          height="24px"
-                                          width="24px"
-                                        />
-                                      </a>
-                                    </div>
-                                  </td>
-                                </tr>
-                              ))}
+                                let oDateString = v.out_time;
+                                const odate = new Date(oDateString + "Z");
+                                const localOutDate = odate.toLocaleString();
+                                return (
+                                  <tr>
+                                    <td>{v.id}</td>
+                                    <td>
+                                      {v.resident.fname} {v.resident.lname}
+                                    </td>
+                                    <td>{v.reason}</td>
+                                    <td>
+                                      {localInDate}-{localOutDate}
+                                    </td>
+                                    <td>
+                                      {v.accepted != 0
+                                        ? v.accepted == 1
+                                          ? "Accepted"
+                                          : "Rejected"
+                                        : "Requested"}
+                                    </td>
+                                    <td>
+                                      <div className="dropdown-container">
+                                        <i className="fa fa-ellipsis-v dropdown-icon" />
+                                        <ul className="dropdown-menu text-left">
+                                          <li
+                                            key={v.id + "accept"}
+                                            onClick={() => {
+                                              setSelectedVisitId(v.id);
+                                              setAcceptModalIsOpen(true);
+                                            }}
+                                          >
+                                            Accept
+                                          </li>
+                                          <li
+                                            key={v.id + "decline"}
+                                            onClick={() => {
+                                              setSelectedVisitId(v.id);
+                                              setDeclineModalIsOpen(true);
+                                            }}
+                                          >
+                                            Decline
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                );
+                              })}
                           </tbody>
                         </table>
                       ) : (
