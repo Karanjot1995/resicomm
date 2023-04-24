@@ -78,6 +78,7 @@ function ResidentDashboard() {
     console.log("user is " + JSON.stringify(user));
     getServices().then((res) => setAmenities(res));
     getVehicles().then((res) => {
+      console.log(res)
       setVehicles(res);
       setLoading(false);
     });

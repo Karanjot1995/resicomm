@@ -53,7 +53,6 @@ export const getUsers = async () => {
 };
 
 export const signIn = async (data) => {
-  console.log(data);
   return await fetch(`${API_URL}/user/login`, {
     ...postOptions,
     body: JSON.stringify(data),
@@ -61,7 +60,6 @@ export const signIn = async (data) => {
 };
 
 export const updateUser = async (data) => {
-  console.log(data);
   return await fetch(`${API_URL}/user/update`, {
     ...postOptions,
     body: JSON.stringify(data),
@@ -69,7 +67,6 @@ export const updateUser = async (data) => {
 };
 
 export const updateAmenity = async (data) => {
-  console.log(data);
   return await fetch(`${API_URL}/amenity/update`, {
     ...postOptions,
     body: JSON.stringify(data),
@@ -77,7 +74,6 @@ export const updateAmenity = async (data) => {
 };
 
 export const updateEvent = async (data) => {
-  console.log(data);
   return await fetch(`${API_URL}/events/update`, {
     ...postOptions,
     body: JSON.stringify(data),
@@ -85,7 +81,6 @@ export const updateEvent = async (data) => {
 };
 
 export const updateAccessLog = async (data) => {
-  console.log(data);
   return await fetch(`${API_URL}/access-logs/update`, {
     ...postOptions,
     body: JSON.stringify(data),
@@ -259,7 +254,6 @@ export const register = async (data) => {
 };
 
 export const addEmployee = async (data) => {
-  console.log(data)
   return await fetch(`${API_URL}/employee/add`, {
     ...postOptions,
     body: JSON.stringify(data),
@@ -267,7 +261,6 @@ export const addEmployee = async (data) => {
 };
 
 export const editEmployee = async (data) => {
-  console.log(data)
   return await fetch(`${API_URL}/employee/edit`, {
     ...postOptions,
     body: JSON.stringify(data),
