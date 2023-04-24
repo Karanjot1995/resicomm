@@ -16,7 +16,7 @@ function AmenityAccess(props) {
   const [acceptModalIsOpen, setAcceptModalIsOpen] = useState(false);
   const [declineModalIsOpen, setDeclineModalIsOpen] = useState(false);
   const { user } = props;
-  const [manager_amenity_id, setManagerAmenityId] = useState(props.amenity_id);
+  const [manager_amenity_id, setManagerAmenityId] = useState(props.manager_amenity_id);
   const [amenities, setAmenities] = useState(props.amenities);
   const [logs, setLogs] = useState([]);
   const [amenity, setAmenity] = useState({
@@ -27,12 +27,11 @@ function AmenityAccess(props) {
   });
 
   useEffect(() => {
-    if (user.type == "manager") {
-      console.log("user is manager " +manager_amenity_id);
+    if (user.type == "manager" && manager_amenity_id) {
       getAccessLogsManager({ amenity_id: manager_amenity_id }).then((res) =>
         setLogs(res.data)
       );
-    } else {
+    } else if (user.type != "manager") {
       let uid = user.id;
       getAccessLogs({ uid }).then((res) => setLogs(res.data));
     }

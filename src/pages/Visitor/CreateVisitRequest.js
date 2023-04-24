@@ -209,11 +209,12 @@ function VisitorCreateRequest() {
                           <br />
                         </div>
                         {getOwnVehicle == "yes" ? (
-                          <div className="mt-2">
+                          <div className="mt-2 d-flex column text-center ps-5 pe-5">
                             <label htmlFor="vehicle_number">
                               Select your vehicle:{" "}
                             </label>
                             <select
+                            className=" w-50 align-self-center"
                               id="vehicle_number"
                               name="vehicle_number"
                               defaultValue="select"
@@ -253,7 +254,7 @@ function VisitorCreateRequest() {
                         )}
 
                         <div className="d-flex column mt-3 justify-content-center">
-                          <div className="d-flex row w-50 ps-5">
+                          <div className="d-flex row w-50 ps-4 pe-4">
                             <label htmlFor="in-time" className="w-25">
                               In-Time:
                             </label>
@@ -290,7 +291,7 @@ function VisitorCreateRequest() {
                               ? errMsgs["startDateTime"]
                               : ""}
                           </p>
-                          <div className="d-flex row w-50 ps-5">
+                          <div className="d-flex row w-50 ps-4 pe-4">
                             <label htmlFor="out-time" className="w-25">
                               Out-Time:
                             </label>

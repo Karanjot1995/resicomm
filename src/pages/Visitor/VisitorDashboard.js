@@ -447,14 +447,8 @@ function VisitorDashboard() {
                                   </td>
                                   <td>
                                     <div className="visitor-schedule-action-container d-flex">
-                                      {/* <a href="./visitor_driving_instructions.html">
-                                  <img
-                                    src="./images/map.png"
-                                    height="24px"
-                                    width="24px"
-                                  />
-                                </a> */}
-                                      <button
+                             
+                                    {v.accepted != 0 &&  <button
                                         className="driving-instructions"
                                         onClick={() =>
                                           navigate("/driving-instructions", {
@@ -465,7 +459,7 @@ function VisitorDashboard() {
                                         }
                                       >
                                         Driving Instructions
-                                      </button>
+                                      </button>}
 
                                       <div className="dropdown-container ps-2 pe-2">
                                         <i className="fa fa-ellipsis-v dropdown-icon" />
