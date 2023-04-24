@@ -1,7 +1,8 @@
 // const API_URL = "http://localhost:5000"
 // const API_URL = "https://9e26-64-189-206-39.ngrok.io"
 // const API_URL = "http://localhost/resicomm-backend/index.php";
-const API_URL = "https://kxs9016.uta.cloud/resicomm-server/index.php"
+const API_URL = "http://127.0.0.1:8000/api"
+// const API_URL = "https://kxs9016.uta.cloud/resicomm-server/index.php"
 
 let postOptions = {
   method: "POST",
@@ -54,6 +55,14 @@ export const getUsers = async () => {
 export const signIn = async (data) => {
   console.log(data);
   return await fetch(`${API_URL}/user/login`, {
+    ...postOptions,
+    body: JSON.stringify(data),
+  }).then((res) => res.json());
+};
+
+export const updateUser = async (data) => {
+  console.log(data);
+  return await fetch(`${API_URL}/user/update`, {
     ...postOptions,
     body: JSON.stringify(data),
   }).then((res) => res.json());

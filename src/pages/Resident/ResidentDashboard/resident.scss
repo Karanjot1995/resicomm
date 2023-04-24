@@ -459,6 +459,7 @@ border: none;
 cursor: pointer;
 }
  
+ textarea,
  input[type="text"],
  input[type="number"],
  input[type="email"],
@@ -470,7 +471,7 @@ cursor: pointer;
    border: 1px solid;
    border-radius: 4px;
  }
- 
+
  input[type="submit"],
  input[type="reset"] {
    padding: 6px 12px;
@@ -729,120 +730,6 @@ cursor: pointer;
   .slider.round:before {
     border-radius: 50%;
   }
-
-// .menu-container {
-//     margin-top: 70px;
-//   }
-
-// /* Web View */
-// .side-menu {
-//   display: flex;
-//   flex-direction: column;
-//   width: 200px;
-//   background-color: #f2f2f2;
-//   height: 100vh;
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   z-index: -0;
-//   overflow-x: hidden;
-// }
-
-// .side-menu li {
-//   display: block;
-//   margin: 10px 0;
-// }
-
-// .side-menu li a {
-//   color: #333;
-//   text-decoration: none;
-//   display: block;
-//   padding: 10px;
-// }
-
-// /* Mobile View */
-// @media only screen and (max-width: 768px) {
-
-//   .menu {
-//     display: none;
-//   }
-//   /* Show the menu on click */
-//   .menu-toggle {
-//     display: block;
-//     font-size: 1.5rem;
-//     margin: 10px;
-//     cursor: pointer;
-//   }
-
-//   .side-menu {
-//     width: 100%;
-//   }
-
-//   .side-menu .dropdown {
-//     position: relative;
-//   }
-
-//   .side-menu .dropdown > a:after {
-//     content: '\f078';
-//     font-family: 'FontAwesome';
-//     font-size: 14px;
-//     color: #333;
-//     position: absolute;
-//     right: 10px;
-//     top: 50%;
-//     transform: translateY(-50%);
-//   }
-
-//   .side-menu .dropdown .dropdown-menu {
-//     display: none;
-//     position: absolute;
-//     left: 100%;
-//     top: 0;
-//     background-color: #f2f2f2;
-//     width: 100%;
-//     z-index: 101;
-//   }
-
-//   .side-menu .dropdown .dropdown-menu li {
-//     display: block;
-//   }
-
-//   .side-menu .dropdown .dropdown-menu li a {
-//     color: #333;
-//     text-decoration: none;
-//     display: block;
-//     padding: 10px;
-//   }
-
-//   .side-menu .dropdown.show .dropdown-menu {
-//     display: block;
-//   }
-// }
-
-
-// /* Style for desktop view */
-// @media (min-width: 769px) {
-//   /* Display the menu */
-  
-//   /* Hide the toggle button */
-//   .menu-toggle {
-//     display: none;
-//   }
-//   /* Style for the dropdown menu */
-//   // .dropdown-menu {
-//   //   position: absolute;
-//   //   background-color: #f2f2f2;
-//   //   z-index: 1;
-//   //   display: none;
-//   // }
-//   // .dropdown-menu li {
-//   //   padding: 10px;
-//   // }
-//   // /* Show the dropdown menu on hover */
-//   // .dropdown:hover .dropdown-menu {
-//   //   display: block;
-//   // }
-// }
 
 #resident-dashboard-amenity-modal{
   .container{

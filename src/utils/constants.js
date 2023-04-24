@@ -1207,3 +1207,33 @@ export const country_code_list = [
 ];
 
 export const Weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+
+export const customStyles = {
+  content: {
+    top: "55%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    maxHeight: "80vh",
+    maxWidth: "80vw",
+    zIndex: 30,
+  },
+};
+
+export const membershipCustomStyles = {
+  content: {
+    top: "55%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    maxHeight: "80vh",
+    maxWidth: "80vw",
+    minWidth: "80vw",
+    zIndex: 30,
+  },
+};

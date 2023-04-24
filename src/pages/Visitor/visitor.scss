@@ -11,6 +11,17 @@ Gampa, Sai Gayathri - 1002090414
     height: 50px !important;
   }
 
+  .container {
+    margin-top: 30px;
+    width:80%;
+    margin:auto;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+
   .driving-instructions {
     height: 32px;
     width: 150px;
@@ -35,7 +46,8 @@ Gampa, Sai Gayathri - 1002090414
 
   .btn-primary {
     height: 35px;
-    width: 90px;
+    // width: 90px;
+    padding: 0px 8px;
     border-radius: 8px;
     background-color: #e50914;
     color: white;
@@ -49,13 +61,13 @@ Gampa, Sai Gayathri - 1002090414
   .d-absolute {
     position: absolute;
   }
-  .container {
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-  }
+  // .container {
+  //   width: 100%;
+  //   padding-right: 15px;
+  //   padding-left: 15px;
+  //   margin-right: auto;
+  //   margin-left: auto;
+  // }
 
   .register-vehicle-radio {
     position: absolute;
@@ -170,5 +182,11 @@ Gampa, Sai Gayathri - 1002090414
 
   .form-input {
     width: 35%;
+  }
+}
+
+#resident-dashboard-amenity-modal{
+  .container{
+    width:100%;
   }
 }

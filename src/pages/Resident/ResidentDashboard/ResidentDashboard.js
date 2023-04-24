@@ -415,7 +415,7 @@ function ResidentDashboard() {
                           </tr>
                         </thead>
                         <tbody>
-                          {vehicles.map((vehicle, index) =>
+                          {vehicles.length>0?  vehicles.map((vehicle, index) =>
                             vehicle.user_id == user.id ? (
                               <tr>
                                 <td>{vehicle.make}</td>
@@ -463,7 +463,7 @@ function ResidentDashboard() {
                             ) : (
                               ""
                             )
-                          )}
+                          ):''}
                         </tbody>
                       </table>
                     </div>

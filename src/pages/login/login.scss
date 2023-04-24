@@ -4,7 +4,7 @@ Sing, Karanjot - 1001949016
 Gampa, Sai Gayathri - 1002090414
  Kumar, Harihar Omkarachari Suprith - 1001880333
  */
-.login-page{
+.login-page, .profile{
     text-align: center;
     // background-color: #000;
     // color: #fff;
@@ -63,17 +63,19 @@ Gampa, Sai Gayathri - 1002090414
      }
     input , select{
         height: 40px;
-        background: #d6d6d6;
+        // background: #d6d6d6;
         -webkit-border-radius: 4px;
         -moz-border-radius: 4px;
         border-radius: 4px;
-        border: 0;
         // color: #fff;
         height: 50px;
         line-height: 50px;
         padding: 0px 20px;
         box-sizing: border-box;
         width: 100%;
+        &:not(.exclude) {
+            border: 0;
+          }
     }
     .lInput{
         padding-bottom: 16px;
