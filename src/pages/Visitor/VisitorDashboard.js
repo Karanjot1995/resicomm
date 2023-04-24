@@ -21,6 +21,7 @@ import Loader from "../../components/loader/Loader";
 import Membership from "../Resident/Membership";
 import EventDetails from "../Manager/EventDetails";
 import Payment from "../Resident/Payment";
+import AmenityAccess from "../Resident/ResidentDashboard/AmenityAccess";
 
 Modal.setAppElement(document.getElementById("visitor-dashboard"));
 
@@ -288,6 +289,14 @@ function VisitorDashboard() {
                   })}
               </div>
               <div className="container">
+                <div className="report">
+                  <div className="report-container">
+                    <AmenityAccess
+                      user={user}
+                      amenities={amenities}
+                    />
+                  </div>
+                </div>
                 <div className="report">
                   <div className="report-container">
                     <div className="report-header d-flex justify-content-between align-items-center">

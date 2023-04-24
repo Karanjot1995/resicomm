@@ -11,6 +11,7 @@ import {
 import ManagerDashboard from "./ManagerDashboard";
 import ManagerHome from "./ManagerHome";
 import ManagerType from "./ManagerType";
+import AmenityAccess from "../Resident/ResidentDashboard/AmenityAccess";
 
 const boxData = [
   {
@@ -152,6 +153,14 @@ function Manager(props) {
           />
         ) : (
           ""
+        )}
+
+        {amenityDetails && (
+          <div className="report">
+            <div className="report-container container ps-4 pe-4">
+              <AmenityAccess user={user} manager_amenity_id={amenityDetails.id} />
+            </div>
+          </div>
         )}
         {users.length ? (
           <ManagerHome

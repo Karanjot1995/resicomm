@@ -83,6 +83,14 @@ export const updateEvent = async (data) => {
   }).then((res) => res.json());
 };
 
+export const updateAccessLog = async (data) => {
+  console.log(data);
+  return await fetch(`${API_URL}/access-logs/update`, {
+    ...postOptions,
+    body: JSON.stringify(data),
+  }).then((res) => res.json());
+};
+
 export const getServices = async () => {
   return await fetch(`${API_URL}/amenities`).then((res) => res.json());
 };
@@ -312,6 +320,13 @@ export const getLocations = async () => {
 
 export const getAccessLogs = async (data) => {
   return await fetch(`${API_URL}/access-logs/resident`, {
+    body: JSON.stringify(data),
+    ...postOptions,
+  }).then((res) => res.json());
+};
+
+export const getAccessLogsManager = async (data) => {
+  return await fetch(`${API_URL}/access-logs/manager`, {
     body: JSON.stringify(data),
     ...postOptions,
   }).then((res) => res.json());
