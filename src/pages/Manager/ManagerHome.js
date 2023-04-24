@@ -9,6 +9,8 @@ import {
   validatePassword,
   validatePhone,
 } from "./validate";
+import { Weekdays } from "../../utils/constants";
+import { convertTo12Hour } from "../../utils/utils";
 
 function ManagerHome(props) {
   const { boxData } = props;
@@ -284,6 +286,21 @@ function ManagerHome(props) {
                   <th>Phone Number</th>
                   <th>Role</th>
                   <th>Department</th>
+
+                  {Weekdays.map((day, index) => {
+                    let dayString = day.slice(0, 3);
+                    {
+                      /* let startTime = convertTo12Hour(
+                              amenityDetails[dayString + "_in_time"]
+                            );
+
+                            let endTime = convertTo12Hour(
+                              amenityDetails[dayString + "_out_time"]
+                            ); */
+                    }
+
+                    return <th className="ps-5 pe-5">{dayString}</th>;
+                  })}
                 </tr>
               </thead>
               {/* </thead> */}
@@ -305,6 +322,30 @@ function ManagerHome(props) {
                         <td>{employee.phone}</td>
                         <td>{employee.type}</td>
                         <td>{employee.department}</td>
+                        {Weekdays.map((day, index) => {
+                          let dayString = day.slice(0, 3).toLocaleLowerCase();
+                          let additional_attributes =
+                            employee.additional_attributes;
+                          let val = "";
+                          if (additional_attributes) {
+                            let obj = JSON.parse(additional_attributes);
+                            let timingObj = obj.timings;
+                            let inTime = timingObj[dayString + "_in_time"]
+                              ? timingObj[dayString + "_in_time"]
+                              : "";
+                            let outTime = timingObj[dayString + "_out_time"]
+                              ? timingObj[dayString + "_out_time"]
+                              : "";
+                            if (inTime != "" && outTime != "") {
+                              val =
+                                convertTo12Hour(inTime) +
+                                "-" +
+                                convertTo12Hour(outTime);
+                            }
+                          }
+
+                          return <td>{val}</td>;
+                        })}
                         <td>
                           <button onClick={() => editEm(employee.email)}>
                             Edit
@@ -361,6 +402,76 @@ function ManagerHome(props) {
                           </select>
                         </td>
                         <td>{employee.department}</td>
+                        {Weekdays.map((day, index) => {
+                          let dayString = day.slice(0, 3).toLocaleLowerCase();
+                          let additional_attributes =
+                            employee.additional_attributes;
+                          let inTime = "";
+                          let outTime = "";
+                          if (additional_attributes) {
+                            let obj = JSON.parse(additional_attributes);
+                            let timingObj = obj.timings;
+                            inTime = timingObj[dayString + "_in_time"]
+                              ? timingObj[dayString + "_in_time"]
+                              : "";
+                            outTime = timingObj[dayString + "_out_time"]
+                              ? timingObj[dayString + "_out_time"]
+                              : "";
+                            if (inTime != "" && outTime != "") {
+                              {/* val =
+                                convertTo12Hour(inTime) +
+                                "-" +
+                                convertTo12Hour(outTime); */}
+                            }
+                          }
+
+                          return (
+                            <td>
+                              <span className="edit-field">
+                                In:{" "}
+                                {/* <input
+                              name="fname"
+                              onChange={handleEdit}
+                              type="text"
+                              value={editEmp.fname}
+                            /> */}
+                                <input
+                                  className="w-25"
+                                  key={"end_" + index}
+                                  value={inTime}
+                                  onChange={(e) => {
+                                    //   setAmenityDetails({
+                                    //     ...amenityDetails,
+                                    //     [dayString + "_out_time"]: e.target.value,
+                                    //   });
+                                  }}
+                                  type="time"
+                                />
+                              </span>
+                              <span className="edit-field">
+                                Out:{" "}
+                                {/* <input
+                              name="lname"
+                              onChange={handleEdit}
+                              type="text"
+                              value={editEmp.lname}
+                            /> */}
+                                <input
+                                  className="w-25"
+                                  key={"end_" + index}
+                                  value={outTime}
+                                  onChange={(e) => {
+                                    //   setAmenityDetails({
+                                    //     ...amenityDetails,
+                                    //     [dayString + "_out_time"]: e.target.value,
+                                    //   });
+                                  }}
+                                  type="time"
+                                />
+                              </span>
+                            </td>
+                          );
+                        })}
                         <td>
                           <button onClick={() => saveEmployee(employee.email)}>
                             Save
