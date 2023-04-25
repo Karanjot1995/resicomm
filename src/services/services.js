@@ -99,6 +99,14 @@ export const getVehicles = async () => {
   return await fetch(`${API_URL}/vehicles`).then((res) => res.json());
 };
 
+export const getAccessLogsCount = async () => {
+  return await fetch(`${API_URL}/access-logs-count`).then((res) => res.json());
+};
+
+export const getAccessLogsReport = async () => {
+  return await fetch(`${API_URL}/access-logs-report`).then((res) => res.json());
+};
+
 export const getVehicleDetails = async (data) => {
   return await fetch(`${API_URL}/vehicles?id=${data.vehicle_id}`, {
     ...getOptions,
@@ -327,6 +335,13 @@ export const getAccessLogs = async (data) => {
 
 export const getAccessLogsManager = async (data) => {
   return await fetch(`${API_URL}/access-logs/manager`, {
+    body: JSON.stringify(data),
+    ...postOptions,
+  }).then((res) => res.json());
+};
+
+export const getAccessLogsSecurityManager = async (data) => {
+  return await fetch(`${API_URL}/access-logs/security-manager`, {
     body: JSON.stringify(data),
     ...postOptions,
   }).then((res) => res.json());

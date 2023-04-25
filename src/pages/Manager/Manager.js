@@ -155,10 +155,18 @@ function Manager(props) {
           ""
         )}
 
-        {amenityDetails && (
+        {(amenityDetails ||
+          (user.type == "manager" && user.department == "security")) && (
           <div className="report">
             <div className="report-container container ps-4 pe-4">
-              <AmenityAccess user={user} manager_amenity_id={amenityDetails.id} />
+              <AmenityAccess
+                user={user}
+                manager_amenity_id={
+                  user.type == "manager" && user.department == "security"
+                    ? null
+                    : amenityDetails.id
+                }
+              />
             </div>
           </div>
         )}
