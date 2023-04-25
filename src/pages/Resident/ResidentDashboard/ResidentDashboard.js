@@ -454,7 +454,7 @@ function ResidentDashboard() {
                           <tbody>
                             <tr>
                               <th>Request Id</th>
-                              <th>Resident</th>
+                              <th>Name</th>
                               <th>Reason</th>
                               <th>In-Time/Out-Time</th>
                               <th>Status</th>
@@ -473,7 +473,7 @@ function ResidentDashboard() {
                                   <tr>
                                     <td>{v.id}</td>
                                     <td>
-                                      {v.resident.fname} {v.resident.lname}
+                                      {v.visitor.fname} {v.visitor.lname}
                                     </td>
                                     <td>{v.reason}</td>
                                     <td>
