@@ -1,3 +1,5 @@
+import { formatDistanceToNowStrict } from 'date-fns';
+
 export function convertTo12Hour(time24) {
     var time12 = "";
     var hour24 = parseInt(time24.substring(0, 2));
@@ -17,3 +19,20 @@ export function convertTo12Hour(time24) {
   }
 
 
+  export const Avatar = ({ name }) => {
+    const firstLetter = name.charAt(0);
+  
+    return (
+      <div className="avatar-container">
+        <div className="avatar-circle">{firstLetter}</div>
+      </div>
+    );
+  };
+
+  export const TimeAgo = ({ timestamp, style }) => {
+    const timeAgo = formatDistanceToNowStrict(new Date(timestamp), {
+      addSuffix: true,
+    });
+  
+    return <span className={style}>{timeAgo}</span>;
+  };

@@ -1,9 +1,9 @@
 // const API_URL = "http://localhost:5000"
 // const API_URL = "https://9e26-64-189-206-39.ngrok.io"
-const API_URL = "http://localhost/resicomm-server/index.php";
+const API_URL = "http://localhost/resicomm-backend/index.php";
 // const API_URL = "http://127.0.0.1:8000/api"
 // const API_URL = "https://kxs9016.uta.cloud/resicomm-server/index.php"
-
+export const WEBSOCKET_URL = "ws://localhost:8080/";
 let postOptions = {
   method: "POST",
   mode: "cors",
@@ -348,16 +348,24 @@ export const addAccessLog = async (data) => {
   }).then((res) => res.json());
 };
 
+export const getChatHistory = async (data) => {
+  return await fetch(`${API_URL}/chat/history`, {
+    body: JSON.stringify(data),
+    ...postOptions,
+  }).then((res) => res.json());
+};
+
+
 
 export const getChat = async (data) => {
-  return await fetch(`http://localhost/resicomm-server/index.php/chat`, {
+  return await fetch(`http://localhost/resicomm-backend/index.php/chat`, {
     body: JSON.stringify(data),
     ...postOptions,
   }).then((res) => res.json());
 };
 
 export const sendMessage = async (data) => {
-  return await fetch(`http://localhost/resicomm-server/index.php/chat/send`, {
+  return await fetch(`http://localhost/resicomm-backend/index.php/chat/send`, {
     body: JSON.stringify(data),
     ...postOptions,
   }).then((res) => res.json());
