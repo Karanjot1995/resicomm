@@ -350,14 +350,14 @@ export const addAccessLog = async (data) => {
 
 
 export const getChat = async (data) => {
-  return await fetch(`http://localhost/resicomm-server/index.php/chat`, {
+  return await fetch(`${API_URL}/chat`, {
     body: JSON.stringify(data),
     ...postOptions,
   }).then((res) => res.json());
 };
 
 export const sendMessage = async (data) => {
-  return await fetch(`http://localhost/resicomm-server/index.php/chat/send`, {
+  return await fetch(`${API_URL}/chat/send`, {
     body: JSON.stringify(data),
     ...postOptions,
   }).then((res) => res.json());
