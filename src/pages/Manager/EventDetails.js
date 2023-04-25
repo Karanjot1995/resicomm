@@ -135,6 +135,7 @@ function EventDetails(props) {
       user_id: user.id,
       events_id: [event_id],
     };
+    console.log(data)
 
     getEventRegistrations(data)
       .then((response) => {

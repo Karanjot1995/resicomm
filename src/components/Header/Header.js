@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import SideNav from "../ChatBot/SideNav";
 import "./header.scss";
 
 function Header({ isLoggedIn }) {
   const navigate = useNavigate();
 
   let [showSubMenu, setShowSubMenu] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   const openSubMenu = () => {
     setShowSubMenu(!showSubMenu);
@@ -32,7 +34,7 @@ function Header({ isLoggedIn }) {
             <li><a href="/contact-us">Contact us</a></li>
             {isLoggedIn && <li><a href="/dashboard">Dashboard</a></li>}
             {isLoggedIn?
-              <div>
+              <li>
                 <div
                   className="profile-btn"
                   onMouseEnter={() => setShowSubMenu(true)}
@@ -55,7 +57,7 @@ function Header({ isLoggedIn }) {
                     </li>
                   </ul>
                 </div>
-              </div>
+              </li>
              : (
               <li>
                 <a href="/login" className="custom-btn login-btn-nav">
@@ -63,6 +65,17 @@ function Header({ isLoggedIn }) {
                 </a>
               </li>
             )}
+            {isLoggedIn?
+            <li>
+            <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
+                <button className="collapse-button" onClick={() => setIsCollapsed(!isCollapsed)}>
+                  {isCollapsed ? <img src="https://cdn-icons-png.flaticon.com/512/1380/1380370.png" height="25" width="25"/> : 'X'}
+                </button>
+                {!isCollapsed? <SideNav isCollapsed={isCollapsed}/>:''}
+                
+              </div>
+            </li>
+            :''}
           </ul>
         </nav>
       </div>

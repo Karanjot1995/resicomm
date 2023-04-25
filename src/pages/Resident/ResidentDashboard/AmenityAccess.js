@@ -33,7 +33,10 @@ function AmenityAccess(props) {
       );
     } else if (user.type != "manager") {
       let uid = user.id;
-      getAccessLogs({ uid }).then((res) => setLogs(res.data));
+      getAccessLogs({ uid }).then((res) => {
+        console.log(res.data)
+        setLogs(res.data)
+    });
     }
   }, []);
 

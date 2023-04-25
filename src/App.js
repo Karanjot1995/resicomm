@@ -101,7 +101,7 @@ function App() {
         </Routes>
         }
       </div>
-      <ChatBot/>
+      {/* <ChatBot/> */}
       {/* <Footer/> */}
     </div>
   );

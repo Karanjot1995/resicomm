@@ -81,12 +81,14 @@ function ResidentDashboard() {
     setLoading(true);
     getServices().then((res) => setAmenities(res));
     getVehicles().then((res) => {
-      console.log(res)
       setVehicles(res);
       setLoading(false);
     });
     let uid = user.id;
-    getResidentVisitRequests({ uid }).then((res) => setVisits(res.data));
+    getResidentVisitRequests({ uid }).then((res) => {
+      setVisits(res.data)
+      // setLoading(false);
+    });
   };
 
   const changeType = (e) => {
@@ -384,7 +386,7 @@ function ResidentDashboard() {
                           </tr>
                         </thead>
                         <tbody>
-                          {vehicles.length>0?  vehicles.map((vehicle, index) =>
+                          {vehicles.map((vehicle, index) =>
                             vehicle.user_id == user.id ? (
                               <tr>
                                 <td>{vehicle.make}</td>
@@ -432,7 +434,7 @@ function ResidentDashboard() {
                             ) : (
                               ""
                             )
-                          ):''}
+                          )}
                         </tbody>
                       </table>
                     </div>

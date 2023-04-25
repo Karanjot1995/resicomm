@@ -62,3 +62,44 @@
         align-self: flex-end;
     }
 }
+
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    overflow-y: scroll;
+    // min-width: 50px;
+    height: 100vh;
+    transition: all 0.3s ease-in-out;
+    .collapsed{
+        width: 50px;
+    }
+    .sidenav {
+        width:250px;
+        min-height:100vh;
+        // padding: 20px;
+        background-color: #2A9D8F;
+        padding-top:70px;
+        .sidenav-content{
+            overflow-y:scroll;
+        }
+    }
+      
+  .collapse-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #fff;
+    border: none;
+    border-radius: 50%;
+    font-size: 20px;
+    height:30px;
+    width:30px;
+    // box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+}
+
+  
+

@@ -959,3 +959,11 @@ table th[class*="col-"] {
 // input, select{
 //   box-sizing: border-box!important;
 // }
+
+.text-capitalize{
+  text-transform: capitalize;
+}
+
+.justify-space-between{
+  justify-content: space-between;
+}

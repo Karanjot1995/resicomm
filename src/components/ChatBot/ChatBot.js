@@ -1,38 +1,99 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from "react";
+import { json, Link, useNavigate } from 'react-router-dom';
+import { getChat, sendMessage } from "../../services/services";
+import { io } from "socket.io-client";
 import './chatbot.scss';
 
-function ChatBot({isLoggedIn}) {
+function ChatBot(props) {
   const navigate = useNavigate();
-
+  const socket = useRef();
+	const [arrivalMessage, setArrivalMessage] = useState(null);
   let [show, setShow] = useState(false);
-	// const chat = {
-	// 	"a":"Hey!",
-	// 	"a":"How are you?",
-	// 	"b":"Pretty good. Wbu?",
-	// }
-	const chat = [{user:"a", text:"Hey!"}, {user:"a", text:"How can I help you today?"}, {user:"b", text:"I have an enquiry."},  {user:"b", text:"How do I pay my rent online?"},{user:"a", text:"You can pay it through the website or through cheque."}, {user:"b", text:"Thank you?"}, {user:"b", text:"I'll pay through cheque."}];
+	let [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+	let [message, setMessage] = useState("");
+	// let [chat, setChat] = useState(false);
+	let {chatWith, chat, addToChat} = props
+
+
+  useEffect(() => {
+    // getChat({uid: user.id, rid: chatWith.id}).then(res=>{
+    //  setChat(res.data)
+    // });
+		if (user) {
+      socket.current = io('http://localhost:8001');
+      socket.current.emit("add-user", user.id);
+    }
+  }, []);
+
+
+
+
+	const sendChat = () => {
+		let data = {
+			message: message,
+			user_id: user.id,
+			chat_user_id: chatWith.id
+		}
+		socket.current.emit("send-msg", {
+      to: chatWith.id,
+      from: user.id,
+      message,
+    });
+
+		const chats = [...chat];
+		sendMessage(data).then(res=>{
+			if(res.status==200){
+				res.message.fromSelf = true
+				chats.push(res.message);
+				addToChat(chats)
+			}
+		})
+
+	}
+
+	useEffect(() => {
+    if (socket.current) {
+      socket.current.on("msg-recieve", (msg) => {
+				getChat({uid: user.id, rid: chatWith.id}).then(res=>{
+					addToChat(res.data)
+				});
+        setArrivalMessage({ fromSelf: false, message: msg , user:user, chat_user: chatWith});
+      });
+    }
+  }, []);
+
+	useEffect(() => {
+		let chats = chat
+		if(arrivalMessage){
+			chats.push(arrivalMessage)
+		}
+		console.log(chats)
+    arrivalMessage && addToChat(chats);
+  }, [arrivalMessage]);
+
+	// const chat = [{user:"a", text:"Hey!"}, {user:"a", text:"How can I help you today?"}, {user:"b", text:"I have an enquiry."},  {user:"b", text:"How do I pay my rent online?"},{user:"a", text:"You can pay it through the website or through cheque."}, {user:"b", text:"Thank you?"}, {user:"b", text:"I'll pay through cheque."}];
 
 	return (
-		<div className="chatbot">
+		<div className="chatbot" socket={socket}>
 			<div className="chatbot-nav">
-				<p>Chat</p>
+				<p>{chatWith.fname}</p>
 				<a className="toggle-btn" onClick={()=>setShow(!show)}>{show?'x':'-'}</a>
 				{/* {show?<a>x</a>:<a>-</a>} */}
 			</div>
 			{show?
 			<div className="chatbot-container">
 				<div className="chatbot-middle">
-					{chat.map(chat=>
-						chat.user=='a'? 
-						<div className="chat manager-chat">Manager: {chat.text}</div>
+					{chat.length? chat.map(chat=>
+						chat.user.id == user.id? 
+						<div className="chat user-chat">Me: {chat.message}</div>
 						: 
-						<div className="chat user-chat">Me: {chat.text}</div>
-					)}
+						// chat.chat_user.id==user.id ?
+						<div className="chat manager-chat">{chat.message}</div>
+					):''}
 				</div>
 				<div className="chatbot-bottom">
-					<input/>
-					<a className="custom-btn">SEND</a>
+					<input value={message} onChange={(e)=>setMessage(e.target.value)}/>
+					<a onClick={sendChat} className="custom-btn">SEND</a>
 				</div>
 			</div>
 			:''

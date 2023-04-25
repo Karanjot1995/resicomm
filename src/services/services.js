@@ -177,9 +177,9 @@ export const getEventRegistrations = async (data) => {
 };
 
 export const updateVehicleDetails = async (data) => {
-  return await fetch(`${API_URL}/vehicles?id=${data.vehicle_id}`, {
+  return await fetch(`${API_URL}/vehicles/update?id=${data.vehicle_id}`, {
     body: JSON.stringify(data),
-    ...putOptions,
+    ...postOptions,
   }).then((res) => res.json());
 };
 
@@ -193,14 +193,14 @@ export const updateVisitRequest = async (data) => {
 export const joinMembership = async (data) => {
   return await fetch(`${API_URL}/add-membership?user_id=${data.user_id}&membership_id=${data.membership_id}`, {
     body: JSON.stringify(data),
-    ...putOptions,
+    ...postOptions,
   }).then((res) => res.json());
 };
 
 export const leaveMembership = async (data) => {
   return await fetch(`${API_URL}/remove-membership?user_id=${data.user_id}&membership_id=${data.membership_id}`, {
     body: JSON.stringify(data),
-    ...putOptions,
+    ...postOptions,
   }).then((res) => res.json());
 };
 
@@ -333,5 +333,19 @@ export const addAccessLog = async (data) => {
   }).then((res) => res.json());
 };
 
+
+export const getChat = async (data) => {
+  return await fetch(`${API_URL}/chat`, {
+    body: JSON.stringify(data),
+    ...postOptions,
+  }).then((res) => res.json());
+};
+
+export const sendMessage = async (data) => {
+  return await fetch(`${API_URL}/chat/send`, {
+    body: JSON.stringify(data),
+    ...postOptions,
+  }).then((res) => res.json());
+};
 
 
