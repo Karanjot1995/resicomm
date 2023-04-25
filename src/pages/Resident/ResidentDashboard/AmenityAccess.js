@@ -6,6 +6,7 @@ import {
   updateAccessLog,
   getVisitRequests,
   getAccessLogsSecurityManager,
+  updateVisitRequest,
 } from "../../../services/services";
 import Modal from "react-modal";
 import Datetime from "react-datetime";
@@ -41,13 +42,13 @@ function AmenityAccess(props) {
         setLoading(false);
       });
     } else if (user.type == "manager" && user.department == "security") {
+      setSecurityData([])
       getAccessLogsSecurityManager().then((res) => setSecurityData(res.data));
       setLoading(false);
     } else if (user.type != "manager") {
       let user_id = user.id;
       getAccessLogs({ user_id }).then((res) => setLogs(res.data));
       setLoading(false);
-
     }
   }, []);
 
@@ -94,6 +95,38 @@ function AmenityAccess(props) {
       .catch((error) => {
         console.error("Error updating log:", error);
       });
+  };
+
+  const changeStatus = (isAccessLog, id, status) => {
+    if (isAccessLog) {
+      let data = { id: id, status: status };
+      updateAccessLog(data)
+        .then((res) => {
+          if (res.status == 200) {
+            alert(res.message);
+            window.location.href = "/dashboard";
+          } else {
+            alert(res.message);
+          }
+        })
+        .catch((error) => {
+          console.error("Error updating log:", error);
+        });
+    } else {
+      let data = { request_id: id, status: status };
+      updateVisitRequest(data)
+        .then((res) => {
+          if (res.status == 200) {
+            alert(res.message);
+            window.location.href = "/dashboard";
+          } else {
+            alert(res.message);
+          }
+        })
+        .catch((error) => {
+          console.error("Error updating log:", error);
+        });
+    }
   };
 
   const isValid = (e) => {
@@ -365,95 +398,97 @@ function AmenityAccess(props) {
               <h2 className="recent-Articles">Access Logs</h2>
             </div>
             <div className="report-body">
-            <h3 className="text-left">Arriving Guests</h3>
+              <h3 className="text-left">Arriving Guests</h3>
               {!securityData || securityData.length === 0 ? (
                 <div>
                   <h3 className="text-left">No Logs Found</h3>
                 </div>
               ) : (
-                <table>
-                  <tbody>
-                    <tr>
-                      <th>Name</th>
-                      <th>Reason</th>
-                      <th>In Time</th>
-                      <th>Out Time</th>
-                      <th>Status</th>
-                      <th style={{ width: "5%" }}></th>
-                    </tr>
-                    {securityData && securityData.length > 0
-                      ? securityData.map((data) => {
-                          let name = "";
-                          if (data.resident) {
-                            name =
-                              data.resident.fname + " " + data.resident.lname;
-                          }
-                          let iDateString = data.in_time;
-                          const idate = new Date(iDateString + "Z");
-                          const localInDate = idate.toLocaleString();
+                <div>
+                  <table>
+                    <tbody>
+                      <tr>
+                        <th style={{width:"20%"}}>Name</th>
+                        <th style={{width:"20%"}}>Reason</th>
+                        <th style={{width:"20%"}}>In Time</th>
+                        <th style={{width:"20%"}}>Out Time</th>
+                        <th style={{width:"20%"}}>Status</th>
+                      </tr>
+                      {securityData && securityData.length > 0
+                        ? securityData.map((data) => {
+                            console.log("data is " + JSON.stringify(data));
+                            let name = "";
+                            if (data.resident) {
+                              name =
+                                data.resident.fname + " " + data.resident.lname;
+                            }
+                            let iDateString = data.in_time;
+                            const idate = new Date(iDateString + "Z");
+                            const localInDate = idate.toLocaleString();
 
-                          let oDateString = data.out_time;
-                          const odate = new Date(oDateString + "Z");
-                          const localOutDate = odate.toLocaleString();
+                            let oDateString = data.out_time;
+                            const odate = new Date(oDateString + "Z");
+                            const localOutDate = odate.toLocaleString();
 
-                          let reason = "";
-                          if (data.amenity) {
-                            reason = data.amenity.name + " Access";
-                          }
+                            let reason = "";
+                            if (data.amenity) {
+                              reason = data.amenity.name + " Access";
+                            } else if (
+                              data.reason &&
+                              data.resident.property_details
+                            ) {
+                              reason =
+                                data.reason +
+                                " at " +
+                                data.resident.apt +
+                                "-" +
+                                data.resident.property_details.building;
+                            }
 
-                          let isValid = false;
+                            let isValid = false;
 
-                          return (
-                            <tr key={data.id + data.type + "data"}>
-                              <td>{name}</td>
-                              <td>{reason}</td>
-                              <td>{localInDate}</td>
-                              <td>{localOutDate}</td>
-                              <td>
-                                {data.accepted != 0
-                                  ? data.accepted == 1
-                                    ? "Accepted"
-                                    : "Rejected"
-                                  : "Requested"}
-                              </td>
-                              <td>
-                                <div className="dropdown-container">
-                                  <i className="fa fa-ellipsis-v dropdown-icon" />
-                                  <ul className="dropdown-menu text-left">
-                                    <li
-                                      key={data.id + data.type + "accept"}
+                            if (
+                              data.status &&
+                              data.status == "Did Not Enter" &&
+                              data.accepted == 1
+                            ) {
+                              isValid = true;
+                            }
+
+                            if (isValid) {
+                              return (
+                                <tr key={data.id + data.type + "data"}>
+                                  <td>{name}</td>
+                                  <td>{reason}</td>
+                                  <td>{localInDate}</td>
+                                  <td>{localOutDate}</td>
+                                  <td>
+                                    <button
+                                      className="custom-btn ms-4"
                                       onClick={() => {
-                                        setSelectedData(data);
-                                        setAcceptModalIsOpen(true);
+                                        changeStatus(
+                                          data.type == "access-log",
+                                          data.id,
+                                          "Entered"
+                                        );
                                       }}
                                     >
-                                      Accept
-                                    </li>
-                                    <li
-                                      key={data.id + data.type + "decline"}
-                                      onClick={() => {
-                                        setSelectedData(data);
-                                        setDeclineModalIsOpen(true);
-                                      }}
-                                    >
-                                      Decline
-                                    </li>
-                                  </ul>
-                                </div>
-                              </td>
-                            </tr>
-                          );
-                        })
-                      : ""}
-                  </tbody>
-                </table>
+                                      Mark as Entered
+                                    </button>
+                                  </td>
+                                </tr>
+                              );
+                            }
+                          })
+                        : ""}
+                    </tbody>
+                  </table>
+                </div>
               )}
             </div>
 
-
-
             <div className="report-body">
-            <h3 className="text-left">Entered Guests</h3>
+              <h3 className="text-left">Entered Guests</h3>
               {!securityData || securityData.length === 0 ? (
                 <div>
                   <h3 className="text-left">No Logs Found</h3>
@@ -462,12 +497,11 @@ function AmenityAccess(props) {
                 <table>
                   <tbody>
                     <tr>
-                      <th>Name</th>
-                      <th>Reason</th>
-                      <th>In Time</th>
-                      <th>Out Time</th>
-                      <th>Status</th>
-                      <th style={{ width: "5%" }}></th>
+                      <th style={{width:"20%"}}>Name</th>
+                      <th style={{width:"20%"}}>Reason</th>
+                      <th style={{width:"20%"}}>In Time</th>
+                      <th style={{width:"20%"}}>Out Time</th>
+                      <th style={{width:"20%"}}>Status</th>
                     </tr>
                     {securityData && securityData.length > 0
                       ? securityData.map((data) => {
@@ -485,52 +519,54 @@ function AmenityAccess(props) {
                           const localOutDate = odate.toLocaleString();
 
                           let reason = "";
-                          if (data.amenity) {
-                            reason = data.amenity.name + " Access";
-                          }
+                            if (data.amenity) {
+                              reason = data.amenity.name + " Access";
+                            } else if (
+                              data.reason &&
+                              data.resident.property_details
+                            ) {
+                              reason =
+                                data.reason +
+                                " at " +
+                                data.resident.apt +
+                                "-" +
+                                data.resident.property_details.building;
+                            }
 
                           let isValid = false;
 
-                          return (
-                            <tr key={data.id + data.type + "data"}>
-                              <td>{name}</td>
-                              <td>{reason}</td>
-                              <td>{localInDate}</td>
-                              <td>{localOutDate}</td>
-                              <td>
-                                {data.accepted != 0
-                                  ? data.accepted == 1
-                                    ? "Accepted"
-                                    : "Rejected"
-                                  : "Requested"}
-                              </td>
-                              <td>
-                                <div className="dropdown-container">
-                                  <i className="fa fa-ellipsis-v dropdown-icon" />
-                                  <ul className="dropdown-menu text-left">
-                                    <li
-                                      key={data.id + data.type + "accept"}
+                          if (
+                            data.status &&
+                            data.status == "Entered" &&
+                            data.accepted == 1
+                          ) {
+                            isValid = true;
+                          }
+
+                          if (isValid) {
+                            return (
+                              <tr key={data.id + data.type + "data"}>
+                                <td>{name}</td>
+                                <td>{reason}</td>
+                                <td>{localInDate}</td>
+                                <td>{localOutDate}</td>
+                                <td>
+                                <button
+                                      className="custom-btn ms-4"
                                       onClick={() => {
-                                        setSelectedData(data);
-                                        setAcceptModalIsOpen(true);
+                                        changeStatus(
+                                          data.type == "access-log",
+                                          data.id,
+                                          "Exited"
+                                        );
                                       }}
                                     >
-                                      Accept
-                                    </li>
-                                    <li
-                                      key={data.id + data.type + "decline"}
-                                      onClick={() => {
-                                        setSelectedData(data);
-                                        setDeclineModalIsOpen(true);
-                                      }}
-                                    >
-                                      Decline
-                                    </li>
-                                  </ul>
-                                </div>
-                              </td>
-                            </tr>
-                          );
+                                      Mark as Exited
+                                    </button>
+                                </td>
+                              </tr>
+                            );
+                          }
                         })
                       : ""}
                   </tbody>
