@@ -45,12 +45,12 @@ function VisitorDashboard() {
 
   useEffect(() => {
     setLoading(true);
-    let uid = user.id;
+    let guest_id = user.id;
     getServices().then((res) => setAmenities(res));
     getVehicles().then((res) => {
       setVehicles(res);
     });
-    getVisitRequests({ uid }).then((res) => {
+    getVisitRequests({ guest_id }).then((res) => {
       setVisits(res.data);
       setLoading(false);
     });

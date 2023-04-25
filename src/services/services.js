@@ -95,6 +95,14 @@ export const getVehicles = async () => {
   return await fetch(`${API_URL}/vehicles`).then((res) => res.json());
 };
 
+export const getAccessLogsCount = async () => {
+  return await fetch(`${API_URL}/access-logs-count`).then((res) => res.json());
+};
+
+export const getAccessLogsReport = async () => {
+  return await fetch(`${API_URL}/access-logs-report`).then((res) => res.json());
+};
+
 export const getVehicleDetails = async (data) => {
   return await fetch(`${API_URL}/vehicles?id=${data.vehicle_id}`, {
     ...getOptions,
@@ -326,6 +334,13 @@ export const getAccessLogsManager = async (data) => {
   }).then((res) => res.json());
 };
 
+export const getAccessLogsSecurityManager = async (data) => {
+  return await fetch(`${API_URL}/access-logs/security-manager`, {
+    body: JSON.stringify(data),
+    ...postOptions,
+  }).then((res) => res.json());
+};
+
 export const addAccessLog = async (data) => {
   return await fetch(`${API_URL}/access-logs/create`, {
     body: JSON.stringify(data),
@@ -335,14 +350,14 @@ export const addAccessLog = async (data) => {
 
 
 export const getChat = async (data) => {
-  return await fetch(`${API_URL}/chat`, {
+  return await fetch(`http://localhost/resicomm-server/index.php/chat`, {
     body: JSON.stringify(data),
     ...postOptions,
   }).then((res) => res.json());
 };
 
 export const sendMessage = async (data) => {
-  return await fetch(`${API_URL}/chat/send`, {
+  return await fetch(`http://localhost/resicomm-server/index.php/chat/send`, {
     body: JSON.stringify(data),
     ...postOptions,
   }).then((res) => res.json());
