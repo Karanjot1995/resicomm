@@ -101,5 +101,63 @@
   }
 }
 
-  
 
+  
+.chatbot-middle{
+    display: flex;
+    height:78vh;
+    width: 100%;
+    overflow-y: scroll;
+    flex-direction: column;
+}
+
+.user-chat-wrapper{
+    align-self: flex-end;
+}
+
+.user-chat-box{
+    background-color: white;
+    border-radius: 4px;
+    min-width: 70%;
+}
+
+.manager-chat-wrapper{
+    align-self:flex-start;
+}
+
+.manager-chat-box{
+    background-color: orange;
+    border-radius: 4px;
+    min-width: 70%;
+}
+
+
+.chatbot-bottom{
+    display: flex;
+    // border: 1px solid #000;
+    position: fixed;
+    bottom:  0.5rem ;
+    input{
+        // width:75%;
+        // height:30px;
+        border-radius: 8px;
+        padding: 5px 10px;
+        border:none;
+        &:focus-visible{
+           outline: none;
+        }
+    }
+    a{
+        background-color: white;
+        // width:25%;
+        padding:0;
+        height: 40px;
+        width: 40px;
+        // border-radius: 0;
+        border-radius: 50%;
+        align-items: center;
+    }
+    a:hover {
+        background-color: orange;
+      }
+}
