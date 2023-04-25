@@ -43,9 +43,13 @@ function ChatBot(props) {
 		const chats = [...chat];
 		sendMessage(data).then(res=>{
 			if(res.status==200){
-				res.message.fromSelf = true
+				// res.message.fromSelf = true
 				chats.push(res.message);
+				console.log("sender", chats)
 				addToChat(chats)
+				// getChat({uid: user.id, rid: chatWith.id}).then(res=>{
+				// 	addToChat(res.data)
+				// });
 			}
 		})
 
@@ -56,18 +60,21 @@ function ChatBot(props) {
       socket.current.on("msg-recieve", (msg) => {
 				getChat({uid: user.id, rid: chatWith.id}).then(res=>{
 					addToChat(res.data)
+					console.log(res.data)
+					let last_msg = res.data[res.data.length-1]
+					// console.log(last_msg)
+					// setArrivalMessage({message: last_msg.message , user:user, chat_user: chatWith});
 				});
-        setArrivalMessage({ fromSelf: false, message: msg , user:user, chat_user: chatWith});
       });
     }
   }, []);
 
 	useEffect(() => {
 		let chats = chat
-		if(arrivalMessage){
-			chats.push(arrivalMessage)
-		}
-		console.log(chats)
+		// if(arrivalMessage){
+		// 	chats.push(arrivalMessage)
+		// }
+		// console.log(chats)
     arrivalMessage && addToChat(chats);
   }, [arrivalMessage]);
 
@@ -83,7 +90,7 @@ function ChatBot(props) {
 			{show?
 			<div className="chatbot-container">
 				<div className="chatbot-middle">
-					{chat.length? chat.map(chat=>
+					{chat && chat.length>0? chat.map(chat=>
 						chat.user.id == user.id? 
 						<div className="chat user-chat">Me: {chat.message}</div>
 						: 
