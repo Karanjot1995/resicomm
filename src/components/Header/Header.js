@@ -69,7 +69,7 @@ function Header({ isLoggedIn }) {
             <li>
             <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
                 <button className="collapse-button" onClick={() => setIsCollapsed(!isCollapsed)}>
-                  {isCollapsed ? <img src="https://cdn-icons-png.flaticon.com/512/1380/1380370.png" height="25" width="25"/> : <i class="fa fa-times" style={{fontSize:20}} aria-hidden="true"></i>}
+                  {isCollapsed ? <img src="https://cdn-icons-png.flaticon.com/512/1380/1380370.png" height="25" width="25"/> : <i className="fa fa-times" style={{fontSize:20}} aria-hidden="true"></i>}
                 </button>
                 {!isCollapsed? <SideNav isCollapsed={isCollapsed}/>:''}
                 

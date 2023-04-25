@@ -31,6 +31,7 @@ function SideNav(props) {
   const [waitingToReconnect, setWaitingToReconnect] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const clientRef = useRef(null);
+  const messagesEndRef = useRef(null);
   // useEffect(() => {
   //   initData();
 
@@ -41,6 +42,10 @@ function SideNav(props) {
   //   //   }
   //   // };
   // }, []);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [personalChatHistory]);
 
   useEffect(() => {
     initData();
@@ -172,8 +177,15 @@ function SideNav(props) {
 
   const appendMessage = (obj) => {
     let chats = personalChatHistory;
+    // console.log("personalChatHistory.length is " + personalChatHistory.length);
     chats.push(obj);
+    // console.log("chats.length is " + chats.length);
+    setPersonalChatHistory(null);
     setPersonalChatHistory(chats);
+  };
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   const reconnect = () => {};
@@ -201,6 +213,7 @@ function SideNav(props) {
   }
 
   const getPersonalChatHistory = (other_id) => {
+    console.log("getting personal chat history");
     getChat({ uid: user.id, rid: other_id }).then((res) => {
       setPersonalChatHistory(res.data);
       // addToChat(res.data);
@@ -298,6 +311,7 @@ function SideNav(props) {
                 );
               })
             : ""}
+          <div ref={messagesEndRef} />
         </div>
         <div className="chatbot-bottom">
           <input
