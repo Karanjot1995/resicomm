@@ -232,12 +232,19 @@ function SideNav(props) {
             let obj = historyObj[item];
             let name = "";
             let other_id = "";
+            let type = "";
+            let dept = "";
             if (obj.chat_user.id != user.id) {
               other_id = obj.chat_user.id;
               name = obj.chat_user.fname + " " + obj.chat_user.lname;
+              type=obj.chat_user.type
+              dept = obj.chat_user.department;
+
             } else {
               other_id = obj.user.id;
               name = obj.user.fname + " " + obj.user.lname;
+              type=obj.user.type
+              dept = obj.user.department;
             }
             let timestamp = new Date(obj.created_at + "Z").getTime();
             return (
@@ -252,7 +259,7 @@ function SideNav(props) {
                 <div className="d-flex row text-left">
                   <Avatar name={name} />
                   <div className="ps-3 d-flex column">
-                    <b className="w-100"> {name}</b>
+                    <b className="w-100"> {name} {dept && type ?`(${dept+' '+type})`:''} </b>
                     <TimeAgo
                       timestamp={timestamp}
                       style="color-orange font-12 w-100"
@@ -299,7 +306,7 @@ function SideNav(props) {
                     <div className="user-chat-box align-self-center h-100 p-2 me-1 ms-4">
                       {chat.message}{" "}
                     </div>
-                    <Avatar name={myName} />
+                    <Avatar name={myName}/>
                   </div>
                 ) : (
                   <div className="d-flex w-100 row chat manager-chat-wrapper mb-2">
